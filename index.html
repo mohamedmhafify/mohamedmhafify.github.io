@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mohamed Afify — Data Analyst &amp; AI Engineer</title>
+<meta name="description" content="Data Analyst and AI Engineer in Cairo. I turn disconnected data into decisions, and build AI systems that measure themselves.">
+<meta property="og:title" content="Mohamed Afify — Data Analyst &amp; AI Engineer">
+<meta property="og:description" content="I turn disconnected data into decisions, and build AI systems that measure themselves.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0A0C10;
+  --ink-raised:#11141B;
+  --ink-line:#1C212B;
+  --gold:#C9A96A;
+  --gold-bright:#E4C88A;
+  --gold-dim:rgba(201,169,106,.22);
+  --parchment:#E8E6E1;
+  --muted:#8A8F9A;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'Inter',system-ui,-apple-system,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+  --pad:clamp(1.25rem,5vw,4.5rem);
+  --maxw:1180px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--ink);color:var(--parchment);
+  font-family:var(--sans);font-size:16px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+.wrap{max-width:var(--maxw);margin:0 auto;padding-inline:var(--pad)}
+a{color:inherit}
+
+/* ---------- ledger rule: the signature device ---------- */
+.rule{height:1px;background:var(--gold-dim);border:0}
+
+/* ---------- nav ---------- */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  backdrop-filter:blur(14px);background:rgba(10,12,16,.72);
+  border-bottom:1px solid transparent;transition:border-color .3s;
+}
+.nav.stuck{border-bottom-color:var(--gold-dim)}
+.nav-in{max-width:var(--maxw);margin:0 auto;padding:.9rem var(--pad);
+  display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.mono-mark{
+  font-family:var(--mono);font-size:.78rem;letter-spacing:.22em;
+  color:var(--gold);text-decoration:none;
+}
+.nav-links{display:flex;gap:1.9rem;list-style:none}
+.nav-links a{
+  font-size:.82rem;letter-spacing:.06em;color:var(--muted);
+  text-decoration:none;position:relative;padding-bottom:3px;transition:color .25s;
+}
+.nav-links a::after{
+  content:'';position:absolute;left:0;bottom:0;width:0;height:1px;
+  background:var(--gold);transition:width .3s ease;
+}
+.nav-links a:hover{color:var(--parchment)}
+.nav-links a:hover::after{width:100%}
+@media(max-width:720px){.nav-links{display:none}}
+
+/* ---------- hero ---------- */
+.hero{padding:clamp(8rem,17vh,11rem) 0 clamp(3.5rem,7vh,5rem)}
+.eyebrow{
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.3em;
+  color:var(--gold);text-transform:uppercase;margin-bottom:1.6rem;
+}
+.hero h1{
+  font-family:var(--serif);font-weight:300;
+  font-size:clamp(3.1rem,10vw,7rem);line-height:.94;letter-spacing:-.015em;
+  margin-bottom:1.4rem;
+}
+.hero h1 em{font-style:italic;color:var(--gold)}
+.lede{
+  font-size:clamp(1.02rem,1.9vw,1.28rem);font-weight:300;
+  color:var(--parchment);max-width:44ch;line-height:1.6;
+}
+.lede b{font-weight:500;color:var(--gold-bright)}
+
+/* ledger stat row */
+.ledger{margin-top:3.2rem}
+.ledger-row{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;
+  padding:1.15rem 0;
+}
+.ledger-cell .n{
+  font-family:var(--mono);font-weight:500;font-size:clamp(1.5rem,3.4vw,2.1rem);
+  color:var(--gold);font-variant-numeric:tabular-nums;display:block;line-height:1.1;
+}
+.ledger-cell .l{
+  font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--muted);margin-top:.45rem;display:block;
+}
+.cta-row{display:flex;flex-wrap:wrap;gap:.85rem;margin-top:2.6rem}
+.btn{
+  display:inline-flex;align-items:center;gap:.55rem;
+  padding:.78rem 1.5rem;font-size:.85rem;letter-spacing:.05em;
+  text-decoration:none;border:1px solid var(--gold-dim);
+  color:var(--parchment);transition:.28s;background:transparent;
+}
+.btn:hover{border-color:var(--gold);color:var(--gold-bright);transform:translateY(-2px)}
+.btn.solid{background:var(--gold);color:#0A0C10;border-color:var(--gold);font-weight:500}
+.btn.solid:hover{background:var(--gold-bright);border-color:var(--gold-bright);color:#0A0C10}
+
+/* ---------- section frame ---------- */
+.sec{padding:clamp(4rem,9vh,6.5rem) 0}
+.sec-head{display:flex;align-items:baseline;gap:1.1rem;margin-bottom:2.6rem}
+.sec-num{font-family:var(--mono);font-size:.72rem;color:var(--gold);letter-spacing:.14em}
+.sec-head h2{
+  font-family:var(--serif);font-weight:400;
+  font-size:clamp(1.85rem,4.2vw,2.9rem);letter-spacing:-.01em;line-height:1.1;
+}
+.sec-note{color:var(--muted);font-size:.95rem;max-width:56ch;margin-top:-1.5rem;margin-bottom:2.6rem}
+
+/* ---------- featured case ---------- */
+.case{border-top:1px solid var(--gold-dim);padding-top:2.4rem}
+.case-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(1.6rem,4vw,3.4rem);align-items:start}
+@media(max-width:900px){.case-grid{grid-template-columns:1fr}}
+.case-metric{
+  font-family:var(--serif);font-weight:300;color:var(--gold);
+  font-size:clamp(3.4rem,8.5vw,5.4rem);line-height:.9;letter-spacing:-.02em;
+}
+.case-metric-sub{
+  font-size:.95rem;color:var(--muted);margin-top:.9rem;max-width:34ch;line-height:1.6;
+}
+.case h3{
+  font-family:var(--serif);font-size:clamp(1.5rem,3vw,2rem);font-weight:500;
+  margin:2rem 0 .8rem;line-height:1.2;
+}
+.case p{color:var(--muted);font-size:.96rem;margin-bottom:1rem}
+.case p b{color:var(--parchment);font-weight:500}
+.chips{display:flex;flex-wrap:wrap;gap:.45rem;margin:1.4rem 0}
+.chip{
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;
+  padding:.34rem .7rem;border:1px solid var(--ink-line);color:var(--muted);
+}
+.shot{
+  display:block;width:100%;height:auto;border:1px solid var(--ink-line);
+  transition:border-color .35s,transform .35s;
+}
+.shot:hover{border-color:var(--gold-dim);transform:translateY(-3px)}
+.shot + .shot{margin-top:.9rem}
+.shot-note{
+  font-family:var(--mono);font-size:.68rem;color:var(--muted);
+  letter-spacing:.08em;margin-top:.6rem;
+}
+
+/* ---------- demo gallery ---------- */
+.gal{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:1.4rem}
+.gal figure{margin:0}
+.gal img{
+  display:block;width:100%;height:auto;border:1px solid var(--ink-line);
+  transition:border-color .35s,transform .35s;
+}
+.gal figure:hover img{border-color:var(--gold-dim);transform:translateY(-3px)}
+.gal figcaption{margin-top:.7rem}
+.gal .g-name{font-size:.95rem;font-weight:500;color:var(--parchment);display:block}
+.gal .g-desc{font-size:.83rem;color:var(--muted);margin-top:.2rem;display:block;line-height:1.6}
+.gal .g-stack{
+  font-family:var(--mono);font-size:.66rem;letter-spacing:.09em;color:var(--gold);
+  margin-top:.5rem;display:block;
+}
+
+/* ---------- project ledger index ---------- */
+.group-label{
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--gold);margin:2.8rem 0 .4rem;
+}
+.idx{width:100%;border-collapse:collapse}
+.idx tr{border-top:1px solid var(--ink-line);transition:background .25s}
+.idx tr:last-child{border-bottom:1px solid var(--ink-line)}
+.idx tr:hover{background:rgba(201,169,106,.045)}
+.idx td{padding:1.05rem .6rem;vertical-align:top}
+.idx td:first-child{padding-left:0}
+.idx td:last-child{padding-right:0;text-align:right;white-space:nowrap}
+.idx .p-name{font-size:1rem;font-weight:500;color:var(--parchment);display:block}
+.idx .p-desc{font-size:.87rem;color:var(--muted);margin-top:.25rem;display:block;max-width:60ch}
+.idx .p-metric{
+  font-family:var(--mono);font-size:.9rem;color:var(--gold);
+  font-variant-numeric:tabular-nums;
+}
+.idx .p-stack{font-family:var(--mono);font-size:.7rem;color:var(--muted);letter-spacing:.05em}
+.lnk{
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;color:var(--muted);
+  text-decoration:none;border-bottom:1px solid transparent;transition:.25s;
+}
+.lnk:hover{color:var(--gold-bright);border-bottom-color:var(--gold)}
+.lnk + .lnk{margin-left:.85rem}
+@media(max-width:820px){
+  .idx td:nth-child(2),.idx td:nth-child(3){display:none}
+  .idx td{padding:.9rem 0}
+}
+
+/* ---------- capabilities ---------- */
+.caps{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:0}
+.cap{padding:1.7rem 1.7rem 1.7rem 0;border-top:1px solid var(--ink-line)}
+.cap h4{
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:.85rem;font-weight:500;
+}
+.cap p{font-size:.9rem;color:var(--muted);line-height:1.75}
+
+/* ---------- credentials ---------- */
+.cred{display:flex;justify-content:space-between;align-items:baseline;gap:1.2rem;
+  padding:1.05rem 0;border-top:1px solid var(--ink-line)}
+.cred:last-of-type{border-bottom:1px solid var(--ink-line)}
+.cred .c-name{font-size:.97rem;font-weight:500}
+.cred .c-org{font-size:.85rem;color:var(--muted);margin-top:.2rem}
+.cred .c-meta{font-family:var(--mono);font-size:.72rem;color:var(--muted);
+  letter-spacing:.08em;white-space:nowrap}
+.cred .c-meta.live{color:var(--gold)}
+
+/* ---------- contact ---------- */
+.contact{padding:clamp(4.5rem,11vh,8rem) 0}
+.contact h2{
+  font-family:var(--serif);font-weight:300;font-size:clamp(2.3rem,6.5vw,4.4rem);
+  line-height:1.05;margin-bottom:1.5rem;
+}
+.contact h2 em{font-style:italic;color:var(--gold)}
+.contact p{color:var(--muted);max-width:46ch;margin-bottom:2.2rem}
+.foot{
+  border-top:1px solid var(--gold-dim);padding:1.7rem 0 2.5rem;
+  display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;color:var(--muted);
+}
+
+/* ---------- reveal ---------- */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .75s ease,transform .75s ease}
+.rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .rv{opacity:1;transform:none;transition:none}
+  .btn:hover,.shot:hover{transform:none}
+}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+</style>
+</head>
+<body>
+
+<!-- ══════════ NAV ══════════ -->
+<nav class="nav" id="nav">
+  <div class="nav-in">
+    <a href="#top" class="mono-mark">M.AFIFY</a>
+    <ul class="nav-links">
+      <li><a href="#work">Work</a></li>
+      <li><a href="#action">In action</a></li>
+      <li><a href="#index">Index</a></li>
+      <li><a href="#capabilities">Capabilities</a></li>
+      <li><a href="#credentials">Credentials</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ══════════ HERO ══════════ -->
+<header class="hero wrap" id="top">
+  <div class="eyebrow">Cairo, Egypt &nbsp;·&nbsp; Data &amp; AI</div>
+  <h1>Mohamed<br>Afify<em>.</em></h1>
+  <p class="lede">
+    I turn disconnected data into decisions — and build AI systems that
+    <b>measure themselves</b>. Analytics in SQL, Power&nbsp;BI and Tableau;
+    agentic RAG and computer vision in Python.
+  </p>
+
+  <div class="ledger">
+    <hr class="rule">
+    <div class="ledger-row">
+      <div class="ledger-cell"><span class="n">$7.8M</span><span class="l">Revenue traced to root cause</span></div>
+      <div class="ledger-cell"><span class="n">14</span><span class="l">Shipped projects</span></div>
+      <div class="ledger-cell"><span class="n">8</span><span class="l">Diplomas &amp; certifications</span></div>
+    </div>
+    <hr class="rule">
+  </div>
+
+  <div class="cta-row">
+    <a class="btn solid" href="#work">See the work</a>
+    <a class="btn" href="assets/cv/Mohamed_Afify_CV_DataAnalyst.pdf" download>CV — Data Analyst</a>
+    <a class="btn" href="assets/cv/Mohamed_Afify_CV_AIEngineer.pdf" download>CV — AI Engineer</a>
+  </div>
+</header>
+
+<!-- ══════════ FEATURED CASE ══════════ -->
+<section class="sec wrap" id="work">
+  <div class="sec-head rv">
+    <span class="sec-num">01</span>
+    <h2>Selected work</h2>
+  </div>
+
+  <article class="case rv">
+    <div class="case-grid">
+      <div>
+        <div class="case-metric">26.5%</div>
+        <p class="case-metric-sub">
+          of a 7,043-customer base was leaving. Nobody could see why —
+          the answers were split across five disconnected tables.
+        </p>
+
+        <h3>IBM Telco — Customer Churn</h3>
+        <p>
+          I modeled the five tables into a <b>SQL Server</b> star schema, then wrote 15 T-SQL
+          queries structured as a story: how big, who, where, why, and what's at risk.
+        </p>
+        <p>
+          A <b>Python</b> pipeline handled the cleaning — domain-aware imputation, IQR capping
+          with a zero-variance guard, and removal of every target-leakage column before modeling.
+        </p>
+        <p>
+          The finding that mattered: month-to-month customers churn <b>18× more</b> than
+          two-year ones — 45.8% against 2.5%. Four connected <b>Tableau</b> dashboards
+          turned that into five retention recommendations, each tied to a number.
+        </p>
+
+        <div class="chips">
+          <span class="chip">SQL SERVER</span><span class="chip">T-SQL</span>
+          <span class="chip">PYTHON</span><span class="chip">PANDAS</span>
+          <span class="chip">TABLEAU</span><span class="chip">STAR SCHEMA</span>
+        </div>
+
+        <a class="lnk" href="https://github.com/mohamedmhafify/IBM-Telco-Customer-Churn" target="_blank" rel="noopener">REPOSITORY →</a>
+      </div>
+
+      <div>
+        <img class="shot" src="assets/img/telco-overview.png" alt="Churn overview dashboard: KPI row and a contract-by-tenure risk matrix" loading="lazy">
+        <img class="shot" src="assets/img/telco-where.png" alt="Geographic dashboard: California churn map with the highest-churn cities" loading="lazy">
+        <p class="shot-note">TABLEAU · 4 CONNECTED DASHBOARDS</p>
+      </div>
+    </div>
+  </article>
+
+  <article class="case rv" style="margin-top:3.2rem">
+    <div class="case-grid">
+      <div>
+        <img class="shot" src="assets/img/wwi-1-executive.jpg" alt="Executive overview page: total sales, profit, margin and year-over-year growth with monthly trend" loading="lazy">
+        <img class="shot" src="assets/img/wwi-4-insights.jpg" alt="Strategic insights page: customer concentration, geographic dominance, salesforce and product profit share" loading="lazy">
+        <p class="shot-note">POWER BI · 4 REPORT PAGES · ~63 VISUALS</p>
+      </div>
+
+      <div>
+        <div class="case-metric">$19.88M</div>
+        <p class="case-metric-sub">
+          in sales sat behind a data model that was quietly broken —
+          relationships wired to the wrong keys, and a fiscal calendar
+          nobody had verified.
+        </p>
+
+        <h3>Wide World Importers — Sales Analytics</h3>
+        <p>
+          I started from a raw model with broken relationships and no visuals. Rebuilding the
+          <b>star schema</b> came first: one fact table, five dimensions, every key corrected.
+        </p>
+        <p>
+          Then <b>Power Query</b> cleaning — including a custom column that derives product colour
+          from its name against an 871-colour lookup — and a <b>24+ measure DAX</b> library split
+          across five measure tables.
+        </p>
+        <p>
+          I also verified the company's real fiscal year start from the data itself
+          (<b>November</b>, not the calendar default) before writing a single time-intelligence
+          formula. The report ends on strategy: <b>California drives 44.4%</b> of sales, and the
+          <b>top 20% of customers produce 47.9%</b> of all profit.
+        </p>
+
+        <div class="chips">
+          <span class="chip">POWER BI</span><span class="chip">DAX</span>
+          <span class="chip">POWER QUERY</span><span class="chip">STAR SCHEMA</span>
+          <span class="chip">TIME INTELLIGENCE</span>
+        </div>
+
+        <a class="lnk" href="https://github.com/mohamedmhafify/WWI-PowerBI-Sales-Analytics" target="_blank" rel="noopener">REPOSITORY →</a>
+      </div>
+    </div>
+  </article>
+</section>
+
+<!-- ══════════ IN ACTION ══════════ -->
+<section class="sec wrap" id="action">
+  <div class="sec-head rv">
+    <span class="sec-num">02</span>
+    <h2>In action</h2>
+  </div>
+  <p class="sec-note rv">Every system below is deployed and running — these are live screens, not mockups.</p>
+
+  <div class="gal rv">
+    <figure>
+      <img src="assets/img/demo-fire.jpg" alt="Fire and smoke detector drawing labelled boxes over a burning brush pile in a live video frame" loading="lazy">
+      <figcaption>
+        <span class="g-name">Real-Time Fire &amp; Smoke Guard</span>
+        <span class="g-desc">Detects fire and smoke separately in live video, with adjustable confidence and IoU thresholds.</span>
+        <span class="g-stack">YOLO · OPENCV · STREAMLIT</span>
+      </figcaption>
+    </figure>
+
+    <figure>
+      <img src="assets/img/demo-covid.png" alt="Chest X-ray classifier showing a COVID-19 prediction at 98% confidence" loading="lazy">
+      <figcaption>
+        <span class="g-name">Chest X-ray Classifier</span>
+        <span class="g-desc">Three-way classification across 317 X-rays, with a bilingual Arabic/English interface and per-class metrics.</span>
+        <span class="g-stack">MOBILENETV2 · TENSORFLOW</span>
+      </figcaption>
+    </figure>
+
+    <figure>
+      <img src="assets/img/demo-groundedrag.png" alt="GroundedRAG ingestion tab with chunk size, overlap and vector store settings" loading="lazy">
+      <figcaption>
+        <span class="g-name">GroundedRAG Document Q&amp;A</span>
+        <span class="g-desc">Four-tab control surface — ingestion, chat with citations, retrieval debugging, and conversation memory.</span>
+        <span class="g-stack">CHROMA · OLLAMA · GRADIO</span>
+      </figcaption>
+    </figure>
+
+    <figure>
+      <img src="assets/img/demo-emotion.png" alt="Emotion detection app reading a face and charting probabilities across seven emotions" loading="lazy">
+      <figcaption>
+        <span class="g-name">Emotion Detection</span>
+        <span class="g-desc">Reads seven emotions from images or video and charts the probability distribution behind each call.</span>
+        <span class="g-stack">DEEPFACE · OPENCV</span>
+      </figcaption>
+    </figure>
+
+    <figure>
+      <img src="assets/img/demo-mediapipe.jpg" alt="Object detection app outlining a dog and a cat with confidence scores" loading="lazy">
+      <figcaption>
+        <span class="g-name">Object Detection</span>
+        <span class="g-desc">Runs EfficientDet Lite0 in the browser, drawing labelled boxes and confidence scores over uploaded images.</span>
+        <span class="g-stack">MEDIAPIPE · STREAMLIT</span>
+      </figcaption>
+    </figure>
+
+    <figure>
+      <img src="assets/img/demo-ocr.png" alt="ID scanner extracting text line by line from a sample driver's licence" loading="lazy">
+      <figcaption>
+        <span class="g-name">ID Card OCR Scanner</span>
+        <span class="g-desc">Preprocesses an ID image, then extracts and structures the text line by line.</span>
+        <span class="g-stack">TESSERACT · OPENCV</span>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ══════════ PROJECT INDEX ══════════ -->
+<section class="sec wrap" id="index">
+  <div class="sec-head rv">
+    <span class="sec-num">03</span>
+    <h2>Index</h2>
+  </div>
+  <p class="sec-note rv">Everything else, with the number each one is judged by.</p>
+
+  <div class="rv">
+    <div class="group-label">Data analytics</div>
+    <table class="idx">
+      <tbody>
+        <tr>
+          <td>
+            <span class="p-name">Wide World Importers — Power BI</span>
+            <span class="p-desc">Rebuilt a broken data model into a corrected star schema; authored 24+ DAX measures and a fiscal calendar verified from the data itself.</span>
+          </td>
+          <td class="p-metric">$19.88M</td>
+          <td class="p-stack">POWER BI · DAX</td>
+          <td><a class="lnk" href="https://github.com/mohamedmhafify/WWI-PowerBI-Sales-Analytics" target="_blank" rel="noopener">CODE</a></td>
+        </tr>
+        <tr>
+          <td>
+            <span class="p-name">Ames Housing — Cleaning &amp; Preprocessing</span>
+            <span class="p-desc">Missing values, leakage removal, encoding and log transformation for skew, validated with before/after EDA.</span>
+          </td>
+          <td class="p-metric">80 features</td>
+          <td class="p-stack">PYTHON · PANDAS</td>
+          <td><a class="lnk" href="https://github.com/mohamedmhafify/Ames-Housing-Data-Preprocessing" target="_blank" rel="noopener">CODE</a></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="group-label">Generative AI &amp; agents</div>
+    <table class="idx">
+      <tbody>
+        <tr>
+          <td>
+            <span class="p-name">Agentic RAG Deep Visualizer</span>
+            <span class="p-desc">Self-correcting dual-memory loop: checks a local Qdrant store first, then autonomously scrapes the live web and ingests what it learns.</span>
+          </td>
+          <td class="p-metric">Llama 3.3 70B</td>
+          <td class="p-stack">LANGGRAPH · QDRANT</td>
+          <td><a class="lnk" href="https://github.com/mohamedmhafify/MCP-Agentic-RAG-Deep-Visualizer" target="_blank" rel="noopener">CODE</a></td>
+        </tr>
+        <tr>
+          <td>
+            <span class="p-name">Multi-Agent Deep Researcher</span>
+            <span class="p-desc">Planner, Researcher, Writer and Critic in one workflow; the Critic routes reports back for refinement, capped to control cost.</span>
+          </td>
+          <td class="p-metric">4 agents</td>
+          <td class="p-stack">LANGGRAPH · REDIS</td>
+          <td><a class="lnk" href="https://github.com/mohamedmhafify/Multi-Agent-Deep-Researcher" target="_blank" rel="noopener">CODE</a></td>
+        </tr>
+        <tr>
+          <td>
+            <span class="p-name">Multimodal Vision OCR Agent</span>
+            <span class="p-desc">Fully local, cloud-free vision-language pipeline that rescues readable structure from tilted, poorly lit documents.</span>
+          </td>
+          <td class="p-metric">Qwen2.5-VL</td>
+          <td class="p-stack">OLLAMA · FASTAPI</td>
+          <td><a class="lnk" href="https://github.com/mohamedmhafify/Multimodal-Vision-OCR-Agent" target="_blank" rel="noopener">CODE</a></td>
+        </tr>
+        <tr>
+          <td>
+            <span class="p-name">RAG Evaluation &amp; Quality Observability</span>
+            <span class="p-desc">Metrics-driven audit of a live RAG pipeline — because a system that isn't measured is one you can't trust.</span>
+          </td>
+          <td class="p-metric">4 metrics</td>
+          <td class="p-stack">RAGAS · LLM-AS-JUDGE</td>
+          <td><a class="lnk" href="https://github.com/mohamedmhafify/AI-RAG-Pipeline-Evaluation-Quality-Observability" target="_blank" rel="noopener">CODE</a></td>
+        </tr>
+        <tr>
+          <td>
+            <span class="p-name">GroundedRAG — Document Q&amp;A</span>
+            <span class="p-desc">End-to-end RAG with local inference, a citation table, retrieval debugging, guardrails and a groundedness check.</span>
+          </td>
+          <td class="p-metric">NVIDIA DLI</td>
+          <td class="p-stack">CHROMA · OLLAMA</td>
+          <td>
+            <a class="lnk" href="https://github.com/mohamedmhafify/groundedrag-safe-evaluated-doc-qa" target="_blank" rel="noopener">CODE</a>
+            <a class="lnk" href="https://drive.google.com/file/d/1ztpWZz3LLEDSUywOXiRty61eTa_kogVJ/view" target="_blank" rel="noopener">DEMO</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="group-label">Computer vision</div>
+    <table class="idx">
+      <tbody>
+        <tr>
+          <td>
+            <span class="p-name">Real-Time Fire &amp; Smoke Guard</span>
+            <span class="p-desc">Detection model with a live interface for real-time hazard analysis.</span>
+          </td>
+          <td class="p-metric">0.739 mAP</td>
+          <td class="p-stack">YOLO · STREAMLIT</td>
+          <td>
+            <a class="lnk" href="https://github.com/mohamedmhafify/Fire-Smoke-Detection" target="_blank" rel="noopener">CODE</a>
+            <a class="lnk" href="https://fire-smoke-detection-kdbphnuqpefakzuvhayykn.streamlit.app/" target="_blank" rel="noopener">DEMO</a>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span class="p-name">COVID-19 X-ray Classification</span>
+            <span class="p-desc">Transfer learning across 317 chest X-rays, separating COVID-19, pneumonia and normal, in a bilingual interface.</span>
+          </td>
+          <td class="p-metric">96.5% acc</td>
+          <td class="p-stack">MOBILENETV2</td>
+          <td>
+            <a class="lnk" href="https://github.com/mohamedmhafify/Covid_Classification_App" target="_blank" rel="noopener">CODE</a>
+            <a class="lnk" href="https://covidclassificationapp-efpdnmkswkx7agtjqbelui.streamlit.app/" target="_blank" rel="noopener">DEMO</a>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span class="p-name">OCR Document Intelligence</span>
+            <span class="p-desc">ID scanner with custom preprocessing that lifted extraction accuracy.</span>
+          </td>
+          <td class="p-metric">+25%</td>
+          <td class="p-stack">TESSERACT · OPENCV</td>
+          <td>
+            <a class="lnk" href="https://github.com/mohamedmhafify/ID_Scan_App" target="_blank" rel="noopener">CODE</a>
+            <a class="lnk" href="https://idscanapp-grmm6sghkmufwn8xgqmexq.streamlit.app/" target="_blank" rel="noopener">DEMO</a>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span class="p-name">Emotion Detection</span>
+            <span class="p-desc">Reads seven emotions from faces in images or video and charts the probability behind every prediction.</span>
+          </td>
+          <td class="p-metric">7 emotions</td>
+          <td class="p-stack">DEEPFACE · OPENCV</td>
+          <td><a class="lnk" href="https://github.com/mohamedmhafify/Emotion_Detection_Deepface_App" target="_blank" rel="noopener">CODE</a></td>
+        </tr>
+        <tr>
+          <td>
+            <span class="p-name">Object Detection</span>
+            <span class="p-desc">Lightweight in-browser detection drawing labelled boxes and confidence scores over uploaded images.</span>
+          </td>
+          <td class="p-metric">EfficientDet</td>
+          <td class="p-stack">MEDIAPIPE · STREAMLIT</td>
+          <td><a class="lnk" href="https://github.com/mohamedmhafify/Object_detection_Mediapipe_App" target="_blank" rel="noopener">CODE</a></td>
+        </tr>
+        <tr>
+          <td>
+            <span class="p-name">Object Tracking System</span>
+            <span class="p-desc">Multi-object tracking through motion analysis and feature matching on live video.</span>
+          </td>
+          <td class="p-metric">Real-time</td>
+          <td class="p-stack">OPENCV</td>
+          <td>
+            <a class="lnk" href="https://github.com/mohamedmhafify/Object_Tracking_App" target="_blank" rel="noopener">CODE</a>
+            <a class="lnk" href="https://objecttrackingapp-hxebjm3efb4gtvmvzta8ke.streamlit.app/" target="_blank" rel="noopener">DEMO</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ══════════ CAPABILITIES ══════════ -->
+<section class="sec wrap" id="capabilities">
+  <div class="sec-head rv">
+    <span class="sec-num">04</span>
+    <h2>Capabilities</h2>
+  </div>
+
+  <div class="caps rv">
+    <div class="cap">
+      <h4>Querying &amp; modeling</h4>
+      <p>SQL Server, T-SQL, window functions, CTEs, star schema design, ETL, data modeling</p>
+    </div>
+    <div class="cap">
+      <h4>BI &amp; visualization</h4>
+      <p>Power BI with DAX and Power Query, Tableau dashboards and stories, Excel, KPI reporting</p>
+    </div>
+    <div class="cap">
+      <h4>Python for analysis</h4>
+      <p>pandas, NumPy, scikit-learn, seaborn, cleaning and preprocessing, feature engineering, EDA</p>
+    </div>
+    <div class="cap">
+      <h4>Generative AI</h4>
+      <p>LangGraph, LangChain, RAG, agentic workflows, vector search with Qdrant and Chroma, prompt engineering</p>
+    </div>
+    <div class="cap">
+      <h4>Computer vision</h4>
+      <p>YOLO, OpenCV, Qwen2.5-VL, object detection, image classification, OCR, real-time video</p>
+    </div>
+    <div class="cap">
+      <h4>Engineering</h4>
+      <p>FastAPI, Streamlit, Docker, Git, async Python, Ragas evaluation and LLM-as-a-Judge</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ CREDENTIALS ══════════ -->
+<section class="sec wrap" id="credentials">
+  <div class="sec-head rv">
+    <span class="sec-num">05</span>
+    <h2>Credentials</h2>
+  </div>
+
+  <div class="rv">
+    <div class="cred">
+      <div>
+        <div class="c-name">Data Analysis &amp; Freelancing Diploma</div>
+        <div class="c-org">NTI · Creativa Innovation Hubs — Digital Egypt Youth Initiative</div>
+      </div>
+      <div class="c-meta live">ONGOING</div>
+    </div>
+    <div class="cred">
+      <div>
+        <div class="c-name">Generative AI Diploma</div>
+        <div class="c-org">Route Training Center — 4 courses + capstone projects</div>
+      </div>
+      <div class="c-meta"><a class="lnk" href="https://drive.google.com/file/d/1oYlEPpvCm7tIBvS5cb1DMKNJSGTtciQt/view" target="_blank" rel="noopener">CERTIFICATE</a></div>
+    </div>
+    <div class="cred">
+      <div>
+        <div class="c-name">AI Professional Certificate</div>
+        <div class="c-org">Google · Coursera — 7 courses</div>
+      </div>
+      <div class="c-meta"><a class="lnk" href="https://coursera.org/verify/professional-cert/L0RLE33RG1XS" target="_blank" rel="noopener">VERIFY</a></div>
+    </div>
+    <div class="cred">
+      <div>
+        <div class="c-name">Generative AI Training — Advanced</div>
+        <div class="c-org">NVIDIA Deep Learning Institute · ITI</div>
+      </div>
+      <div class="c-meta">2 COURSES + CAPSTONE</div>
+    </div>
+    <div class="cred">
+      <div>
+        <div class="c-name">Computer Vision Training</div>
+        <div class="c-org">Instant · Orange Digital Center</div>
+      </div>
+      <div class="c-meta"><a class="lnk" href="https://drive.google.com/file/d/1iZI9a0A20bR6LiY_7eBPYCQuzvyrb-R5/view" target="_blank" rel="noopener">CERTIFICATE</a></div>
+    </div>
+    <div class="cred">
+      <div>
+        <div class="c-name">Generative AI Training — Beginner</div>
+        <div class="c-org">NVIDIA Deep Learning Institute · ITI — 5 courses</div>
+      </div>
+      <div class="c-meta"><a class="lnk" href="https://drive.google.com/file/d/1vyADnGZ9irT7aFK929S1nsuM4uCS96s6/view" target="_blank" rel="noopener">CERTIFICATE</a></div>
+    </div>
+    <div class="cred">
+      <div>
+        <div class="c-name">Database Fundamentals</div>
+        <div class="c-org">Mahara Tech · ITI</div>
+      </div>
+      <div class="c-meta"><a class="lnk" href="https://drive.google.com/file/d/197wbo_lnPrAlTrGXpKMVeqSnqKE3OTnx/view" target="_blank" rel="noopener">CERTIFICATE</a></div>
+    </div>
+    <div class="cred">
+      <div>
+        <div class="c-name">AI &amp; Machine Learning Diploma</div>
+        <div class="c-org">Route Training Center</div>
+      </div>
+      <div class="c-meta"><a class="lnk" href="https://drive.google.com/file/d/1P1R-abNJl4F-4_-qsTf0oZb8tGz8PdPg/view" target="_blank" rel="noopener">CERTIFICATE</a></div>
+    </div>
+    <div class="cred">
+      <div>
+        <div class="c-name">B.Sc. Computers &amp; Management Information Systems</div>
+        <div class="c-org">El Gazeera Higher Institute, Cairo</div>
+      </div>
+      <div class="c-meta">2019 — 2023</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ CONTACT ══════════ -->
+<section class="contact wrap" id="contact">
+  <div class="rv">
+    <h2>Let's build something<br>worth <em>measuring</em>.</h2>
+    <p>Open to data analysis and AI engineering roles — in Cairo or remote.
+       The fastest way to reach me is email.</p>
+    <div class="cta-row">
+      <a class="btn solid" href="mailto:mohamedmhafify@gmail.com">mohamedmhafify@gmail.com</a>
+      <a class="btn" href="https://linkedin.com/in/mohamedmhafify" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn" href="https://github.com/mohamedmhafify" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap">
+  <div class="foot">
+    <span>MOHAMED MOSTAFA HASSAN AFIFY</span>
+    <span>CAIRO, EGYPT · <span id="yr">2026</span></span>
+  </div>
+</footer>
+
+<script>
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+const nav = document.getElementById('nav');
+addEventListener('scroll', () => nav.classList.toggle('stuck', scrollY > 40), {passive:true});
+
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+}, {threshold:.12, rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.rv').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
