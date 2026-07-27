@@ -37,6 +37,30 @@ body{
 .wrap{max-width:var(--maxw);margin:0 auto;padding-inline:var(--pad)}
 a{color:inherit}
 
+/* ---------- portrait bezel ---------- */
+.hero-grid{ display:grid; grid-template-columns:1fr auto; gap:clamp(2rem,6vw,5rem); align-items:center; }
+.portrait-wrap{ position:relative; display:grid; place-items:center; flex-shrink:0; }
+.portrait{
+  width:clamp(190px,22vw,280px); aspect-ratio:1; border-radius:50%;
+  display:block; position:relative; z-index:2; }
+.bezel{ position:absolute; border-radius:50%; pointer-events:none; }
+.bz-1{ inset:-14px; border:1px solid var(--gold); }
+.bz-2{ inset:-27px; border:1px solid rgba(201,169,106,.30); }
+.bz-3{ inset:-42px; border:1px solid rgba(201,169,106,.12); }
+.bz-ticks{
+  inset:-27px; z-index:1;
+  background:repeating-conic-gradient(from 0deg,
+    var(--gold) 0deg 0.6deg, transparent 0.6deg 30deg);
+  -webkit-mask:radial-gradient(circle, transparent calc(50% - 14px), #000 calc(50% - 14px));
+  mask:radial-gradient(circle, transparent calc(50% - 14px), #000 calc(50% - 14px));
+  opacity:.55; }
+@media(max-width:860px){
+  .hero-grid{ grid-template-columns:1fr; gap:2.6rem; }
+  .portrait-wrap{ order:-1; justify-self:start; }
+  .portrait{ width:150px; }
+  .bz-3{ display:none; }
+}
+
 /* ---------- ledger rule: the signature device ---------- */
 .rule{height:1px;background:var(--gold-dim);border:0}
 
@@ -118,6 +142,16 @@ a{color:inherit}
   font-size:clamp(1.85rem,4.2vw,2.9rem);letter-spacing:-.01em;line-height:1.1;
 }
 .sec-note{color:var(--muted);font-size:.95rem;max-width:56ch;margin-top:-1.5rem;margin-bottom:2.6rem}
+
+/* ---------- case: alternating image side ---------- */
+.case + .case{ margin-top:2.8rem; }
+.case-grid.flip{ direction:rtl; }
+.case-grid.flip > *{ direction:ltr; }
+.case-noshot{ display:grid; grid-template-columns:auto 1fr; gap:clamp(1.4rem,3vw,2.6rem); align-items:start; }
+.case-noshot .bigmetric{
+  font-family:var(--serif); font-weight:300; color:var(--gold);
+  font-size:clamp(2.6rem,6vw,4rem); line-height:.9; white-space:nowrap; }
+@media(max-width:760px){ .case-noshot{ grid-template-columns:1fr; } }
 
 /* ---------- featured case ---------- */
 .case{border-top:1px solid var(--gold-dim);padding-top:2.4rem}
@@ -283,6 +317,8 @@ a{color:inherit}
 
 <!-- ══════════ HERO ══════════ -->
 <header class="hero wrap" id="top">
+ <div class="hero-grid">
+  <div>
   <div class="eyebrow">Cairo, Egypt &nbsp;·&nbsp; Data &amp; AI</div>
   <h1>Mohamed<br>Afify<em>.</em></h1>
   <p class="lede">
@@ -306,6 +342,16 @@ a{color:inherit}
     <a class="btn" href="assets/cv/Mohamed_Afify_CV_DataAnalyst.pdf" download>CV — Data Analyst</a>
     <a class="btn" href="assets/cv/Mohamed_Afify_CV_AIEngineer.pdf" download>CV — AI Engineer</a>
   </div>
+  </div>
+
+  <div class="portrait-wrap">
+    <img class="portrait" src="assets/img/portrait.png" alt="Portrait of Mohamed Mostafa Hassan Afify">
+    <span class="bezel bz-ticks"></span>
+    <span class="bezel bz-1"></span>
+    <span class="bezel bz-2"></span>
+    <span class="bezel bz-3"></span>
+  </div>
+ </div>
 </header>
 
 <!-- ══════════ FEATURED CASE ══════════ -->
@@ -319,83 +365,104 @@ a{color:inherit}
     <div class="case-grid">
       <div>
         <div class="case-metric">26.5%</div>
-        <p class="case-metric-sub">
-          of a 7,043-customer base was leaving. Nobody could see why —
-          the answers were split across five disconnected tables.
-        </p>
-
+        <p class="case-metric-sub">of a 7,043-customer base was leaving, and the answers were split across five disconnected tables.</p>
         <h3>IBM Telco — Customer Churn</h3>
-        <p>
-          I modeled the five tables into a <b>SQL Server</b> star schema, then wrote 15 T-SQL
-          queries structured as a story: how big, who, where, why, and what's at risk.
-        </p>
-        <p>
-          A <b>Python</b> pipeline handled the cleaning — domain-aware imputation, IQR capping
-          with a zero-variance guard, and removal of every target-leakage column before modeling.
-        </p>
-        <p>
-          The finding that mattered: month-to-month customers churn <b>18× more</b> than
-          two-year ones — 45.8% against 2.5%. Four connected <b>Tableau</b> dashboards
-          turned that into five retention recommendations, each tied to a number.
-        </p>
-
-        <div class="chips">
-          <span class="chip">SQL SERVER</span><span class="chip">T-SQL</span>
-          <span class="chip">PYTHON</span><span class="chip">PANDAS</span>
-          <span class="chip">TABLEAU</span><span class="chip">STAR SCHEMA</span>
-        </div>
-
+        <p>I modelled the five tables into a <b>SQL Server</b> star schema, then wrote 15 T-SQL queries structured as a story: how big, who, where, why, and what's at risk.</p>
+        <p>A <b>Python</b> pipeline handled the cleaning — domain-aware imputation, IQR capping with a zero-variance guard, and removal of every target-leakage column.</p>
+        <p>Month-to-month customers churn <b>18× more</b> than two-year ones. Four connected <b>Tableau</b> dashboards turned that into five retention recommendations.</p>
+        <div class="chips"><span class="chip">SQL SERVER</span><span class="chip">T-SQL</span><span class="chip">PYTHON</span><span class="chip">TABLEAU</span><span class="chip">STAR SCHEMA</span></div>
         <a class="lnk" href="https://github.com/mohamedmhafify/IBM-Telco-Customer-Churn" target="_blank" rel="noopener">REPOSITORY →</a>
       </div>
-
       <div>
-        <img class="shot" src="assets/img/telco-overview.png" alt="Churn overview dashboard: KPI row and a contract-by-tenure risk matrix" loading="lazy">
-        <img class="shot" src="assets/img/telco-where.png" alt="Geographic dashboard: California churn map with the highest-churn cities" loading="lazy">
+        <img class="shot" src="assets/img/telco-overview.png" alt="Churn overview dashboard with KPIs and a contract-by-tenure risk matrix" loading="lazy">
         <p class="shot-note">TABLEAU · 4 CONNECTED DASHBOARDS</p>
       </div>
     </div>
   </article>
 
-  <article class="case rv" style="margin-top:3.2rem">
+  <article class="case rv">
     <div class="case-grid">
       <div>
-        <img class="shot" src="assets/img/wwi-1-executive.jpg" alt="Executive overview page: total sales, profit, margin and year-over-year growth with monthly trend" loading="lazy">
-        <img class="shot" src="assets/img/wwi-4-insights.jpg" alt="Strategic insights page: customer concentration, geographic dominance, salesforce and product profit share" loading="lazy">
-        <p class="shot-note">POWER BI · 4 REPORT PAGES · ~63 VISUALS</p>
+        <img class="shot" src="assets/img/wwi-1-executive.jpg" alt="Executive overview page showing sales, profit, margin and year-over-year growth" loading="lazy">
+        <p class="shot-note">POWER BI · 4 PAGES · ~63 VISUALS</p>
       </div>
-
       <div>
         <div class="case-metric">$19.88M</div>
-        <p class="case-metric-sub">
-          in sales sat behind a data model that was quietly broken —
-          relationships wired to the wrong keys, and a fiscal calendar
-          nobody had verified.
-        </p>
-
+        <p class="case-metric-sub">in sales sat behind a data model that was quietly broken — relationships wired to the wrong keys.</p>
         <h3>Wide World Importers — Sales Analytics</h3>
-        <p>
-          I started from a raw model with broken relationships and no visuals. Rebuilding the
-          <b>star schema</b> came first: one fact table, five dimensions, every key corrected.
-        </p>
-        <p>
-          Then <b>Power Query</b> cleaning — including a custom column that derives product colour
-          from its name against an 871-colour lookup — and a <b>24+ measure DAX</b> library split
-          across five measure tables.
-        </p>
-        <p>
-          I also verified the company's real fiscal year start from the data itself
-          (<b>November</b>, not the calendar default) before writing a single time-intelligence
-          formula. The report ends on strategy: <b>California drives 44.4%</b> of sales, and the
-          <b>top 20% of customers produce 47.9%</b> of all profit.
-        </p>
-
-        <div class="chips">
-          <span class="chip">POWER BI</span><span class="chip">DAX</span>
-          <span class="chip">POWER QUERY</span><span class="chip">STAR SCHEMA</span>
-          <span class="chip">TIME INTELLIGENCE</span>
-        </div>
-
+        <p>Rebuilding the <b>star schema</b> came first: one fact table, five dimensions, every key corrected.</p>
+        <p>Then <b>Power Query</b> cleaning — including a column deriving product colour from its name against an 871-colour lookup — and a <b>24+ measure DAX</b> library across five measure tables.</p>
+        <p>I verified the real fiscal year start from the data itself (<b>November</b>) before writing any time-intelligence formula. <b>California drives 44.4%</b> of sales; the top 20% of customers produce <b>47.9%</b> of profit.</p>
+        <div class="chips"><span class="chip">POWER BI</span><span class="chip">DAX</span><span class="chip">POWER QUERY</span><span class="chip">TIME INTELLIGENCE</span></div>
         <a class="lnk" href="https://github.com/mohamedmhafify/WWI-PowerBI-Sales-Analytics" target="_blank" rel="noopener">REPOSITORY →</a>
+      </div>
+    </div>
+  </article>
+
+  <article class="case rv">
+    <div class="case-grid">
+      <div>
+        <div class="case-metric">5 → 3</div>
+        <p class="case-metric-sub">graph nodes. A cold question goes to the web; a related one afterwards is answered from memory alone.</p>
+        <h3>Agentic RAG Deep Visualizer</h3>
+        <p>A self-correcting agent with two memories and the judgement to choose between them: it checks a local <b>Qdrant</b> store first, and only scrapes the live web when memory comes back empty.</p>
+        <p>Whatever it finds is chunked back into the store, so the system measurably improves with use. Every reasoning step, tool call and raw payload is traced in the open.</p>
+        <div class="chips"><span class="chip">LANGGRAPH</span><span class="chip">GROQ</span><span class="chip">QDRANT</span><span class="chip">FIRECRAWL</span></div>
+        <a class="lnk" href="https://github.com/mohamedmhafify/MCP-Agentic-RAG-Deep-Visualizer" target="_blank" rel="noopener">REPOSITORY →</a>
+      </div>
+      <div>
+        <img class="shot" src="assets/img/mcp-rag.png" alt="Deep Visualizer interface showing the agent control panel and execution trace" loading="lazy">
+        <p class="shot-note">LIVE EXECUTION TRACE</p>
+      </div>
+    </div>
+  </article>
+
+  <article class="case rv">
+    <div class="case-grid">
+      <div>
+        <img class="shot" src="assets/img/multiagent-trace.png" alt="Execution trace showing the four agents and the revision loop between Critic and Writer" loading="lazy">
+        <p class="shot-note">THE REVISION LOOP, TRACED</p>
+      </div>
+      <div>
+        <div class="case-metric">4</div>
+        <p class="case-metric-sub">agents share one task — and one of them is allowed to reject the other three's work.</p>
+        <h3>Multi-Agent Deep Researcher</h3>
+        <p>A Planner breaks the topic into searchable questions, a Researcher runs them through live search, a Writer drafts from that material only, and a Critic judges the result against a rubric.</p>
+        <p>The <b>critic → writer</b> edge is the point: it turns a pipeline into a loop. In a typical run the Critic rejects the first draft and the second comes back with the structure and real citations it asked for.</p>
+        <div class="chips"><span class="chip">LANGGRAPH</span><span class="chip">GROQ</span><span class="chip">SERPAPI</span><span class="chip">REDIS STACK</span></div>
+        <a class="lnk" href="https://github.com/mohamedmhafify/Multi-Agent-Deep-Researcher" target="_blank" rel="noopener">REPOSITORY →</a>
+      </div>
+    </div>
+  </article>
+
+  <article class="case rv">
+    <div class="case-noshot">
+      <div class="bigmetric">100%</div>
+      <div>
+        <h3 style="margin-top:0">Multimodal Vision OCR Agent</h3>
+        <p>A vision-language pipeline built on <b>Qwen2.5-VL</b> served through <b>Ollama</b> behind a <b>FastAPI</b> endpoint.</p>
+        <p>An <b>OpenCV</b> preprocessing stage — affine deskewing, CLAHE contrast enhancement and ViT patch-aligned resizing — turns tilted, poorly lit documents into clean structured JSON.</p>
+        <div class="chips"><span class="chip">QWEN2.5-VL</span><span class="chip">OLLAMA</span><span class="chip">FASTAPI</span><span class="chip">OPENCV</span></div>
+        <a class="lnk" href="https://github.com/mohamedmhafify/Multimodal-Vision-OCR-Agent" target="_blank" rel="noopener">REPOSITORY →</a>
+      </div>
+    </div>
+  </article>
+
+  <article class="case rv">
+    <div class="case-grid">
+      <div>
+        <div class="case-metric">4</div>
+        <p class="case-metric-sub">quality metrics auditing a live RAG pipeline, because a system that isn't measured is one you can't trust.</p>
+        <h3>GroundedRAG — Document Q&amp;A</h3>
+        <p>A full retrieval pipeline — ingestion, embedding, retrieval, generation — with local inference, a citation table, retrieval debugging and automated hallucination evaluation.</p>
+        <p>Four control surfaces: ingestion and indexing, chat with citations, a retrieval debugger showing top-k before and after reranking, and conversation memory.</p>
+        <div class="chips"><span class="chip">CHROMA</span><span class="chip">OLLAMA</span><span class="chip">GRADIO</span><span class="chip">RERANKING</span></div>
+        <a class="lnk" href="https://github.com/mohamedmhafify/groundedrag-safe-evaluated-doc-qa" target="_blank" rel="noopener">REPOSITORY →</a>
+        <a class="lnk" href="https://drive.google.com/file/d/1ztpWZz3LLEDSUywOXiRty61eTa_kogVJ/view" target="_blank" rel="noopener">DEMO</a>
+      </div>
+      <div>
+        <img class="shot" src="assets/img/demo-groundedrag.png" alt="GroundedRAG ingestion tab showing chunk size, overlap and vector store settings" loading="lazy">
+        <p class="shot-note">GRADIO · FOUR CONTROL SURFACES</p>
       </div>
     </div>
   </article>
@@ -407,60 +474,23 @@ a{color:inherit}
     <span class="sec-num">02</span>
     <h2>In action</h2>
   </div>
-  <p class="sec-note rv">Every system below is deployed and running — these are live screens, not mockups.</p>
+  <p class="sec-note rv">Deployed and running — live screens, not mockups.</p>
 
   <div class="gal rv">
     <figure>
       <img src="assets/img/demo-fire.jpg" alt="Fire and smoke detector drawing labelled boxes over a burning brush pile in a live video frame" loading="lazy">
       <figcaption>
         <span class="g-name">Real-Time Fire &amp; Smoke Guard</span>
-        <span class="g-desc">Detects fire and smoke separately in live video, with adjustable confidence and IoU thresholds.</span>
+        <span class="g-desc">Detects fire and smoke separately in live video at 0.739 mAP@0.5, with adjustable confidence and IoU thresholds.</span>
         <span class="g-stack">YOLO · OPENCV · STREAMLIT</span>
       </figcaption>
     </figure>
 
     <figure>
-      <img src="assets/img/demo-covid.png" alt="Chest X-ray classifier showing a COVID-19 prediction at 98% confidence" loading="lazy">
       <figcaption>
-        <span class="g-name">Chest X-ray Classifier</span>
-        <span class="g-desc">Three-way classification across 317 X-rays, with a bilingual Arabic/English interface and per-class metrics.</span>
-        <span class="g-stack">MOBILENETV2 · TENSORFLOW</span>
-      </figcaption>
-    </figure>
-
-    <figure>
-      <img src="assets/img/demo-groundedrag.png" alt="GroundedRAG ingestion tab with chunk size, overlap and vector store settings" loading="lazy">
-      <figcaption>
-        <span class="g-name">GroundedRAG Document Q&amp;A</span>
-        <span class="g-desc">Four-tab control surface — ingestion, chat with citations, retrieval debugging, and conversation memory.</span>
-        <span class="g-stack">CHROMA · OLLAMA · GRADIO</span>
-      </figcaption>
-    </figure>
-
-    <figure>
-      <img src="assets/img/demo-emotion.png" alt="Emotion detection app reading a face and charting probabilities across seven emotions" loading="lazy">
-      <figcaption>
-        <span class="g-name">Emotion Detection</span>
-        <span class="g-desc">Reads seven emotions from images or video and charts the probability distribution behind each call.</span>
-        <span class="g-stack">DEEPFACE · OPENCV</span>
-      </figcaption>
-    </figure>
-
-    <figure>
-      <img src="assets/img/demo-mediapipe.jpg" alt="Object detection app outlining a dog and a cat with confidence scores" loading="lazy">
-      <figcaption>
-        <span class="g-name">Object Detection</span>
-        <span class="g-desc">Runs EfficientDet Lite0 in the browser, drawing labelled boxes and confidence scores over uploaded images.</span>
-        <span class="g-stack">MEDIAPIPE · STREAMLIT</span>
-      </figcaption>
-    </figure>
-
-    <figure>
-      <img src="assets/img/demo-ocr.png" alt="ID scanner extracting text line by line from a sample driver's licence" loading="lazy">
-      <figcaption>
-        <span class="g-name">ID Card OCR Scanner</span>
-        <span class="g-desc">Preprocesses an ID image, then extracts and structures the text line by line.</span>
-        <span class="g-stack">TESSERACT · OPENCV</span>
+        <span class="g-name">RAG Evaluation &amp; Quality Observability</span>
+        <span class="g-desc">A metrics-driven audit of a live RAG pipeline using Ragas with GPT-4o-mini as judge — scoring context precision, context recall, faithfulness and answer relevancy.</span>
+        <span class="g-stack">RAGAS · LLM-AS-A-JUDGE · QDRANT</span>
       </figcaption>
     </figure>
   </div>
