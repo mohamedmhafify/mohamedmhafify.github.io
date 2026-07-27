@@ -207,6 +207,28 @@ a{color:inherit}
 }
 .cap p{font-size:.9rem;color:var(--muted);line-height:1.75}
 
+/* ---------- trained-by logo row ---------- */
+.trained{ margin:0 0 2.2rem; }
+.trained .lbl{
+  font-family:var(--mono); font-size:.65rem; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--gold); margin-bottom:1.1rem; }
+.logo-row{
+  display:flex; flex-wrap:wrap; align-items:center; gap:2.6rem;
+  padding:1.5rem 0; border-top:1px solid var(--gold-dim); border-bottom:1px solid var(--gold-dim); }
+.logo-row img{
+  width:auto; opacity:.62; filter:grayscale(1);
+  transition:opacity .3s, filter .3s; }
+.logo-row img:hover{ opacity:1; filter:none; }
+.lg-tall{ height:32px; }
+.lg-sq{ height:28px; }
+.lg-wide{ height:23px; }
+.lg-xwide{ height:19px; }
+.lg-xxwide{ height:15px; }
+@media(max-width:640px){
+  .logo-row{ gap:1.5rem; }
+  .lg-tall{ height:25px; } .lg-sq{ height:22px; } .lg-wide{ height:18px; }
+  .lg-xwide{ height:15px; } .lg-xxwide{ height:12px; } }
+
 /* ---------- credentials ---------- */
 .cred{display:flex;justify-content:space-between;align-items:baseline;gap:1.2rem;
   padding:1.05rem 0;border-top:1px solid var(--ink-line)}
@@ -645,6 +667,20 @@ a{color:inherit}
   <div class="sec-head rv">
     <span class="sec-num">05</span>
     <h2>Credentials</h2>
+  </div>
+
+  <div class="trained rv">
+    <div class="lbl">Trained by</div>
+    <div class="logo-row">
+      <img class="lg-wide" src="assets/logos/nti.png" alt="National Telecommunication Institute" loading="lazy">
+      <img class="lg-sq" src="assets/logos/creativa.png" alt="Creativa Innovation Hubs" loading="lazy">
+      <img class="lg-tall" src="assets/logos/iti.png" alt="Information Technology Institute" loading="lazy">
+      <img class="lg-sq" src="assets/logos/nvidia.png" alt="NVIDIA Deep Learning Institute" loading="lazy">
+      <img class="lg-sq" src="assets/logos/google.png" alt="Google" loading="lazy">
+      <img class="lg-wide" src="assets/logos/route.png" alt="Route Training Center" loading="lazy">
+      <img class="lg-xxwide" src="assets/logos/instant.png" alt="Instant" loading="lazy">
+      <img class="lg-xwide" src="assets/logos/orange.png" alt="Orange Digital Center" loading="lazy">
+    </div>
   </div>
 
   <div class="rv">
