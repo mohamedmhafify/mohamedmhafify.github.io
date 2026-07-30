@@ -38,11 +38,13 @@ body{
 a{color:inherit}
 
 /* ---------- portrait bezel ---------- */
-.hero-grid{ display:grid; grid-template-columns:1fr auto; gap:clamp(2rem,6vw,5rem); align-items:center; }
-.portrait-wrap{ position:relative; display:grid; place-items:center; flex-shrink:0; }
-.portrait{
-  width:clamp(190px,22vw,280px); aspect-ratio:1; border-radius:50%;
-  display:block; position:relative; z-index:2; }
+.hero-grid{ display:grid; grid-template-columns:minmax(0,1fr) auto;
+  gap:clamp(2rem,6vw,5rem); align-items:center; }
+.portrait-wrap{ display:grid; place-items:center; flex-shrink:0; padding:46px; }
+.portrait-frame{
+  position:relative;
+  width:clamp(150px,18vw,260px); aspect-ratio:1; }
+.portrait{ width:100%; height:100%; border-radius:50%; display:block; position:relative; z-index:2; }
 .bezel{ position:absolute; border-radius:50%; pointer-events:none; }
 .bz-1{ inset:-14px; border:1px solid var(--gold); }
 .bz-2{ inset:-27px; border:1px solid rgba(201,169,106,.30); }
@@ -57,7 +59,7 @@ a{color:inherit}
 @media(max-width:860px){
   .hero-grid{ grid-template-columns:1fr; gap:2.6rem; }
   .portrait-wrap{ order:-1; justify-self:start; }
-  .portrait{ width:150px; }
+  .portrait-frame{ width:150px; }
   .bz-3{ display:none; }
 }
 
@@ -123,6 +125,20 @@ a{color:inherit}
   color:var(--muted);margin-top:.45rem;display:block;
 }
 .cta-row{display:flex;flex-wrap:wrap;gap:.85rem;margin-top:2.6rem}
+.cv-alt{
+  margin-top:1rem; font-size:.82rem; color:var(--muted);
+  display:flex; flex-wrap:wrap; align-items:center; gap:.5rem .75rem; }
+.cv-alt .lbl{
+  font-family:var(--mono); font-size:.66rem; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--gold); }
+.cv-alt a{
+  color:var(--parchment); text-decoration:none; padding-bottom:2px;
+  border-bottom:1px solid var(--gold-dim); transition:.25s; }
+.cv-alt a:hover{ color:var(--gold-bright); border-bottom-color:var(--gold); }
+@media(max-width:520px){
+  .cta-row .btn{ flex:1 1 100%; justify-content:center; }
+  .cv-alt{ flex-direction:column; align-items:flex-start; gap:.45rem; }
+}
 .btn{
   display:inline-flex;align-items:center;gap:.55rem;
   padding:.78rem 1.5rem;font-size:.85rem;letter-spacing:.05em;
@@ -187,7 +203,7 @@ a{color:inherit}
 }
 
 /* ---------- demo gallery ---------- */
-.gal{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:1.4rem}
+.gal{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(330px,100%),1fr));gap:1.4rem}
 .gal figure{margin:0}
 .gal img{
   display:block;width:100%;height:auto;border:1px solid var(--ink-line);
@@ -233,7 +249,7 @@ a{color:inherit}
 }
 
 /* ---------- capabilities ---------- */
-.caps{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:0}
+.caps{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(255px,100%),1fr));gap:0}
 .cap{padding:1.7rem 1.7rem 1.7rem 0;border-top:1px solid var(--ink-line)}
 .cap h4{
   font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;
@@ -296,6 +312,67 @@ a{color:inherit}
   .btn:hover,.shot:hover{transform:none}
 }
 :focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+/* ---------- phones ---------- */
+@media(max-width:520px){
+  .wrap{ padding-inline:1.15rem; }
+  .nav-in{ padding-inline:1.15rem; }
+  .hero{ padding-top:6.5rem; }
+  .masthead-safety{ }
+  .eyebrow{ font-size:.78rem; letter-spacing:.2em; }
+  .ledger-row{ grid-template-columns:1fr; gap:0; }
+  .ledger-cell{ display:flex; align-items:baseline; justify-content:space-between;
+                padding:.6rem 0; border-bottom:1px solid var(--ink-line); }
+  .ledger-cell:last-child{ border-bottom:0; }
+  .ledger-cell .n{ font-size:1.5rem; }
+  .ledger-cell .l{ margin-top:0; font-size:.72rem; text-align:right; max-width:58%; }
+  .lnk{ display:inline-block; padding:.55rem 0; font-size:.78rem; }
+  .lnk + .lnk{ margin-left:1.3rem; }
+  .cv-alt a{ display:inline-block; padding:.5rem 0; font-size:.9rem; }
+  .cv-alt .lbl{ font-size:.72rem; }
+  .strip .l, .ledger-cell .l{ font-size:.72rem; letter-spacing:.1em; }
+  .chip{ font-size:.7rem; padding:.36rem .62rem; }
+  .case-metric{ font-size:2.9rem; }
+  .sec-h{ gap:.6rem; }
+  .idx td{ padding:.95rem 0; }
+  .idx .p-desc{ font-size:.88rem; }
+  .cred{ flex-direction:column; align-items:flex-start; gap:.35rem; }
+  .cred .c-meta{ white-space:normal; }
+  .foot{ flex-direction:column; gap:.5rem; }
+}
+@media(hover:none){
+  /* Any touch screen at any width: the finger is the constraint, not the viewport. */
+  .lnk{ display:inline-block; padding:.5rem 0; }
+  .nav-links a{ padding:.5rem 0; }
+  .mono-mark{ display:inline-block; padding:.6rem .2rem; }
+  .cv-alt a{ display:inline-block; padding:.45rem 0; }
+  .strip .l, .ledger-cell .l{ font-size:.75rem; }
+  .chip{ font-size:.74rem; }
+  .gal .g-stack, .idx .p-stack, .group-label, .trained .lbl, .cv-alt .lbl{ font-size:.74rem; }
+  .cred .c-meta{ font-size:.75rem; }
+  .foot, .shot-note{ font-size:.72rem; }
+}
+@media(max-width:900px){
+  /* Uppercase mono labels read larger than their nominal size, but anything under
+     ~12px is genuinely hard on a phone. Lift the floor without touching desktop. */
+  .strip .l, .ledger-cell .l{ font-size:.75rem; }
+  .chip{ font-size:.74rem; }
+  /* match the original selector weight — a single class loses to `.gal .g-stack` */
+  .gal .g-stack, .idx .p-stack, .group-label, .trained .lbl, .cv-alt .lbl{ font-size:.74rem; }
+  .idx .p-name{ font-size:1rem; }
+  .cred .c-meta{ font-size:.75rem; }
+  .foot{ font-size:.72rem; }
+  .shot-note{ font-size:.72rem; }
+  /* the wordmark is a link, so it needs a real tap area */
+  .mono-mark{ display:inline-block; padding:.6rem .2rem; font-size:.82rem; }
+  .nav-in{ padding-block:.5rem; }
+}
+@media(max-width:360px){
+  .wrap{ padding-inline:.95rem; }
+  .nav-in{ padding-inline:.95rem; }
+  .hero h1{ font-size:2.7rem; }
+  .portrait-frame{ width:128px; }
+  .bz-2{ display:none; }
+}
 </style>
 </head>
 <body>
@@ -339,17 +416,25 @@ a{color:inherit}
 
   <div class="cta-row">
     <a class="btn solid" href="#work">See the work</a>
-    <a class="btn" href="assets/cv/Mohamed_Afify_CV_DataAnalyst.pdf" download>CV — Data Analyst</a>
-    <a class="btn" href="assets/cv/Mohamed_Afify_CV_AIEngineer.pdf" download>CV — AI Engineer</a>
+    <a class="btn" href="assets/cv/Mohamed_Afify_CV.pdf" download>Download CV</a>
+  </div>
+
+  <div class="cv-alt">
+    <span class="lbl">Role-specific</span>
+    <a href="assets/cv/Mohamed_Afify_CV_DataAnalyst.pdf" download>Data Analyst</a>
+    <span aria-hidden="true">·</span>
+    <a href="assets/cv/Mohamed_Afify_CV_AIEngineer.pdf" download>AI Engineer</a>
   </div>
   </div>
 
   <div class="portrait-wrap">
-    <img class="portrait" src="assets/img/portrait.png" alt="Portrait of Mohamed Mostafa Hassan Afify">
-    <span class="bezel bz-ticks"></span>
-    <span class="bezel bz-1"></span>
-    <span class="bezel bz-2"></span>
-    <span class="bezel bz-3"></span>
+    <div class="portrait-frame">
+      <img class="portrait" src="assets/img/portrait.png" alt="Portrait of Mohamed Mostafa Hassan Afify">
+      <span class="bezel bz-ticks"></span>
+      <span class="bezel bz-1"></span>
+      <span class="bezel bz-2"></span>
+      <span class="bezel bz-3"></span>
+    </div>
   </div>
  </div>
 </header>
@@ -436,13 +521,22 @@ a{color:inherit}
   </article>
 
   <article class="case rv">
-    <div class="case-noshot">
-      <div class="bigmetric">100%</div>
+    <div class="case-grid">
       <div>
-        <h3 style="margin-top:0">Multimodal Vision OCR Agent</h3>
-        <p>A vision-language pipeline built on <b>Qwen2.5-VL</b> served through <b>Ollama</b> behind a <b>FastAPI</b> endpoint.</p>
-        <p>An <b>OpenCV</b> preprocessing stage — affine deskewing, CLAHE contrast enhancement and ViT patch-aligned resizing — turns tilted, poorly lit documents into clean structured JSON.</p>
-        <div class="chips"><span class="chip">QWEN2.5-VL</span><span class="chip">OLLAMA</span><span class="chip">FASTAPI</span><span class="chip">OPENCV</span></div>
+        <img class="shot" src="assets/img/ocr-agent.png" alt="OCR bench showing the preprocessing controls and pipeline stages" loading="lazy">
+        <p class="shot-note">OPENCV STAGES · BEFORE AND AFTER</p>
+      </div>
+      <div>
+        <div class="case-metric">9.5&deg;</div>
+        <p class="case-metric-sub">of skew corrected on an expanded canvas, before a vision model ever looked at the page.</p>
+        <h3>Multimodal Vision OCR Agent</h3>
+        <p>Three <b>OpenCV</b> stages run first: deskew without clipping the corners, a CLAHE
+        contrast lift tile by tile, and a rescale onto the <b>28px patch grid</b> the vision
+        transformer expects.</p>
+        <p>Only then does <b>Qwen vision</b> read it through the Groq API, returning structured
+        JSON rather than loose text — nine fields from a scanned repair invoice in about four
+        seconds.</p>
+        <div class="chips"><span class="chip">OPENCV</span><span class="chip">QWEN VISION</span><span class="chip">GROQ</span><span class="chip">FASTAPI</span><span class="chip">STREAMLIT</span></div>
         <a class="lnk" href="https://github.com/mohamedmhafify/Multimodal-Vision-OCR-Agent" target="_blank" rel="noopener">REPOSITORY →</a>
       </div>
     </div>
@@ -487,9 +581,10 @@ a{color:inherit}
     </figure>
 
     <figure>
+      <img src="assets/img/eval-scorecard.png" alt="RAG scorecard interface with editable test cases and four quality metrics" loading="lazy">
       <figcaption>
         <span class="g-name">RAG Evaluation &amp; Quality Observability</span>
-        <span class="g-desc">A metrics-driven audit of a live RAG pipeline using Ragas with GPT-4o-mini as judge — scoring context precision, context recall, faithfulness and answer relevancy.</span>
+        <span class="g-desc">Scores a live pipeline on four axes with an independent judge, keeps a baseline, and shows which metric moves when you change one setting.</span>
         <span class="g-stack">RAGAS · LLM-AS-A-JUDGE · QDRANT</span>
       </figcaption>
     </figure>
@@ -510,15 +605,6 @@ a{color:inherit}
       <tbody>
         <tr>
           <td>
-            <span class="p-name">Wide World Importers — Power BI</span>
-            <span class="p-desc">Rebuilt a broken data model into a corrected star schema; authored 24+ DAX measures and a fiscal calendar verified from the data itself.</span>
-          </td>
-          <td class="p-metric">$19.88M</td>
-          <td class="p-stack">POWER BI · DAX</td>
-          <td><a class="lnk" href="https://github.com/mohamedmhafify/WWI-PowerBI-Sales-Analytics" target="_blank" rel="noopener">CODE</a></td>
-        </tr>
-        <tr>
-          <td>
             <span class="p-name">Ames Housing — Cleaning &amp; Preprocessing</span>
             <span class="p-desc">Missing values, leakage removal, encoding and log transformation for skew, validated with before/after EDA.</span>
           </td>
@@ -529,75 +615,9 @@ a{color:inherit}
       </tbody>
     </table>
 
-    <div class="group-label">Generative AI &amp; agents</div>
-    <table class="idx">
-      <tbody>
-        <tr>
-          <td>
-            <span class="p-name">Agentic RAG Deep Visualizer</span>
-            <span class="p-desc">Self-correcting dual-memory loop: checks a local Qdrant store first, then autonomously scrapes the live web and ingests what it learns.</span>
-          </td>
-          <td class="p-metric">Llama 3.3 70B</td>
-          <td class="p-stack">LANGGRAPH · QDRANT</td>
-          <td><a class="lnk" href="https://github.com/mohamedmhafify/MCP-Agentic-RAG-Deep-Visualizer" target="_blank" rel="noopener">CODE</a></td>
-        </tr>
-        <tr>
-          <td>
-            <span class="p-name">Multi-Agent Deep Researcher</span>
-            <span class="p-desc">Planner, Researcher, Writer and Critic in one workflow; the Critic routes reports back for refinement, capped to control cost.</span>
-          </td>
-          <td class="p-metric">4 agents</td>
-          <td class="p-stack">LANGGRAPH · REDIS</td>
-          <td><a class="lnk" href="https://github.com/mohamedmhafify/Multi-Agent-Deep-Researcher" target="_blank" rel="noopener">CODE</a></td>
-        </tr>
-        <tr>
-          <td>
-            <span class="p-name">Multimodal Vision OCR Agent</span>
-            <span class="p-desc">Fully local, cloud-free vision-language pipeline that rescues readable structure from tilted, poorly lit documents.</span>
-          </td>
-          <td class="p-metric">Qwen2.5-VL</td>
-          <td class="p-stack">OLLAMA · FASTAPI</td>
-          <td><a class="lnk" href="https://github.com/mohamedmhafify/Multimodal-Vision-OCR-Agent" target="_blank" rel="noopener">CODE</a></td>
-        </tr>
-        <tr>
-          <td>
-            <span class="p-name">RAG Evaluation &amp; Quality Observability</span>
-            <span class="p-desc">Metrics-driven audit of a live RAG pipeline — because a system that isn't measured is one you can't trust.</span>
-          </td>
-          <td class="p-metric">4 metrics</td>
-          <td class="p-stack">RAGAS · LLM-AS-JUDGE</td>
-          <td><a class="lnk" href="https://github.com/mohamedmhafify/AI-RAG-Pipeline-Evaluation-Quality-Observability" target="_blank" rel="noopener">CODE</a></td>
-        </tr>
-        <tr>
-          <td>
-            <span class="p-name">GroundedRAG — Document Q&amp;A</span>
-            <span class="p-desc">End-to-end RAG with local inference, a citation table, retrieval debugging, guardrails and a groundedness check.</span>
-          </td>
-          <td class="p-metric">NVIDIA DLI</td>
-          <td class="p-stack">CHROMA · OLLAMA</td>
-          <td>
-            <a class="lnk" href="https://github.com/mohamedmhafify/groundedrag-safe-evaluated-doc-qa" target="_blank" rel="noopener">CODE</a>
-            <a class="lnk" href="https://drive.google.com/file/d/1ztpWZz3LLEDSUywOXiRty61eTa_kogVJ/view" target="_blank" rel="noopener">DEMO</a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
     <div class="group-label">Computer vision</div>
     <table class="idx">
       <tbody>
-        <tr>
-          <td>
-            <span class="p-name">Real-Time Fire &amp; Smoke Guard</span>
-            <span class="p-desc">Detection model with a live interface for real-time hazard analysis.</span>
-          </td>
-          <td class="p-metric">0.739 mAP</td>
-          <td class="p-stack">YOLO · STREAMLIT</td>
-          <td>
-            <a class="lnk" href="https://github.com/mohamedmhafify/Fire-Smoke-Detection" target="_blank" rel="noopener">CODE</a>
-            <a class="lnk" href="https://fire-smoke-detection-kdbphnuqpefakzuvhayykn.streamlit.app/" target="_blank" rel="noopener">DEMO</a>
-          </td>
-        </tr>
         <tr>
           <td>
             <span class="p-name">COVID-19 X-ray Classification</span>
@@ -608,18 +628,6 @@ a{color:inherit}
           <td>
             <a class="lnk" href="https://github.com/mohamedmhafify/Covid_Classification_App" target="_blank" rel="noopener">CODE</a>
             <a class="lnk" href="https://covidclassificationapp-efpdnmkswkx7agtjqbelui.streamlit.app/" target="_blank" rel="noopener">DEMO</a>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <span class="p-name">OCR Document Intelligence</span>
-            <span class="p-desc">ID scanner with custom preprocessing that lifted extraction accuracy.</span>
-          </td>
-          <td class="p-metric">+25%</td>
-          <td class="p-stack">TESSERACT · OPENCV</td>
-          <td>
-            <a class="lnk" href="https://github.com/mohamedmhafify/ID_Scan_App" target="_blank" rel="noopener">CODE</a>
-            <a class="lnk" href="https://idscanapp-grmm6sghkmufwn8xgqmexq.streamlit.app/" target="_blank" rel="noopener">DEMO</a>
           </td>
         </tr>
         <tr>
@@ -650,6 +658,18 @@ a{color:inherit}
           <td>
             <a class="lnk" href="https://github.com/mohamedmhafify/Object_Tracking_App" target="_blank" rel="noopener">CODE</a>
             <a class="lnk" href="https://objecttrackingapp-hxebjm3efb4gtvmvzta8ke.streamlit.app/" target="_blank" rel="noopener">DEMO</a>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span class="p-name">OCR Document Intelligence</span>
+            <span class="p-desc">ID scanner with custom preprocessing that lifted extraction accuracy.</span>
+          </td>
+          <td class="p-metric">+25%</td>
+          <td class="p-stack">TESSERACT · OPENCV</td>
+          <td>
+            <a class="lnk" href="https://github.com/mohamedmhafify/ID_Scan_App" target="_blank" rel="noopener">CODE</a>
+            <a class="lnk" href="https://idscanapp-grmm6sghkmufwn8xgqmexq.streamlit.app/" target="_blank" rel="noopener">DEMO</a>
           </td>
         </tr>
       </tbody>
