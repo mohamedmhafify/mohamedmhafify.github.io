@@ -5,15 +5,34 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Mohamed Afify — Data Analyst &amp; AI Engineer</title>
 <meta name="description" content="Data Analyst and AI Engineer in Cairo. I turn disconnected data into decisions, and build AI systems that measure themselves.">
+<meta name="theme-color" content="#0A0C10">
+<link rel="canonical" href="https://mohamedmhafify.github.io/">
 <meta property="og:title" content="Mohamed Afify — Data Analyst &amp; AI Engineer">
 <meta property="og:description" content="I turn disconnected data into decisions, and build AI systems that measure themselves.">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://mohamedmhafify.github.io/">
+<meta property="og:image" content="https://mohamedmhafify.github.io/assets/img/telco-overview.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230A0C10'/%3E%3Cpath d='M6 23V9h2.4l7.6 9 7.6-9H26v14h-2.6v-9.6L16 22l-7.4-8.6V23z' fill='%23C9A96A'/%3E%3Crect x='6' y='25.6' width='20' height='1' fill='%23C9A96A' opacity='.5'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>
+/* Set synchronously so the intro curtain is painted on the first frame, never after a flash.
+   No JS, or reduced motion, means no curtain at all. */
+try{
+  var seen = sessionStorage.getItem('afify-intro');
+  var still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!seen && !still){ document.documentElement.className += ' js-intro'; }
+}catch(e){ document.documentElement.className += ' js-intro'; }
+</script>
 <style>
 :root{
   --ink:#0A0C10;
+  --space-1:#05070D;
+  --space-2:#0B1733;
+  --glow-a:rgba(46,107,255,.13);
+  --glow-b:rgba(74,141,255,.06);
   --ink-raised:#11141B;
   --ink-line:#1C212B;
   --gold:#C9A96A;
@@ -21,6 +40,9 @@
   --gold-dim:rgba(201,169,106,.22);
   --parchment:#E8E6E1;
   --muted:#8A8F9A;
+  --teal:#2E9B8F;
+  --violet:#8B7BD8;
+  --clay:#D45B4E;
   --serif:'Cormorant Garamond',Georgia,serif;
   --sans:'Inter',system-ui,-apple-system,sans-serif;
   --mono:'JetBrains Mono',ui-monospace,monospace;
@@ -28,508 +50,1083 @@
   --maxw:1180px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;scroll-padding-top:5rem}
 body{
-  background:var(--ink);color:var(--parchment);
+  background:var(--space-1);color:var(--parchment);
   font-family:var(--sans);font-size:16px;line-height:1.65;
   -webkit-font-smoothing:antialiased;overflow-x:hidden;
 }
 .wrap{max-width:var(--maxw);margin:0 auto;padding-inline:var(--pad)}
 a{color:inherit}
+img{max-width:100%}
 
-/* ---------- portrait bezel ---------- */
-.hero-grid{ display:grid; grid-template-columns:minmax(0,1fr) auto;
-  gap:clamp(2rem,6vw,5rem); align-items:center; }
-.portrait-wrap{ display:grid; place-items:center; flex-shrink:0; padding:46px; }
-.portrait-frame{
-  position:relative;
-  width:clamp(150px,18vw,260px); aspect-ratio:1; }
-.portrait{ width:100%; height:100%; border-radius:50%; display:block; position:relative; z-index:2; }
-.bezel{ position:absolute; border-radius:50%; pointer-events:none; }
-.bz-1{ inset:-14px; border:1px solid var(--gold); }
-.bz-2{ inset:-27px; border:1px solid rgba(201,169,106,.30); }
-.bz-3{ inset:-42px; border:1px solid rgba(201,169,106,.12); }
-.bz-ticks{
-  inset:-27px; z-index:1;
-  background:repeating-conic-gradient(from 0deg,
-    var(--gold) 0deg 0.6deg, transparent 0.6deg 30deg);
-  -webkit-mask:radial-gradient(circle, transparent calc(50% - 14px), #000 calc(50% - 14px));
-  mask:radial-gradient(circle, transparent calc(50% - 14px), #000 calc(50% - 14px));
-  opacity:.55; }
-@media(max-width:860px){
-  .hero-grid{ grid-template-columns:1fr; gap:2.6rem; }
-  .portrait-wrap{ order:-1; justify-self:start; }
-  .portrait-frame{ width:150px; }
-  .bz-3{ display:none; }
+/* ══════ intro curtain ══════ */
+.intro{display:none}
+html.js-intro .intro{
+  display:grid;place-items:center;position:fixed;inset:0;z-index:200;
+  background:linear-gradient(180deg,var(--space-1) 0%,#070B18 46%,var(--space-2) 100%);
+  cursor:pointer;
 }
+html.js-intro body{overflow:hidden}
+.intro-in{text-align:center;padding:1.5rem}
+.intro-mark{
+  font-family:var(--mono);font-size:clamp(.8rem,2.6vw,1.05rem);
+  letter-spacing:.62em;color:var(--parchment);text-indent:.62em;
+  opacity:0;transform:translateY(10px);
+  animation:introUp .8s cubic-bezier(.2,.7,.3,1) .35s forwards;
+}
+.intro-rule{
+  height:1px;background:var(--gold);margin:1.35rem auto;width:min(340px,72vw);
+  transform:scaleX(0);animation:introRule .9s cubic-bezier(.65,0,.35,1) .1s forwards;
+}
+.intro-role{
+  font-family:var(--mono);font-size:clamp(.58rem,1.8vw,.68rem);
+  letter-spacing:.34em;color:var(--gold);text-indent:.34em;
+  opacity:0;animation:introUp .8s cubic-bezier(.2,.7,.3,1) .8s forwards;
+}
+.intro-skip{
+  position:absolute;bottom:1.6rem;left:0;right:0;text-align:center;
+  font-family:var(--mono);font-size:.6rem;letter-spacing:.24em;color:var(--muted);
+  opacity:0;animation:introUp .6s ease 1.6s forwards;
+}
+@keyframes introUp{to{opacity:1;transform:none}}
+@keyframes introRule{to{transform:scaleX(1)}}
+.intro.leaving{
+  animation:introOut .75s cubic-bezier(.65,0,.35,1) forwards;pointer-events:none;
+}
+@keyframes introOut{to{opacity:0;transform:translateY(-2.5%)}}
 
-/* ---------- ledger rule: the signature device ---------- */
+/* ══════ deep-space backdrop ══════ */
+.space,.stars{position:fixed;inset:0;z-index:-2;pointer-events:none}
+.space{background:linear-gradient(180deg,var(--space-1) 0%,#070B18 46%,var(--space-2) 100%)}
+.space::after{
+  /* soft blue light, centred, fading out well before it could read as a nebula */
+  content:'';position:absolute;left:50%;top:44%;translate:-50% -50%;
+  width:min(150vw,1500px);aspect-ratio:1;
+  background:radial-gradient(circle closest-side,var(--glow-a) 0%,var(--glow-b) 42%,transparent 72%);
+  opacity:var(--glow-op,.9);
+}
+.stars{z-index:-1;width:100%;height:100%;display:block;will-change:opacity}
+
+/* ══════ ledger rule: the signature device ══════ */
 .rule{height:1px;background:var(--gold-dim);border:0}
 
-/* ---------- nav ---------- */
+/* ══════ nav ══════ */
 .nav{
   position:fixed;top:0;left:0;right:0;z-index:50;
-  backdrop-filter:blur(14px);background:rgba(10,12,16,.72);
+  backdrop-filter:blur(14px);background:rgba(5,7,13,.72);
   border-bottom:1px solid transparent;transition:border-color .3s;
 }
 .nav.stuck{border-bottom-color:var(--gold-dim)}
 .nav-in{max-width:var(--maxw);margin:0 auto;padding:.9rem var(--pad);
   display:flex;align-items:center;justify-content:space-between;gap:1rem}
-.mono-mark{
-  font-family:var(--mono);font-size:.78rem;letter-spacing:.22em;
-  color:var(--gold);text-decoration:none;
-}
-.nav-links{display:flex;gap:1.9rem;list-style:none}
+.mono-mark{font-family:var(--mono);font-size:.78rem;letter-spacing:.22em;color:var(--gold);text-decoration:none}
+.nav-right{display:flex;align-items:center;gap:1.3rem}
+.nav-links{display:flex;gap:1.35rem;list-style:none}
 .nav-links a{
-  font-size:.82rem;letter-spacing:.06em;color:var(--muted);
+  font-size:.8rem;letter-spacing:.05em;color:var(--muted);
   text-decoration:none;position:relative;padding-bottom:3px;transition:color .25s;
 }
-.nav-links a::after{
-  content:'';position:absolute;left:0;bottom:0;width:0;height:1px;
-  background:var(--gold);transition:width .3s ease;
-}
+.nav-links a::after{content:'';position:absolute;left:0;bottom:0;width:0;height:1px;
+  background:var(--gold);transition:width .3s ease}
 .nav-links a:hover{color:var(--parchment)}
 .nav-links a:hover::after{width:100%}
-@media(max-width:720px){.nav-links{display:none}}
+.nav-links a.active{color:var(--parchment)}
+.nav-links a.active::after{width:100%;background:var(--gold-dim)}
+.progress{position:absolute;left:0;bottom:-1px;height:1px;width:100%;
+  background:var(--gold);transform:scaleX(0);transform-origin:0 50%;will-change:transform}
+.kbd-hint{
+  display:inline-flex;align-items:center;gap:.4rem;
+  font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;color:var(--muted);
+  border:1px solid var(--ink-line);padding:.34rem .55rem;background:transparent;
+  cursor:pointer;transition:.25s;
+}
+.kbd-hint:hover{border-color:var(--gold-dim);color:var(--gold-bright)}
+.kbd-hint kbd{font-family:inherit;color:var(--gold)}
+.menu-btn{display:none;background:none;border:1px solid var(--ink-line);padding:.5rem .55rem;cursor:pointer;line-height:0}
+.menu-btn span{display:block;width:16px;height:1px;background:var(--gold)}
+.menu-btn span + span{margin-top:4px}
+.menu-btn:hover{border-color:var(--gold-dim)}
+@media(max-width:1000px){.nav-links{display:none}.menu-btn{display:block}.kbd-hint{display:none}}
 
-/* ---------- hero ---------- */
-.hero{padding:clamp(8rem,17vh,11rem) 0 clamp(3.5rem,7vh,5rem)}
-.eyebrow{
-  font-family:var(--mono);font-size:.72rem;letter-spacing:.3em;
-  color:var(--gold);text-transform:uppercase;margin-bottom:1.6rem;
-}
-.hero h1{
-  font-family:var(--serif);font-weight:300;
-  font-size:clamp(3.1rem,10vw,7rem);line-height:.94;letter-spacing:-.015em;
-  margin-bottom:1.4rem;
-}
-.hero h1 em{font-style:italic;color:var(--gold)}
-.lede{
-  font-size:clamp(1.02rem,1.9vw,1.28rem);font-weight:300;
-  color:var(--parchment);max-width:44ch;line-height:1.6;
-}
-.lede b{font-weight:500;color:var(--gold-bright)}
+/* ══════ mobile sheet ══════ */
+.sheet{position:fixed;inset:0;z-index:60;background:rgba(5,7,13,.96);
+  backdrop-filter:blur(8px);display:none;padding:5.5rem var(--pad) 2rem;overflow-y:auto}
+.sheet.open{display:block}
+.sheet ul{list-style:none;border-top:1px solid var(--gold-dim)}
+.sheet li{border-bottom:1px solid var(--ink-line)}
+.sheet a{display:flex;justify-content:space-between;align-items:baseline;
+  padding:.95rem .2rem;text-decoration:none;font-size:1.02rem}
+.sheet a span{font-family:var(--mono);font-size:.7rem;color:var(--gold);letter-spacing:.14em}
+.sheet-close{position:absolute;top:1.1rem;right:var(--pad);background:none;border:0;
+  color:var(--gold);font-family:var(--mono);font-size:.8rem;letter-spacing:.14em;cursor:pointer;padding:.6rem}
 
-/* ledger stat row */
-.ledger{margin-top:3.2rem}
-.ledger-row{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;
-  padding:1.15rem 0;
+/* ══════ command palette ══════ */
+.pal-back{position:fixed;inset:0;z-index:70;background:rgba(5,6,9,.78);
+  backdrop-filter:blur(6px);display:none;align-items:flex-start;justify-content:center;padding:12vh 1.15rem 2rem}
+.pal-back.open{display:flex}
+.pal{width:min(560px,100%);background:var(--ink-raised);border:1px solid var(--gold-dim);
+  box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.pal-in{display:flex;align-items:center;gap:.7rem;padding:.9rem 1.1rem;border-bottom:1px solid var(--ink-line)}
+.pal-in .caret{font-family:var(--mono);color:var(--gold);font-size:.85rem}
+.pal-in input{flex:1;background:none;border:0;outline:none;color:var(--parchment);
+  font-family:var(--sans);font-size:.95rem}
+.pal-in input::placeholder{color:var(--muted)}
+.pal-list{max-height:46vh;overflow-y:auto;list-style:none}
+.pal-list li a{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;
+  padding:.7rem 1.1rem;text-decoration:none;border-left:2px solid transparent}
+.pal-list li a .t{font-size:.9rem}
+.pal-list li a .k{font-family:var(--mono);font-size:.64rem;letter-spacing:.12em;color:var(--muted);white-space:nowrap}
+.pal-list li a[aria-selected="true"],.pal-list li a:hover{background:rgba(201,169,106,.07);border-left-color:var(--gold)}
+.pal-empty{padding:1.1rem;color:var(--muted);font-size:.88rem}
+.pal-foot{padding:.6rem 1.1rem;border-top:1px solid var(--ink-line);
+  font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;color:var(--muted)}
+
+/* ══════ cover ══════ */
+.cover{position:relative;min-height:92vh;display:flex;align-items:center;
+  padding:clamp(7.5rem,15vh,10rem) 0 clamp(3rem,7vh,5rem);overflow:hidden}
+.cover-bg{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.cover-bg::before{content:'';position:absolute;inset:0;
+  background-image:linear-gradient(rgba(201,169,106,.045) 1px,transparent 1px);
+  background-size:100% 34px;
+  -webkit-mask:linear-gradient(180deg,#000,#000 42%,transparent);
+  mask:linear-gradient(180deg,#000,#000 42%,transparent)}
+.figure-wrap{
+  position:absolute;right:max(calc((100vw - var(--maxw))/2), var(--pad));
+  bottom:0;height:min(80vh,720px);aspect-ratio:1057/1200;z-index:1;
+  will-change:transform;
 }
-.ledger-cell .n{
-  font-family:var(--mono);font-weight:500;font-size:clamp(1.5rem,3.4vw,2.1rem);
-  color:var(--gold);font-variant-numeric:tabular-nums;display:block;line-height:1.1;
+/* Without the explicit ratio, shrink-to-fit sizes this box from the image's
+   intrinsic width, not its rendered width, and the box ends up ~130px too wide. */
+.figure-wrap img{height:100%;width:100%;object-fit:contain;display:block;
+  -webkit-mask:linear-gradient(180deg,#000 62%,transparent 99%);
+  mask:linear-gradient(180deg,#000 62%,transparent 99%)}
+.halo{position:absolute;left:50%;bottom:14%;width:78%;aspect-ratio:1;translate:-50% 0;
+  border:1px solid var(--gold-dim);border-radius:50%;z-index:-1}
+.halo::after{content:'';position:absolute;inset:-6.5%;border-radius:50%;
+  border:1px solid rgba(201,169,106,.10)}
+.halo-ticks{
+  position:absolute;left:50%;bottom:14%;width:78%;aspect-ratio:1;translate:-50% 0;
+  border-radius:50%;z-index:-1;opacity:.4;
+  background:repeating-conic-gradient(from 0deg,var(--gold) 0deg .5deg,transparent .5deg 30deg);
+  -webkit-mask:radial-gradient(circle,transparent calc(50% - 11px),#000 calc(50% - 11px));
+  mask:radial-gradient(circle,transparent calc(50% - 11px),#000 calc(50% - 11px));
+  animation:spin 120s linear infinite;
 }
-.ledger-cell .l{
-  font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--muted);margin-top:.45rem;display:block;
+@keyframes spin{to{rotate:360deg}}
+
+.cover-in{position:relative;z-index:3;max-width:min(640px,62%)}
+.eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.3em;
+  color:var(--gold);text-transform:uppercase;margin-bottom:1.5rem}
+.eyebrow .dot{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--teal);
+  margin-right:.5rem;vertical-align:middle;box-shadow:0 0 0 0 rgba(46,155,143,.6);
+  animation:pulse 2.6s ease-out infinite}
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 rgba(46,155,143,.5)}
+  70%{box-shadow:0 0 0 7px rgba(46,155,143,0)}
+  100%{box-shadow:0 0 0 0 rgba(46,155,143,0)}
 }
-.cta-row{display:flex;flex-wrap:wrap;gap:.85rem;margin-top:2.6rem}
-.cv-alt{
-  margin-top:1rem; font-size:.82rem; color:var(--muted);
-  display:flex; flex-wrap:wrap; align-items:center; gap:.5rem .75rem; }
-.cv-alt .lbl{
-  font-family:var(--mono); font-size:.66rem; letter-spacing:.14em;
-  text-transform:uppercase; color:var(--gold); }
-.cv-alt a{
-  color:var(--parchment); text-decoration:none; padding-bottom:2px;
-  border-bottom:1px solid var(--gold-dim); transition:.25s; }
-.cv-alt a:hover{ color:var(--gold-bright); border-bottom-color:var(--gold); }
-@media(max-width:520px){
-  .cta-row .btn{ flex:1 1 100%; justify-content:center; }
-  .cv-alt{ flex-direction:column; align-items:flex-start; gap:.45rem; }
-}
-.btn{
-  display:inline-flex;align-items:center;gap:.55rem;
-  padding:.78rem 1.5rem;font-size:.85rem;letter-spacing:.05em;
-  text-decoration:none;border:1px solid var(--gold-dim);
-  color:var(--parchment);transition:.28s;background:transparent;
-}
+.cover h1{font-family:var(--serif);font-weight:300;
+  font-size:clamp(3rem,9vw,6.6rem);line-height:.94;letter-spacing:-.015em;margin-bottom:1rem}
+.cover h1 em{font-style:italic;color:var(--gold)}
+.role{font-family:var(--mono);font-size:clamp(.66rem,1.5vw,.78rem);letter-spacing:.28em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:1.4rem}
+.slogan{font-family:var(--serif);font-size:clamp(1.25rem,2.6vw,1.7rem);font-weight:300;
+  font-style:italic;line-height:1.45;max-width:26ch;color:var(--parchment)}
+.slogan b{font-style:normal;font-weight:400;color:var(--gold-bright)}
+.lede{font-size:clamp(.95rem,1.6vw,1.05rem);font-weight:300;color:var(--muted);
+  max-width:46ch;line-height:1.7;margin-top:1.1rem}
+.ledger{margin-top:2.6rem}
+.ledger-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;padding:1.15rem 0}
+.ledger-cell{text-decoration:none;display:block;transition:.25s}
+a.ledger-cell:hover .n{color:var(--gold-bright)}
+a.ledger-cell:hover .l{color:var(--parchment)}
+.ledger-cell .n{font-family:var(--mono);font-weight:500;font-size:clamp(1.45rem,3.2vw,2rem);
+  color:var(--gold);font-variant-numeric:tabular-nums;display:block;line-height:1.1;transition:color .25s}
+.ledger-cell .l{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--muted);margin-top:.45rem;display:block;transition:color .25s}
+.cta-row{display:flex;flex-wrap:wrap;gap:.85rem;margin-top:2.4rem}
+.cv-alt{margin-top:1rem;font-size:.82rem;color:var(--muted);
+  display:flex;flex-wrap:wrap;align-items:center;gap:.5rem .75rem}
+.cv-alt .lbl{font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--gold)}
+.cv-alt a{color:var(--parchment);text-decoration:none;padding-bottom:2px;
+  border-bottom:1px solid var(--gold-dim);transition:.25s}
+.cv-alt a:hover{color:var(--gold-bright);border-bottom-color:var(--gold)}
+.scroll-cue{position:absolute;left:var(--pad);bottom:1.6rem;z-index:2;
+  font-family:var(--mono);font-size:.6rem;letter-spacing:.24em;color:var(--muted);
+  text-decoration:none;display:flex;align-items:center;gap:.6rem}
+.scroll-cue i{display:block;width:1px;height:26px;background:linear-gradient(var(--gold),transparent);
+  animation:cue 2.2s ease-in-out infinite}
+@keyframes cue{0%,100%{transform:scaleY(.4);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}}
+.scroll-cue:hover{color:var(--gold-bright)}
+.btn{display:inline-flex;align-items:center;gap:.55rem;padding:.78rem 1.5rem;
+  font-size:.85rem;letter-spacing:.05em;text-decoration:none;border:1px solid var(--gold-dim);
+  color:var(--parchment);transition:.28s;background:transparent;cursor:pointer;font-family:var(--sans)}
 .btn:hover{border-color:var(--gold);color:var(--gold-bright);transform:translateY(-2px)}
 .btn.solid{background:var(--gold);color:#0A0C10;border-color:var(--gold);font-weight:500}
 .btn.solid:hover{background:var(--gold-bright);border-color:var(--gold-bright);color:#0A0C10}
 
-/* ---------- section frame ---------- */
-.sec{padding:clamp(4rem,9vh,6.5rem) 0}
-.sec-head{display:flex;align-items:baseline;gap:1.1rem;margin-bottom:2.6rem}
-.sec-num{font-family:var(--mono);font-size:.72rem;color:var(--gold);letter-spacing:.14em}
-.sec-head h2{
-  font-family:var(--serif);font-weight:400;
-  font-size:clamp(1.85rem,4.2vw,2.9rem);letter-spacing:-.01em;line-height:1.1;
+@media(max-width:980px){
+  .cover-in{max-width:100%}
+  .figure-wrap{right:-12%;height:min(68vh,600px);opacity:.34}
+  .scrim{background:linear-gradient(90deg,rgba(5,7,13,.86) 0%,rgba(5,7,13,.92) 46%,rgba(5,7,13,.40) 100%)}
+  .halo,.halo-ticks{display:none}
 }
-.sec-note{color:var(--muted);font-size:.95rem;max-width:56ch;margin-top:-1.5rem;margin-bottom:2.6rem}
+@media(max-width:620px){
+  .cover{min-height:auto;padding-top:6.5rem}
+  .figure-wrap{right:-26%;height:54vh;opacity:.22}
+  .scrim{background:linear-gradient(90deg,rgba(5,7,13,.90) 0%,rgba(5,7,13,.93) 50%,rgba(5,7,13,.60) 100%)}
+  .scroll-cue{display:none}
+}
 
-/* ---------- case: alternating image side ---------- */
-.case + .case{ margin-top:2.8rem; }
-.case-grid.flip{ direction:rtl; }
-.case-grid.flip > *{ direction:ltr; }
-.case-noshot{ display:grid; grid-template-columns:auto 1fr; gap:clamp(1.4rem,3vw,2.6rem); align-items:start; }
-.case-noshot .bigmetric{
-  font-family:var(--serif); font-weight:300; color:var(--gold);
-  font-size:clamp(2.6rem,6vw,4rem); line-height:.9; white-space:nowrap; }
-@media(max-width:760px){ .case-noshot{ grid-template-columns:1fr; } }
+/* ══════ section frame ══════ */
+.sec{padding:clamp(4rem,9vh,6.5rem) 0}
+.sec-head{display:flex;align-items:baseline;gap:1.1rem;margin-bottom:1rem}
+.sec-num{font-family:var(--mono);font-size:.72rem;color:var(--gold);letter-spacing:.14em}
+.sec-head h2{font-family:var(--serif);font-weight:400;
+  font-size:clamp(1.85rem,4.2vw,2.9rem);letter-spacing:-.01em;line-height:1.1}
+.sec-rule{height:1px;background:var(--gold-dim);margin-bottom:2.4rem;
+  transform:scaleX(0);transform-origin:0 50%;transition:transform 1.1s cubic-bezier(.2,.7,.3,1)}
+.rv.in .sec-rule,.sec-rule.in{transform:scaleX(1)}
+.sec-note{color:var(--muted);font-size:.95rem;max-width:56ch;margin:-1.6rem 0 2.4rem}
 
-/* ---------- featured case ---------- */
+/* ══════ about ══════ */
+.about{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:0}
+.about > div{padding:1.7rem 1.7rem 1.7rem 0;border-top:1px solid var(--ink-line)}
+.about h4{font-family:var(--mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:.9rem;font-weight:500}
+.about p{font-size:.94rem;color:var(--muted);line-height:1.8}
+.about p b{color:var(--parchment);font-weight:500}
+.langs{display:flex;flex-wrap:wrap;gap:1.6rem;padding:1.3rem 0;
+  border-top:1px solid var(--gold-dim);border-bottom:1px solid var(--gold-dim);margin-top:2.2rem}
+.langs .lg{font-size:.94rem}
+.langs .lg span{display:block;font-family:var(--mono);font-size:.64rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:.25rem}
+
+/* ══════ services ══════ */
+.svcs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:1px;
+  background:var(--ink-line);border:1px solid var(--ink-line)}
+.svc{background:rgba(9,12,20,.62);padding:1.7rem 1.5rem;text-decoration:none;display:block;
+  transition:background .3s,transform .3s}
+.svc:hover{background:rgba(17,20,27,.86);transform:translateY(-3px)}
+.svc .n{font-family:var(--mono);font-size:.66rem;letter-spacing:.18em;color:var(--gold);display:block}
+.svc h4{font-family:var(--serif);font-size:1.28rem;font-weight:500;margin:.8rem 0 .6rem;line-height:1.25}
+.svc p{font-size:.88rem;color:var(--muted);line-height:1.7}
+.svc .go{display:block;margin-top:1.1rem;font-family:var(--mono);font-size:.64rem;
+  letter-spacing:.14em;color:var(--muted);transition:color .25s}
+.svc:hover .go{color:var(--gold-bright)}
+
+/* ══════ featured case ══════ */
 .case{border-top:1px solid var(--gold-dim);padding-top:2.4rem}
+.case + .case{margin-top:2.8rem}
 .case-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(1.6rem,4vw,3.4rem);align-items:start}
 @media(max-width:900px){.case-grid{grid-template-columns:1fr}}
-.case-metric{
-  font-family:var(--serif);font-weight:300;color:var(--gold);
-  font-size:clamp(3.4rem,8.5vw,5.4rem);line-height:.9;letter-spacing:-.02em;
-}
-.case-metric-sub{
-  font-size:.95rem;color:var(--muted);margin-top:.9rem;max-width:34ch;line-height:1.6;
-}
-.case h3{
-  font-family:var(--serif);font-size:clamp(1.5rem,3vw,2rem);font-weight:500;
-  margin:2rem 0 .8rem;line-height:1.2;
-}
+.case-metric{font-family:var(--serif);font-weight:300;color:var(--gold);
+  font-size:clamp(3.4rem,8.5vw,5.4rem);line-height:.9;letter-spacing:-.02em}
+.case-metric-sub{font-size:.95rem;color:var(--muted);margin-top:.9rem;max-width:34ch;line-height:1.6}
+.case h3{font-family:var(--serif);font-size:clamp(1.5rem,3vw,2rem);font-weight:500;
+  margin:2rem 0 .8rem;line-height:1.2}
+.case h3 a{text-decoration:none;transition:color .25s}
+.case h3 a:hover{color:var(--gold-bright)}
 .case p{color:var(--muted);font-size:.96rem;margin-bottom:1rem}
 .case p b{color:var(--parchment);font-weight:500}
 .chips{display:flex;flex-wrap:wrap;gap:.45rem;margin:1.4rem 0}
-.chip{
-  font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;
-  padding:.34rem .7rem;border:1px solid var(--ink-line);color:var(--muted);
-}
-.shot{
-  display:block;width:100%;height:auto;border:1px solid var(--ink-line);
-  transition:border-color .35s,transform .35s;
-}
-.shot:hover{border-color:var(--gold-dim);transform:translateY(-3px)}
-.shot + .shot{margin-top:.9rem}
-.shot-note{
-  font-family:var(--mono);font-size:.68rem;color:var(--muted);
-  letter-spacing:.08em;margin-top:.6rem;
-}
+.chip{font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;
+  padding:.34rem .7rem;border:1px solid var(--ink-line);color:var(--muted)}
+.shot{display:block;width:100%;height:auto;border:1px solid var(--ink-line);
+  transition:border-color .35s,transform .35s}
+a:hover > .shot,.shot:hover{border-color:var(--gold-dim);transform:translateY(-3px)}
+.shot-note{font-family:var(--mono);font-size:.68rem;color:var(--muted);letter-spacing:.08em;margin-top:.6rem}
 
-/* ---------- demo gallery ---------- */
+/* ══════ engineering note ══════ */
+.note{border-top:1px solid var(--ink-line);margin-top:1.4rem}
+.note summary{list-style:none;cursor:pointer;padding:.85rem 0;display:flex;align-items:center;gap:.6rem;
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+.note summary::-webkit-details-marker{display:none}
+.note summary .sign{display:inline-block;width:10px;text-align:center;color:var(--gold);transition:transform .25s}
+.note[open] summary .sign{transform:rotate(45deg)}
+.note summary:hover{color:var(--gold-bright)}
+.note .body{padding:0 0 1.1rem 1.6rem;border-left:1px solid var(--gold-dim);margin-left:.28rem;
+  color:var(--muted);font-size:.9rem;line-height:1.75}
+.note .body b{color:var(--parchment);font-weight:500}
+.note .body code{font-family:var(--mono);font-size:.82em;color:var(--gold-bright);
+  background:rgba(201,169,106,.08);padding:.1em .38em}
+
+/* ══════ figures ══════ */
+.fig{border:1px solid var(--ink-line);background:rgba(17,20,27,.78);padding:1.25rem 1.25rem 1rem;overflow:hidden}
+.fig + .shot,.shot + .fig,.fig + .fig,a + .fig{margin-top:.9rem}
+.fig-head{display:flex;justify-content:space-between;align-items:baseline;gap:.8rem;
+  font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:1.1rem}
+.fig-head .t{color:var(--gold)}
+.fig svg{display:block;width:100%;height:auto;overflow:visible}
+.fig-foot{font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;color:var(--muted);
+  margin-top:.9rem;padding-top:.7rem;border-top:1px solid var(--gold-dim)}
+.s-lab{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;fill:var(--muted);text-transform:uppercase}
+.s-val{font-family:var(--mono);font-size:13px;fill:var(--gold);font-weight:500}
+.s-node{font-family:var(--mono);font-size:9px;letter-spacing:.08em;fill:var(--parchment)}
+.s-edge{font-family:var(--mono);font-size:8px;letter-spacing:.1em;fill:var(--muted)}
+.bar-g{transform:scaleX(0);transform-box:fill-box;transform-origin:left center;
+  transition:transform 1.1s cubic-bezier(.2,.7,.3,1)}
+.rv.in .bar-g{transform:scaleX(1)}
+.bar-g:nth-of-type(2){transition-delay:.14s}
+.arc-fg{stroke-dasharray:var(--circ,276.5);stroke-dashoffset:var(--circ,276.5);
+  transition:stroke-dashoffset 1.3s cubic-bezier(.2,.7,.3,1)}
+.rv.in .arc-fg{stroke-dashoffset:var(--off,0)}
+.flow{stroke-dasharray:4 5;animation:flow 1.6s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-18}}
+
+/* ══════ gallery ══════ */
 .gal{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(330px,100%),1fr));gap:1.4rem}
 .gal figure{margin:0}
-.gal img{
-  display:block;width:100%;height:auto;border:1px solid var(--ink-line);
-  transition:border-color .35s,transform .35s;
-}
+.gal img{display:block;width:100%;height:auto;border:1px solid var(--ink-line);
+  transition:border-color .35s,transform .35s}
 .gal figure:hover img{border-color:var(--gold-dim);transform:translateY(-3px)}
 .gal figcaption{margin-top:.7rem}
 .gal .g-name{font-size:.95rem;font-weight:500;color:var(--parchment);display:block}
 .gal .g-desc{font-size:.83rem;color:var(--muted);margin-top:.2rem;display:block;line-height:1.6}
-.gal .g-stack{
-  font-family:var(--mono);font-size:.66rem;letter-spacing:.09em;color:var(--gold);
-  margin-top:.5rem;display:block;
-}
+.gal .g-stack{font-family:var(--mono);font-size:.66rem;letter-spacing:.09em;color:var(--gold);
+  margin-top:.5rem;display:block}
+.dials{display:block;width:100%;height:auto;margin-top:1.1rem;overflow:visible}
 
-/* ---------- project ledger index ---------- */
-.group-label{
-  font-family:var(--mono);font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;
-  color:var(--gold);margin:2.8rem 0 .4rem;
-}
+/* ══════ index ══════ */
+.filters{display:flex;flex-wrap:wrap;gap:.45rem;margin-bottom:1.6rem}
+.filter{font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;
+  padding:.42rem .8rem;border:1px solid var(--ink-line);background:transparent;color:var(--muted);
+  cursor:pointer;transition:.25s}
+.filter:hover{border-color:var(--gold-dim);color:var(--parchment)}
+.filter[aria-pressed="true"]{border-color:var(--gold);color:var(--gold-bright);background:rgba(201,169,106,.07)}
+.filter .c{color:var(--gold);margin-left:.4rem;font-variant-numeric:tabular-nums}
 .idx{width:100%;border-collapse:collapse}
 .idx tr{border-top:1px solid var(--ink-line);transition:background .25s}
-.idx tr:last-child{border-bottom:1px solid var(--ink-line)}
+.idx tbody tr:last-child{border-bottom:1px solid var(--ink-line)}
+.idx tbody tr[data-href]{cursor:pointer}
 .idx tr:hover{background:rgba(201,169,106,.045)}
+.idx tr[hidden]{display:none}
 .idx td{padding:1.05rem .6rem;vertical-align:top}
 .idx td:first-child{padding-left:0}
 .idx td:last-child{padding-right:0;text-align:right;white-space:nowrap}
 .idx .p-name{font-size:1rem;font-weight:500;color:var(--parchment);display:block}
 .idx .p-desc{font-size:.87rem;color:var(--muted);margin-top:.25rem;display:block;max-width:60ch}
-.idx .p-metric{
-  font-family:var(--mono);font-size:.9rem;color:var(--gold);
-  font-variant-numeric:tabular-nums;
-}
+.idx .p-metric{font-family:var(--mono);font-size:.9rem;color:var(--gold);font-variant-numeric:tabular-nums}
 .idx .p-stack{font-family:var(--mono);font-size:.7rem;color:var(--muted);letter-spacing:.05em}
-.lnk{
-  font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;color:var(--muted);
-  text-decoration:none;border-bottom:1px solid transparent;transition:.25s;
-}
+.star{font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;color:var(--gold);
+  border:1px solid var(--gold-dim);padding:.12rem .4rem;margin-left:.55rem;text-decoration:none;
+  white-space:nowrap;vertical-align:2px;transition:.25s}
+.star:hover{background:rgba(201,169,106,.1);border-color:var(--gold)}
+.lnk{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;color:var(--muted);
+  text-decoration:none;border-bottom:1px solid transparent;transition:.25s}
 .lnk:hover{color:var(--gold-bright);border-bottom-color:var(--gold)}
 .lnk + .lnk{margin-left:.85rem}
+.idx-empty{color:var(--muted);font-size:.9rem;padding:1.4rem 0}
 @media(max-width:820px){
   .idx td:nth-child(2),.idx td:nth-child(3){display:none}
   .idx td{padding:.9rem 0}
 }
 
-/* ---------- capabilities ---------- */
-.caps{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(255px,100%),1fr));gap:0}
-.cap{padding:1.7rem 1.7rem 1.7rem 0;border-top:1px solid var(--ink-line)}
-.cap h4{
-  font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--gold);margin-bottom:.85rem;font-weight:500;
-}
+/* ══════ achievements ══════ */
+.ach{border-top:1px solid var(--gold-dim)}
+.ach-row{display:grid;grid-template-columns:170px 1fr;gap:clamp(1rem,3vw,2.2rem);
+  padding:1.15rem 0;border-bottom:1px solid var(--ink-line);align-items:baseline;
+  text-decoration:none;transition:background .25s}
+.ach-row:hover{background:rgba(201,169,106,.045)}
+.ach-row .v{font-family:var(--mono);font-size:clamp(1.1rem,2.4vw,1.45rem);color:var(--gold);
+  font-variant-numeric:tabular-nums;font-weight:500}
+.ach-row .d{font-size:.93rem;color:var(--muted);line-height:1.65}
+.ach-row .d b{color:var(--parchment);font-weight:500}
+@media(max-width:560px){.ach-row{grid-template-columns:1fr;gap:.3rem}}
+
+/* ══════ skills ══════ */
+.caps{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:0}
+.cap{padding:1.7rem 1.7rem 1.7rem 0;border-top:1px solid var(--ink-line);
+  text-decoration:none;display:block;transition:background .25s}
+.cap:hover{background:rgba(201,169,106,.035)}
+.cap h4{font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:.85rem;font-weight:500}
 .cap p{font-size:.9rem;color:var(--muted);line-height:1.75}
+.cap .proof{margin-top:.9rem;padding-top:.7rem;border-top:1px solid var(--gold-dim);
+  font-family:var(--mono);font-size:.64rem;letter-spacing:.08em;color:var(--muted);line-height:1.9}
+.cap .proof span{color:var(--gold);display:block;letter-spacing:.16em;margin-bottom:.25rem}
+.cap .proof em{font-style:normal;color:var(--parchment)}
+.cap:hover .proof em{color:var(--gold-bright)}
 
-/* ---------- trained-by logo row ---------- */
-.trained{ margin:0 0 2.2rem; }
-.trained .lbl{
-  font-family:var(--mono); font-size:.65rem; letter-spacing:.22em; text-transform:uppercase;
-  color:var(--gold); margin-bottom:1.1rem; }
-.logo-row{
-  display:flex; flex-wrap:wrap; align-items:center; gap:2.6rem;
-  padding:1.5rem 0; border-top:1px solid var(--gold-dim); border-bottom:1px solid var(--gold-dim); }
-.logo-row img{
-  width:auto; opacity:.62; filter:grayscale(1);
-  transition:opacity .3s, filter .3s; }
-.logo-row img:hover{ opacity:1; filter:none; }
-.lg-tall{ height:32px; }
-.lg-sq{ height:28px; }
-.lg-wide{ height:23px; }
-.lg-xwide{ height:19px; }
-.lg-xxwide{ height:15px; }
+/* ══════ experience ══════ */
+.tl{border-top:1px solid var(--gold-dim)}
+.tl-row{display:grid;grid-template-columns:150px 1fr;gap:clamp(1rem,3vw,2.4rem);
+  padding:1.5rem 0;border-bottom:1px solid var(--ink-line)}
+.tl-row .when{font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;color:var(--gold);
+  padding-top:.2rem;font-variant-numeric:tabular-nums}
+.tl-row .what h4{font-size:1rem;font-weight:500;margin-bottom:.3rem}
+.tl-row .what .where{font-size:.85rem;color:var(--muted);margin-bottom:.6rem}
+.tl-row .what p{font-size:.9rem;color:var(--muted);line-height:1.7;max-width:60ch}
+.tl-row .what ul{list-style:none;margin-top:.55rem}
+.tl-row .what li{font-size:.89rem;color:var(--muted);padding-left:1.1rem;position:relative;line-height:1.7}
+.tl-row .what li::before{content:'';position:absolute;left:0;top:.72em;width:5px;height:1px;background:var(--gold)}
+.tl-row.now .when{color:var(--teal)}
+@media(max-width:640px){.tl-row{grid-template-columns:1fr;gap:.5rem}}
+
+/* ══════ education & credentials ══════ */
+.group-label{font-family:var(--mono);font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--gold);margin:2.4rem 0 .6rem}
+.group-label:first-of-type{margin-top:0}
+.trained{margin:0 0 2.4rem}
+.trained .lbl{font-family:var(--mono);font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:1.1rem}
+.logo-row{display:flex;flex-wrap:wrap;align-items:center;gap:2.6rem;padding:1.5rem 0;
+  border-top:1px solid var(--gold-dim);border-bottom:1px solid var(--gold-dim)}
+.logo-row img{width:auto;opacity:.62;filter:grayscale(1);transition:opacity .3s,filter .3s}
+.logo-row img:hover{opacity:1;filter:none}
+.lg-tall{height:32px}.lg-sq{height:28px}.lg-wide{height:23px}.lg-xwide{height:19px}.lg-xxwide{height:15px}
 @media(max-width:640px){
-  .logo-row{ gap:1.5rem; }
-  .lg-tall{ height:25px; } .lg-sq{ height:22px; } .lg-wide{ height:18px; }
-  .lg-xwide{ height:15px; } .lg-xxwide{ height:12px; } }
-
-/* ---------- credentials ---------- */
+  .logo-row{gap:1.5rem}
+  .lg-tall{height:25px}.lg-sq{height:22px}.lg-wide{height:18px}.lg-xwide{height:15px}.lg-xxwide{height:12px}
+}
 .cred{display:flex;justify-content:space-between;align-items:baseline;gap:1.2rem;
-  padding:1.05rem 0;border-top:1px solid var(--ink-line)}
-.cred:last-of-type{border-bottom:1px solid var(--ink-line)}
+  padding:1.05rem 0;border-top:1px solid var(--ink-line);text-decoration:none;transition:background .25s}
+.cred:hover{background:rgba(201,169,106,.045)}
+.cred-list .cred:last-child{border-bottom:1px solid var(--ink-line)}
 .cred .c-name{font-size:.97rem;font-weight:500}
 .cred .c-org{font-size:.85rem;color:var(--muted);margin-top:.2rem}
-.cred .c-meta{font-family:var(--mono);font-size:.72rem;color:var(--muted);
-  letter-spacing:.08em;white-space:nowrap}
+.cred .c-meta{font-family:var(--mono);font-size:.72rem;color:var(--muted);letter-spacing:.08em;white-space:nowrap}
 .cred .c-meta.live{color:var(--gold)}
+.cred:hover .c-meta{color:var(--gold-bright)}
 
-/* ---------- contact ---------- */
+/* ══════ contact ══════ */
 .contact{padding:clamp(4.5rem,11vh,8rem) 0}
-.contact h2{
-  font-family:var(--serif);font-weight:300;font-size:clamp(2.3rem,6.5vw,4.4rem);
-  line-height:1.05;margin-bottom:1.5rem;
-}
+.contact h2{font-family:var(--serif);font-weight:300;font-size:clamp(2.3rem,6.5vw,4.4rem);
+  line-height:1.05;margin-bottom:1.5rem}
 .contact h2 em{font-style:italic;color:var(--gold)}
 .contact p{color:var(--muted);max-width:46ch;margin-bottom:2.2rem}
-.foot{
-  border-top:1px solid var(--gold-dim);padding:1.7rem 0 2.5rem;
-  display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;
-  font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;color:var(--muted);
-}
+.contact-rows{margin-top:2.6rem;border-top:1px solid var(--gold-dim)}
+.crow{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;
+  padding:.95rem 0;border-bottom:1px solid var(--ink-line);text-decoration:none;transition:.25s}
+.crow:hover{background:rgba(201,169,106,.045)}
+.crow .k{font-family:var(--mono);font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+.crow .v{font-size:.95rem}
+.crow:hover .v{color:var(--gold-bright)}
+.copied{font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;color:var(--teal);
+  margin-top:.9rem;opacity:0;transition:opacity .3s}
+.copied.show{opacity:1}
+.foot{border-top:1px solid var(--gold-dim);padding:1.7rem 0 2.5rem;display:flex;flex-wrap:wrap;
+  gap:1rem;justify-content:space-between;font-family:var(--mono);font-size:.7rem;
+  letter-spacing:.1em;color:var(--muted)}
 
-/* ---------- reveal ---------- */
-.rv{opacity:0;transform:translateY(22px);transition:opacity .75s ease,transform .75s ease}
+/* ══════ back to top ══════ */
+.top-btn{position:fixed;right:1.1rem;bottom:1.1rem;z-index:40;width:42px;height:42px;
+  display:grid;place-items:center;background:rgba(17,20,27,.9);border:1px solid var(--gold-dim);
+  color:var(--gold);text-decoration:none;font-family:var(--mono);font-size:.8rem;
+  opacity:0;pointer-events:none;transition:opacity .3s,border-color .25s,transform .25s;backdrop-filter:blur(8px)}
+.top-btn.show{opacity:1;pointer-events:auto}
+.top-btn:hover{border-color:var(--gold);transform:translateY(-2px)}
+
+/* ══════ motion ══════ */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.2,.7,.3,1),transform .8s cubic-bezier(.2,.7,.3,1)}
 .rv.in{opacity:1;transform:none}
+.rv[data-delay="1"]{transition-delay:.09s}
+.rv[data-delay="2"]{transition-delay:.18s}
+.rv[data-delay="3"]{transition-delay:.27s}
+.cover-anim{opacity:0;transform:translateY(20px)}
+body.ready .cover-anim{animation:coverIn .95s cubic-bezier(.2,.7,.3,1) forwards}
+body.ready .cover-anim:nth-child(2){animation-delay:.07s}
+body.ready .cover-anim:nth-child(3){animation-delay:.14s}
+body.ready .cover-anim:nth-child(4){animation-delay:.21s}
+body.ready .cover-anim:nth-child(5){animation-delay:.28s}
+body.ready .cover-anim:nth-child(6){animation-delay:.35s}
+body.ready .cover-anim:nth-child(7){animation-delay:.42s}
+body.ready .figure-wrap{animation:figIn 1.3s cubic-bezier(.2,.7,.3,1) .1s backwards}
+@keyframes coverIn{to{opacity:1;transform:none}}
+@keyframes figIn{from{opacity:0;transform:translateY(34px)}to{opacity:1;transform:none}}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .rv{opacity:1;transform:none;transition:none}
-  .btn:hover,.shot:hover{transform:none}
+  .cover-anim{opacity:1;transform:none;animation:none}
+  body.ready .figure-wrap{animation:none}
+  .sec-rule{transform:scaleX(1);transition:none}
+  .btn:hover,.shot:hover,.top-btn:hover,.svc:hover{transform:none}
+  .halo-ticks,.eyebrow .dot,.flow,.scroll-cue i{animation:none}
+  .bar-g{transform:scaleX(1);transition:none}
+  .arc-fg{stroke-dashoffset:var(--off,0);transition:none}
 }
-:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
-/* ---------- phones ---------- */
+
+/* ══════ phones ══════ */
 @media(max-width:520px){
-  .wrap{ padding-inline:1.15rem; }
-  .nav-in{ padding-inline:1.15rem; }
-  .hero{ padding-top:6.5rem; }
-  .masthead-safety{ }
-  .eyebrow{ font-size:.78rem; letter-spacing:.2em; }
-  .ledger-row{ grid-template-columns:1fr; gap:0; }
-  .ledger-cell{ display:flex; align-items:baseline; justify-content:space-between;
-                padding:.6rem 0; border-bottom:1px solid var(--ink-line); }
-  .ledger-cell:last-child{ border-bottom:0; }
-  .ledger-cell .n{ font-size:1.5rem; }
-  .ledger-cell .l{ margin-top:0; font-size:.72rem; text-align:right; max-width:58%; }
-  .lnk{ display:inline-block; padding:.55rem 0; font-size:.78rem; }
-  .lnk + .lnk{ margin-left:1.3rem; }
-  .cv-alt a{ display:inline-block; padding:.5rem 0; font-size:.9rem; }
-  .cv-alt .lbl{ font-size:.72rem; }
-  .strip .l, .ledger-cell .l{ font-size:.72rem; letter-spacing:.1em; }
-  .chip{ font-size:.7rem; padding:.36rem .62rem; }
-  .case-metric{ font-size:2.9rem; }
-  .sec-h{ gap:.6rem; }
-  .idx td{ padding:.95rem 0; }
-  .idx .p-desc{ font-size:.88rem; }
-  .cred{ flex-direction:column; align-items:flex-start; gap:.35rem; }
-  .cred .c-meta{ white-space:normal; }
-  .foot{ flex-direction:column; gap:.5rem; }
+  .wrap{padding-inline:1.15rem}
+  .nav-in{padding-inline:1.15rem}
+  .eyebrow{font-size:.72rem;letter-spacing:.2em}
+  .ledger-row{grid-template-columns:1fr;gap:0}
+  .ledger-cell{display:flex;align-items:baseline;justify-content:space-between;
+    padding:.6rem 0;border-bottom:1px solid var(--ink-line)}
+  .ledger-cell:last-child{border-bottom:0}
+  .ledger-cell .n{font-size:1.45rem}
+  .ledger-cell .l{margin-top:0;font-size:.72rem;text-align:right;max-width:58%}
+  .cta-row .btn{flex:1 1 100%;justify-content:center}
+  .cv-alt{flex-direction:column;align-items:flex-start;gap:.45rem}
+  .cv-alt a{display:inline-block;padding:.5rem 0;font-size:.9rem}
+  .lnk{display:inline-block;padding:.55rem 0;font-size:.78rem}
+  .lnk + .lnk{margin-left:1.3rem}
+  .chip{font-size:.7rem;padding:.36rem .62rem}
+  .case-metric{font-size:2.9rem}
+  .idx td{padding:.95rem 0}
+  .idx .p-desc{font-size:.88rem}
+  .cred{flex-direction:column;align-items:flex-start;gap:.35rem}
+  .cred .c-meta{white-space:normal}
+  .foot{flex-direction:column;gap:.5rem}
+  .fig{padding:1rem .85rem .8rem}
+  .about > div,.cap{padding-right:0}
+  .crow{flex-direction:column;align-items:flex-start;gap:.25rem}
+  .crow .v{word-break:break-word}
+}
+/* SVG text scales with the viewBox, so a 9px label lands near 7px on a phone.
+   Lift the floor on narrow screens only — the geometry is unchanged. */
+@media(max-width:620px){
+  .s-lab{font-size:11px}
+  .s-edge{font-size:10px}
+  .s-node{font-size:10px}
+  .s-val{font-size:14px}
 }
 @media(hover:none){
   /* Any touch screen at any width: the finger is the constraint, not the viewport. */
-  .lnk{ display:inline-block; padding:.5rem 0; }
-  .nav-links a{ padding:.5rem 0; }
-  .mono-mark{ display:inline-block; padding:.6rem .2rem; }
-  .cv-alt a{ display:inline-block; padding:.45rem 0; }
-  .strip .l, .ledger-cell .l{ font-size:.75rem; }
-  .chip{ font-size:.74rem; }
-  .gal .g-stack, .idx .p-stack, .group-label, .trained .lbl, .cv-alt .lbl{ font-size:.74rem; }
-  .cred .c-meta{ font-size:.75rem; }
-  .foot, .shot-note{ font-size:.72rem; }
+  .lnk{display:inline-block;padding:.5rem 0}
+  .nav-links a{padding:.5rem 0}
+  .mono-mark{display:inline-block;padding:.6rem .2rem}
+  .cv-alt a{display:inline-block;padding:.45rem 0}
+  .ledger-cell .l{font-size:.75rem}
+  .chip{font-size:.74rem}
+  .gal .g-stack,.idx .p-stack,.trained .lbl,.cv-alt .lbl{font-size:.74rem}
+  .cred .c-meta{font-size:.75rem}
+  .foot,.shot-note{font-size:.72rem}
+  .filter{padding:.6rem .85rem;font-size:.7rem}
+  .note summary{padding:1rem 0}
+  .star{padding:.3rem .5rem;font-size:.66rem}
+  .crow{padding:1.1rem 0}
 }
 @media(max-width:900px){
-  /* Uppercase mono labels read larger than their nominal size, but anything under
-     ~12px is genuinely hard on a phone. Lift the floor without touching desktop. */
-  .strip .l, .ledger-cell .l{ font-size:.75rem; }
-  .chip{ font-size:.74rem; }
-  /* match the original selector weight — a single class loses to `.gal .g-stack` */
-  .gal .g-stack, .idx .p-stack, .group-label, .trained .lbl, .cv-alt .lbl{ font-size:.74rem; }
-  .idx .p-name{ font-size:1rem; }
-  .cred .c-meta{ font-size:.75rem; }
-  .foot{ font-size:.72rem; }
-  .shot-note{ font-size:.72rem; }
-  /* the wordmark is a link, so it needs a real tap area */
-  .mono-mark{ display:inline-block; padding:.6rem .2rem; font-size:.82rem; }
-  .nav-in{ padding-block:.5rem; }
+  .ledger-cell .l{font-size:.75rem}
+  .chip{font-size:.74rem}
+  .gal .g-stack,.idx .p-stack,.trained .lbl,.cv-alt .lbl{font-size:.74rem}
+  .cred .c-meta{font-size:.75rem}
+  .foot,.shot-note{font-size:.72rem}
+  .mono-mark{display:inline-block;padding:.6rem .2rem;font-size:.82rem}
+  .nav-in{padding-block:.5rem}
 }
 @media(max-width:360px){
-  .wrap{ padding-inline:.95rem; }
-  .nav-in{ padding-inline:.95rem; }
-  .hero h1{ font-size:2.7rem; }
-  .portrait-frame{ width:128px; }
-  .bz-2{ display:none; }
+  .wrap{padding-inline:.95rem}
+  .nav-in{padding-inline:.95rem}
+  .cover h1{font-size:2.7rem}
+}
+@media print{
+  .nav,.top-btn,.pal-back,.sheet,.cover-bg,.figure-wrap,.scrim,.intro,.scroll-cue,.space,.stars{display:none!important}
+  body{background:#fff;color:#000}
 }
 </style>
+<noscript><style>
+  /* Reveals, bars and arcs are driven by JS adding .in — without it the page must still show. */
+  .rv{opacity:1;transform:none}
+  .cover-anim{opacity:1;transform:none}
+  .sec-rule{transform:scaleX(1)}
+  .bar-g{transform:scaleX(1)}
+  .arc-fg{stroke-dashoffset:var(--off,0)}
+  .kbd-hint,.menu-btn,.filters{display:none}
+</style></noscript>
 </head>
 <body>
+
+<div class="space" aria-hidden="true"></div>
+<svg class="stars" id="stars" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><g fill="#DCE6FF"><circle cx="1386.9" cy="217.0" r="0.48" opacity="0.11"/><circle cx="482.7" cy="590.3" r="0.49" opacity="0.23"/><circle cx="1352.3" cy="702.6" r="0.39" opacity="0.13"/><circle cx="1385.2" cy="515.4" r="0.47" opacity="0.26"/><circle cx="1581.5" cy="829.1" r="0.54" opacity="0.22"/><circle cx="174.0" cy="381.8" r="0.46" opacity="0.26"/><circle cx="1216.3" cy="564.9" r="0.36" opacity="0.27"/><circle cx="1589.8" cy="389.6" r="0.46" opacity="0.22"/><circle cx="261.0" cy="640.1" r="0.47" opacity="0.11"/><circle cx="916.3" cy="611.5" r="0.53" opacity="0.15"/><circle cx="118.0" cy="124.3" r="0.45" opacity="0.17"/><circle cx="1246.6" cy="347.7" r="0.46" opacity="0.25"/><circle cx="1242.0" cy="895.1" r="0.53" opacity="0.11"/><circle cx="471.0" cy="374.6" r="0.35" opacity="0.11"/><circle cx="767.8" cy="641.3" r="0.46" opacity="0.11"/><circle cx="120.7" cy="322.5" r="0.42" opacity="0.26"/><circle cx="1116.3" cy="813.9" r="0.48" opacity="0.12"/><circle cx="1475.6" cy="214.6" r="0.37" opacity="0.26"/><circle cx="1043.7" cy="495.2" r="0.45" opacity="0.12"/><circle cx="577.3" cy="297.5" r="0.47" opacity="0.15"/><circle cx="922.2" cy="420.3" r="0.39" opacity="0.25"/><circle cx="1161.0" cy="461.8" r="0.42" opacity="0.18"/><circle cx="1336.0" cy="4.7" r="0.47" opacity="0.27"/><circle cx="1470.2" cy="430.5" r="0.37" opacity="0.11"/><circle cx="1591.9" cy="452.1" r="0.45" opacity="0.12"/><circle cx="769.2" cy="387.2" r="0.44" opacity="0.12"/><circle cx="1087.2" cy="221.3" r="0.47" opacity="0.19"/><circle cx="939.7" cy="231.2" r="0.54" opacity="0.26"/><circle cx="330.8" cy="583.3" r="0.53" opacity="0.21"/><circle cx="401.4" cy="311.4" r="0.5" opacity="0.26"/><circle cx="960.8" cy="657.5" r="0.52" opacity="0.25"/><circle cx="1285.5" cy="298.5" r="0.36" opacity="0.24"/><circle cx="1153.4" cy="574.5" r="0.45" opacity="0.15"/><circle cx="1583.7" cy="627.2" r="0.47" opacity="0.22"/><circle cx="866.5" cy="293.8" r="0.54" opacity="0.27"/><circle cx="822.5" cy="108.7" r="0.46" opacity="0.14"/><circle cx="1566.2" cy="567.5" r="0.47" opacity="0.23"/><circle cx="95.1" cy="30.6" r="0.39" opacity="0.27"/><circle cx="1392.6" cy="469.6" r="0.37" opacity="0.12"/><circle cx="1104.1" cy="607.5" r="0.43" opacity="0.23"/><circle cx="1347.1" cy="369.2" r="0.43" opacity="0.2"/><circle cx="120.7" cy="889.6" r="0.36" opacity="0.27"/><circle cx="1172.0" cy="381.4" r="0.38" opacity="0.28"/><circle cx="1198.8" cy="304.0" r="0.53" opacity="0.2"/><circle cx="567.1" cy="500.0" r="0.4" opacity="0.28"/><circle cx="1125.3" cy="311.4" r="0.47" opacity="0.12"/><circle cx="1115.4" cy="879.4" r="0.38" opacity="0.1"/><circle cx="1537.1" cy="208.7" r="0.37" opacity="0.12"/><circle cx="1069.7" cy="850.8" r="0.4" opacity="0.2"/><circle cx="754.9" cy="751.5" r="0.55" opacity="0.23"/><circle cx="1261.8" cy="598.5" r="0.44" opacity="0.21"/><circle cx="292.2" cy="106.9" r="0.4" opacity="0.22"/><circle cx="639.3" cy="440.7" r="0.5" opacity="0.19"/><circle cx="1560.2" cy="871.1" r="0.44" opacity="0.17"/><circle cx="418.7" cy="384.1" r="0.46" opacity="0.17"/><circle cx="1053.4" cy="875.7" r="0.46" opacity="0.23"/><circle cx="453.0" cy="553.1" r="0.5" opacity="0.1"/><circle cx="377.6" cy="625.7" r="0.45" opacity="0.12"/><circle cx="323.5" cy="692.5" r="0.36" opacity="0.25"/><circle cx="592.1" cy="884.5" r="0.54" opacity="0.23"/><circle cx="1.1" cy="377.1" r="0.38" opacity="0.15"/><circle cx="1422.5" cy="36.5" r="0.4" opacity="0.22"/><circle cx="1571.5" cy="241.8" r="0.43" opacity="0.25"/><circle cx="83.4" cy="238.9" r="0.39" opacity="0.22"/><circle cx="1409.5" cy="739.7" r="0.53" opacity="0.21"/><circle cx="1076.6" cy="747.4" r="0.36" opacity="0.16"/><circle cx="257.5" cy="373.7" r="0.43" opacity="0.27"/><circle cx="1598.2" cy="288.3" r="0.44" opacity="0.11"/><circle cx="790.1" cy="888.2" r="0.41" opacity="0.2"/><circle cx="1069.6" cy="119.0" r="0.52" opacity="0.25"/><circle cx="74.5" cy="880.4" r="0.48" opacity="0.14"/><circle cx="594.6" cy="336.1" r="0.49" opacity="0.1"/><circle cx="1064.9" cy="30.8" r="0.49" opacity="0.2"/><circle cx="1022.0" cy="68.1" r="0.54" opacity="0.25"/><circle cx="287.9" cy="357.1" r="0.48" opacity="0.2"/><circle cx="899.2" cy="541.5" r="0.37" opacity="0.15"/><circle cx="385.7" cy="195.5" r="0.42" opacity="0.14"/><circle cx="1400.9" cy="569.7" r="0.48" opacity="0.27"/><circle cx="1263.1" cy="219.1" r="0.43" opacity="0.14"/><circle cx="1267.0" cy="18.7" r="0.43" opacity="0.18"/><circle cx="1004.6" cy="660.7" r="0.36" opacity="0.21"/><circle cx="923.7" cy="416.3" r="0.37" opacity="0.18"/><circle cx="232.4" cy="548.3" r="0.44" opacity="0.26"/><circle cx="1272.1" cy="584.1" r="0.5" opacity="0.24"/><circle cx="1200.0" cy="215.2" r="0.5" opacity="0.2"/><circle cx="1425.2" cy="767.4" r="0.36" opacity="0.1"/><circle cx="1410.5" cy="565.8" r="0.47" opacity="0.12"/><circle cx="767.6" cy="197.6" r="0.44" opacity="0.25"/><circle cx="548.3" cy="751.0" r="0.43" opacity="0.15"/><circle cx="29.6" cy="67.9" r="0.36" opacity="0.28"/><circle cx="76.1" cy="391.5" r="0.49" opacity="0.21"/><circle cx="858.9" cy="283.8" r="0.35" opacity="0.24"/><circle cx="419.8" cy="696.8" r="0.54" opacity="0.13"/><circle cx="395.7" cy="356.0" r="0.4" opacity="0.23"/><circle cx="278.4" cy="554.3" r="0.44" opacity="0.22"/><circle cx="744.7" cy="490.8" r="0.49" opacity="0.16"/><circle cx="770.7" cy="877.7" r="0.46" opacity="0.11"/><circle cx="975.5" cy="246.4" r="0.49" opacity="0.2"/><circle cx="407.3" cy="343.0" r="0.42" opacity="0.22"/><circle cx="556.5" cy="562.0" r="0.39" opacity="0.14"/><circle cx="661.6" cy="895.3" r="0.42" opacity="0.22"/><circle cx="412.6" cy="273.9" r="0.5" opacity="0.21"/><circle cx="263.4" cy="208.3" r="0.37" opacity="0.15"/><circle cx="439.0" cy="829.8" r="0.41" opacity="0.21"/><circle cx="1072.3" cy="877.9" r="0.42" opacity="0.11"/><circle cx="170.1" cy="90.2" r="0.44" opacity="0.17"/><circle cx="684.3" cy="209.5" r="0.39" opacity="0.24"/><circle cx="74.2" cy="675.3" r="0.49" opacity="0.23"/><circle cx="473.4" cy="591.8" r="0.46" opacity="0.23"/><circle cx="520.8" cy="222.8" r="0.47" opacity="0.22"/><circle cx="808.6" cy="698.3" r="0.39" opacity="0.27"/><circle cx="347.3" cy="760.6" r="0.49" opacity="0.11"/><circle cx="1054.7" cy="717.4" r="0.45" opacity="0.11"/><circle cx="247.0" cy="531.4" r="0.46" opacity="0.13"/><circle cx="830.4" cy="607.0" r="0.52" opacity="0.11"/><circle cx="262.1" cy="870.9" r="0.4" opacity="0.28"/><circle cx="41.9" cy="810.4" r="0.39" opacity="0.14"/><circle cx="765.4" cy="878.4" r="0.54" opacity="0.16"/><circle cx="1217.2" cy="752.4" r="0.49" opacity="0.16"/><circle cx="116.1" cy="803.4" r="0.45" opacity="0.27"/><circle cx="217.9" cy="799.0" r="0.46" opacity="0.18"/><circle cx="166.9" cy="545.1" r="0.51" opacity="0.1"/><circle cx="1254.8" cy="62.1" r="0.35" opacity="0.23"/><circle cx="249.0" cy="110.8" r="0.49" opacity="0.27"/><circle cx="91.5" cy="363.2" r="0.37" opacity="0.21"/><circle cx="165.7" cy="480.9" r="0.39" opacity="0.21"/><circle cx="160.7" cy="418.3" r="0.37" opacity="0.19"/><circle cx="1125.3" cy="89.4" r="0.54" opacity="0.23"/><circle cx="721.8" cy="249.7" r="0.49" opacity="0.21"/><circle cx="719.4" cy="236.9" r="0.44" opacity="0.19"/><circle cx="1099.4" cy="697.1" r="0.4" opacity="0.19"/><circle cx="825.6" cy="594.2" r="0.41" opacity="0.27"/><circle cx="1054.8" cy="744.4" r="0.53" opacity="0.17"/><circle cx="943.9" cy="757.7" r="0.43" opacity="0.23"/><circle cx="16.3" cy="759.1" r="0.44" opacity="0.11"/><circle cx="714.8" cy="115.2" r="0.5" opacity="0.24"/><circle cx="3.4" cy="166.5" r="0.4" opacity="0.28"/><circle cx="1108.9" cy="342.1" r="0.54" opacity="0.23"/><circle cx="817.2" cy="642.3" r="0.55" opacity="0.16"/><circle cx="1234.3" cy="284.0" r="0.4" opacity="0.2"/><circle cx="1427.6" cy="299.3" r="0.95" opacity="0.33"/><circle cx="810.8" cy="594.0" r="0.83" opacity="0.38"/><circle cx="451.6" cy="495.6" r="0.95" opacity="0.22"/><circle cx="1533.8" cy="419.7" r="0.62" opacity="0.29"/><circle cx="840.8" cy="701.9" r="0.83" opacity="0.34"/><circle cx="1036.0" cy="27.7" r="0.72" opacity="0.39"/><circle cx="163.7" cy="653.3" r="0.95" opacity="0.19"/><circle cx="194.6" cy="242.5" r="0.81" opacity="0.35"/><circle cx="1160.8" cy="855.4" r="0.64" opacity="0.42"/><circle cx="515.2" cy="329.7" r="0.86" opacity="0.19"/><circle cx="304.3" cy="111.0" r="0.8" opacity="0.39"/><circle cx="1075.5" cy="481.0" r="0.72" opacity="0.4"/><circle cx="1424.9" cy="310.8" r="0.85" opacity="0.4"/><circle cx="197.5" cy="17.8" r="0.7" opacity="0.18"/><circle cx="938.2" cy="199.1" r="0.93" opacity="0.39"/><circle cx="1250.4" cy="195.6" r="0.71" opacity="0.24"/><circle cx="1550.9" cy="369.0" r="0.92" opacity="0.32"/><circle cx="710.3" cy="271.3" r="0.69" opacity="0.23"/><circle cx="499.4" cy="583.2" r="0.81" opacity="0.29"/><circle cx="293.7" cy="5.2" r="0.69" opacity="0.23"/><circle cx="600.1" cy="545.9" r="0.83" opacity="0.41"/><circle cx="1131.7" cy="150.9" r="0.62" opacity="0.26"/><circle cx="1066.3" cy="566.7" r="0.77" opacity="0.21"/><circle cx="232.7" cy="370.8" r="0.92" opacity="0.28"/><circle cx="613.6" cy="775.3" r="0.69" opacity="0.36"/><circle cx="1462.1" cy="540.7" r="0.89" opacity="0.19"/><circle cx="279.2" cy="388.0" r="0.95" opacity="0.23"/><circle cx="1115.9" cy="429.9" r="0.68" opacity="0.42"/><circle cx="953.3" cy="421.1" r="0.6" opacity="0.41"/><circle cx="170.8" cy="212.9" r="0.67" opacity="0.34"/><circle cx="171.1" cy="228.8" r="0.76" opacity="0.18"/><circle cx="149.9" cy="302.2" r="0.94" opacity="0.22"/><circle cx="948.7" cy="686.6" r="0.73" opacity="0.19"/><circle cx="517.8" cy="633.8" r="0.8" opacity="0.23"/><circle cx="1060.8" cy="455.5" r="0.65" opacity="0.24"/><circle cx="802.5" cy="769.5" r="0.72" opacity="0.23"/><circle cx="377.7" cy="512.0" r="0.89" opacity="0.37"/><circle cx="763.0" cy="788.3" r="0.76" opacity="0.22"/><circle cx="1290.2" cy="387.0" r="0.82" opacity="0.32"/><circle cx="1301.5" cy="374.7" r="0.72" opacity="0.24"/><circle cx="659.7" cy="237.1" r="0.69" opacity="0.3"/><circle cx="1294.4" cy="273.3" r="0.91" opacity="0.2"/><circle cx="277.1" cy="260.1" r="0.93" opacity="0.25"/><circle cx="1577.6" cy="546.0" r="0.74" opacity="0.21"/><circle cx="753.9" cy="522.8" r="0.72" opacity="0.26"/><circle cx="614.8" cy="54.5" r="0.91" opacity="0.37"/><circle cx="285.4" cy="798.5" r="0.81" opacity="0.32"/><circle cx="831.6" cy="596.6" r="0.92" opacity="0.26"/><circle cx="1466.8" cy="862.6" r="0.92" opacity="0.33"/><circle cx="247.9" cy="668.8" r="0.83" opacity="0.23"/><circle cx="810.3" cy="440.7" r="0.76" opacity="0.37"/><circle cx="1184.3" cy="780.3" r="0.82" opacity="0.24"/><circle cx="1353.3" cy="737.2" r="0.72" opacity="0.35"/><circle cx="853.1" cy="746.0" r="0.87" opacity="0.34"/><circle cx="1564.3" cy="197.2" r="0.9" opacity="0.37"/><circle cx="1293.2" cy="191.0" r="0.91" opacity="0.37"/><circle cx="413.8" cy="855.7" r="0.7" opacity="0.42"/><circle cx="677.0" cy="385.4" r="0.67" opacity="0.4"/><circle cx="867.5" cy="176.3" r="0.71" opacity="0.24"/><circle cx="182.8" cy="168.4" r="0.87" opacity="0.31"/><circle cx="609.6" cy="132.8" r="0.71" opacity="0.4"/><circle cx="999.7" cy="391.3" r="0.66" opacity="0.23"/><circle cx="697.8" cy="655.6" r="0.66" opacity="0.35"/><circle cx="844.5" cy="389.0" r="0.86" opacity="0.33"/><circle cx="508.7" cy="342.6" r="0.84" opacity="0.28"/><circle cx="1165.6" cy="158.4" r="0.62" opacity="0.24"/><circle cx="1159.2" cy="152.5" r="0.85" opacity="0.35"/><circle cx="401.9" cy="631.1" r="0.8" opacity="0.26"/><circle cx="950.1" cy="802.0" r="0.87" opacity="0.37"/><circle cx="908.1" cy="107.6" r="0.68" opacity="0.3"/><circle cx="977.2" cy="555.2" r="1.37" opacity="0.39"/><circle cx="600.2" cy="376.7" r="1.33" opacity="0.6"/><circle cx="1409.7" cy="247.4" r="1.38" opacity="0.3"/><circle cx="1534.9" cy="457.4" r="1.17" opacity="0.44"/><circle cx="402.0" cy="759.4" r="1.29" opacity="0.3"/><circle cx="797.7" cy="723.2" r="1.01" opacity="0.43"/><circle cx="278.5" cy="331.4" r="1.31" opacity="0.32"/><circle cx="719.2" cy="33.6" r="1.32" opacity="0.31"/><circle cx="1283.2" cy="646.5" r="1.16" opacity="0.43"/><circle cx="662.0" cy="183.3" r="1.32" opacity="0.61"/><circle cx="450.5" cy="750.3" r="1.07" opacity="0.47"/><circle cx="1521.8" cy="339.6" r="1.34" opacity="0.56"/><circle cx="1456.1" cy="850.9" r="1.44" opacity="0.3"/><circle cx="65.2" cy="23.4" r="1.31" opacity="0.38"/><circle cx="1147.1" cy="801.7" r="1.31" opacity="0.51"/><circle cx="1220.2" cy="662.5" r="1.33" opacity="0.47"/><circle cx="1218.6" cy="688.3" r="1.47" opacity="0.5"/><circle cx="519.2" cy="326.9" r="1.29" opacity="0.48"/><circle cx="41.8" cy="269.9" r="1.01" opacity="0.46"/><circle cx="1496.1" cy="354.9" r="1.22" opacity="0.53"/><circle cx="347.5" cy="894.2" r="1.45" opacity="0.46"/><circle cx="1033.1" cy="630.9" r="1.5" opacity="0.41"/><circle cx="1516.7" cy="881.6" r="1.07" opacity="0.35"/><circle cx="1181.4" cy="554.2" r="1.4" opacity="0.52"/><circle cx="816.0" cy="877.4" r="1.04" opacity="0.47"/><circle cx="1443.3" cy="838.7" r="1.28" opacity="0.36"/></g></svg>
+
+<!-- ══════════ INTRO ══════════ -->
+<div class="intro" id="intro" aria-hidden="true">
+  <div class="intro-in">
+    <div class="intro-mark">MOHAMED AFIFY</div>
+    <div class="intro-rule"></div>
+    <div class="intro-role">DATA ANALYST · AI ENGINEER</div>
+  </div>
+  <div class="intro-skip">CLICK ANYWHERE TO SKIP</div>
+</div>
 
 <!-- ══════════ NAV ══════════ -->
 <nav class="nav" id="nav">
   <div class="nav-in">
     <a href="#top" class="mono-mark">M.AFIFY</a>
-    <ul class="nav-links">
-      <li><a href="#work">Work</a></li>
-      <li><a href="#action">In action</a></li>
-      <li><a href="#index">Index</a></li>
-      <li><a href="#capabilities">Capabilities</a></li>
-      <li><a href="#credentials">Credentials</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#index">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#credentials">Education</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <button class="kbd-hint" id="palOpen" aria-label="Open quick search">
+        <span>Search</span><kbd>⌘K</kbd>
+      </button>
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </div>
+  <div class="progress" id="progress"></div>
 </nav>
 
-<!-- ══════════ HERO ══════════ -->
-<header class="hero wrap" id="top">
- <div class="hero-grid">
-  <div>
-  <div class="eyebrow">Cairo, Egypt &nbsp;·&nbsp; Data &amp; AI</div>
-  <h1>Mohamed<br>Afify<em>.</em></h1>
-  <p class="lede">
-    I turn disconnected data into decisions — and build AI systems that
-    <b>measure themselves</b>. Analytics in SQL, Power&nbsp;BI and Tableau;
-    agentic RAG and computer vision in Python.
-  </p>
+<!-- ══════════ MOBILE SHEET ══════════ -->
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="Menu">
+  <button class="sheet-close" id="sheetClose">CLOSE ✕</button>
+  <ul>
+    <li><a href="#about">About<span>01</span></a></li>
+    <li><a href="#services">Services<span>02</span></a></li>
+    <li><a href="#work">Selected work<span>03</span></a></li>
+    <li><a href="#action">In action<span>04</span></a></li>
+    <li><a href="#index">All projects<span>05</span></a></li>
+    <li><a href="#achievements">Achievements<span>06</span></a></li>
+    <li><a href="#skills">Skills &amp; tools<span>07</span></a></li>
+    <li><a href="#experience">Experience<span>08</span></a></li>
+    <li><a href="#credentials">Education<span>09</span></a></li>
+    <li><a href="#contact">Contact<span>→</span></a></li>
+  </ul>
+</div>
 
-  <div class="ledger">
-    <hr class="rule">
-    <div class="ledger-row">
-      <div class="ledger-cell"><span class="n">$7.8M</span><span class="l">Revenue traced to root cause</span></div>
-      <div class="ledger-cell"><span class="n">14</span><span class="l">Shipped projects</span></div>
-      <div class="ledger-cell"><span class="n">8</span><span class="l">Diplomas &amp; certifications</span></div>
+<!-- ══════════ COMMAND PALETTE ══════════ -->
+<div class="pal-back" id="palBack" role="dialog" aria-modal="true" aria-label="Quick search">
+  <div class="pal">
+    <div class="pal-in">
+      <span class="caret">&gt;</span>
+      <input id="palInput" type="text" placeholder="Jump to a section or a project…" autocomplete="off" spellcheck="false">
     </div>
-    <hr class="rule">
+    <ul class="pal-list" id="palList"></ul>
+    <div class="pal-foot">↑↓ MOVE · ↵ OPEN · ESC CLOSE</div>
   </div>
+</div>
 
-  <div class="cta-row">
-    <a class="btn solid" href="#work">See the work</a>
-    <a class="btn" href="assets/cv/Mohamed_Afify_CV.pdf" download>Download CV</a>
+<!-- ══════════ COVER ══════════ -->
+<header class="cover wrap" id="top">
+  <div class="cover-bg" aria-hidden="true"></div>
+  <div class="figure-wrap" id="figure" aria-hidden="true">
+    <div class="halo"></div>
+    <div class="halo-ticks"></div>
+    <picture>
+      <source srcset="assets/img/portrait-cut.webp" type="image/webp">
+      <img src="assets/img/portrait-cut.png" alt="" width="1057" height="1200" fetchpriority="high">
+    </picture>
   </div>
+  <div class="scrim" aria-hidden="true"></div>
 
-  <div class="cv-alt">
-    <span class="lbl">Role-specific</span>
-    <a href="assets/cv/Mohamed_Afify_CV_DataAnalyst.pdf" download>Data Analyst</a>
-    <span aria-hidden="true">·</span>
-    <a href="assets/cv/Mohamed_Afify_CV_AIEngineer.pdf" download>AI Engineer</a>
-  </div>
-  </div>
+  <div class="cover-in">
+    <div class="eyebrow cover-anim"><span class="dot"></span>Cairo, Egypt &nbsp;·&nbsp; Open to work</div>
+    <h1 class="cover-anim">Mohamed<br>Afify<em>.</em></h1>
+    <div class="role cover-anim">Data Analyst &nbsp;·&nbsp; AI Engineer</div>
+    <p class="slogan cover-anim">I turn disconnected data into decisions — and build AI systems that <b>measure themselves</b>.</p>
+    <p class="lede cover-anim">Analytics in SQL Server, Power BI and Tableau. Agentic RAG, computer vision
+      and evaluation harnesses in Python. Every project ships with the number it should be judged by.</p>
 
-  <div class="portrait-wrap">
-    <div class="portrait-frame">
-      <img class="portrait" src="assets/img/portrait.png" alt="Portrait of Mohamed Mostafa Hassan Afify">
-      <span class="bezel bz-ticks"></span>
-      <span class="bezel bz-1"></span>
-      <span class="bezel bz-2"></span>
-      <span class="bezel bz-3"></span>
+    <div class="ledger cover-anim">
+      <hr class="rule">
+      <div class="ledger-row">
+        <a class="ledger-cell" href="#achievements">
+          <span class="n" data-count="7.8" data-prefix="$" data-suffix="M" data-dec="1">$7.8M</span>
+          <span class="l">Revenue traced to root cause</span>
+        </a>
+        <a class="ledger-cell" href="#index">
+          <span class="n" data-count="9">9</span>
+          <span class="l">Shipped projects</span>
+        </a>
+        <a class="ledger-cell" href="#credentials">
+          <span class="n" data-count="8">8</span>
+          <span class="l">Diplomas &amp; certificates</span>
+        </a>
+      </div>
+      <hr class="rule">
+    </div>
+
+    <div class="cta-row cover-anim">
+      <a class="btn solid" href="#contact">Hire me</a>
+      <a class="btn" href="#work">See the work</a>
+      <a class="btn" href="assets/cv/Mohamed_Afify_CV.pdf" download>Download CV</a>
+    </div>
+
+    <div class="cv-alt cover-anim">
+      <span class="lbl">Role-specific CV</span>
+      <a href="assets/cv/Mohamed_Afify_CV_DataAnalyst.pdf" download>Data Analyst</a>
+      <span aria-hidden="true">·</span>
+      <a href="assets/cv/Mohamed_Afify_CV_AIEngineer.pdf" download>AI Engineer</a>
     </div>
   </div>
- </div>
+
+  <a class="scroll-cue" href="#about"><i></i>SCROLL</a>
 </header>
 
-<!-- ══════════ FEATURED CASE ══════════ -->
-<section class="sec wrap" id="work">
-  <div class="sec-head rv">
-    <span class="sec-num">01</span>
-    <h2>Selected work</h2>
+<!-- ══════════ 01 ABOUT ══════════ -->
+<section class="sec wrap" id="about">
+  <div class="rv">
+    <div class="sec-head"><span class="sec-num">01</span><h2>About</h2></div>
+    <div class="sec-rule"></div>
   </div>
 
-  <article class="case rv">
+  <div class="about rv">
+    <div>
+      <h4>Where I came from</h4>
+      <p>I trained in Management Information Systems, then spent a year as a maintenance engineer
+      at <b>Vision Company</b> in Cairo — tracking equipment logs, auditing inventory and sales
+      records, and cleaning up the data-quality problems that were quietly distorting the reports
+      everyone relied on.</p>
+      <p>It was not a data role on paper. It is where I found that the interesting problems were in
+      the records, not the machines.</p>
+    </div>
+    <div>
+      <h4>What I care about</h4>
+      <p>Systems that can be <b>checked</b>. Anyone can demo a model that works once; the harder
+      question is how you know it still works tomorrow, and how you find out when it doesn't.</p>
+      <p>So every project follows the same arc: build it, break it on purpose, then write down what
+      broke. The engineering notes throughout this page are that habit, made public.</p>
+    </div>
+    <div>
+      <h4>What I offer</h4>
+      <p>Two tracks that feed each other. <b>Analytics</b> — data modelling, SQL, and dashboards
+      built to answer a specific question rather than display everything at once.</p>
+      <p>And <b>applied AI</b> — agentic workflows, retrieval systems with real memory, computer
+      vision, and the evaluation harnesses that keep all of it honest. Whichever side of a problem
+      you start from, I can take it to the other.</p>
+    </div>
+  </div>
+
+  <div class="langs rv">
+    <div class="lg"><span>Languages</span>Arabic — native</div>
+    <div class="lg"><span>&nbsp;</span>English — professional working proficiency</div>
+    <div class="lg"><span>Based in</span>Cairo, Egypt — open to remote</div>
+  </div>
+</section>
+
+<!-- ══════════ 02 SERVICES ══════════ -->
+<section class="sec wrap" id="services">
+  <div class="rv">
+    <div class="sec-head"><span class="sec-num">02</span><h2>Services</h2></div>
+    <div class="sec-rule"></div>
+  </div>
+  <p class="sec-note rv">Four things I am hired to do. Each links to the work that proves it.</p>
+
+  <div class="svcs rv">
+    <a class="svc" href="#case-telco">
+      <span class="n">S / 01</span>
+      <h4>Analytics &amp; BI</h4>
+      <p>Data modelling, star schemas, T-SQL, and Power BI or Tableau dashboards built to answer one
+      question well instead of showing everything at once.</p>
+      <span class="go">SEE THE CHURN CASE →</span>
+    </a>
+    <a class="svc" href="#case-multi-agent">
+      <span class="n">S / 02</span>
+      <h4>Agentic AI systems</h4>
+      <p>LangGraph workflows with memory, tool use, retries and recoverable state — the parts that
+      decide whether an agent survives contact with a real user.</p>
+      <span class="go">SEE THE 4-AGENT LOOP →</span>
+    </a>
+    <a class="svc" href="#case-ocr-agent">
+      <span class="n">S / 03</span>
+      <h4>Computer vision &amp; documents</h4>
+      <p>Detection models, OCR and vision-language pipelines that turn scanned pages and live video
+      into structured data you can query.</p>
+      <span class="go">SEE THE OCR PIPELINE →</span>
+    </a>
+    <a class="svc" href="#action">
+      <span class="n">S / 04</span>
+      <h4>Evaluation &amp; observability</h4>
+      <p>Auditing an AI system you already have: precision and recall of retrieval, faithfulness of
+      answers, and a baseline you can regression-test against.</p>
+      <span class="go">SEE THE EVALUATION HARNESS →</span>
+    </a>
+  </div>
+</section>
+
+<!-- ══════════ 03 SELECTED WORK ══════════ -->
+<section class="sec wrap" id="work">
+  <div class="rv">
+    <div class="sec-head"><span class="sec-num">03</span><h2>Selected work</h2></div>
+    <div class="sec-rule"></div>
+  </div>
+  <p class="sec-note rv">Six projects, each led by the number it should be judged by.</p>
+
+  <!-- ── Telco ── -->
+  <article class="case rv" id="case-telco">
     <div class="case-grid">
       <div>
         <div class="case-metric">26.5%</div>
         <p class="case-metric-sub">of a 7,043-customer base was leaving, and the answers were split across five disconnected tables.</p>
-        <h3>IBM Telco — Customer Churn</h3>
+        <h3><a href="https://github.com/mohamedmhafify/IBM-Telco-Customer-Churn" target="_blank" rel="noopener">IBM Telco — Customer Churn</a></h3>
         <p>I modelled the five tables into a <b>SQL Server</b> star schema, then wrote 15 T-SQL queries structured as a story: how big, who, where, why, and what's at risk.</p>
         <p>A <b>Python</b> pipeline handled the cleaning — domain-aware imputation, IQR capping with a zero-variance guard, and removal of every target-leakage column.</p>
         <p>Month-to-month customers churn <b>18× more</b> than two-year ones. Four connected <b>Tableau</b> dashboards turned that into five retention recommendations.</p>
         <div class="chips"><span class="chip">SQL SERVER</span><span class="chip">T-SQL</span><span class="chip">PYTHON</span><span class="chip">TABLEAU</span><span class="chip">STAR SCHEMA</span></div>
         <a class="lnk" href="https://github.com/mohamedmhafify/IBM-Telco-Customer-Churn" target="_blank" rel="noopener">REPOSITORY →</a>
+
+        <details class="note">
+          <summary><span class="sign">+</span> Engineering note — the guard that saved the pipeline</summary>
+          <div class="body">
+            IQR capping is standard until a column has zero variance: Q1 and Q3 land on the same
+            value, the fence collapses to a single point, and every row is flagged an outlier at
+            once. The fix was a <b>zero-variance guard</b> that skips capping for those columns
+            rather than trusting the formula blindly. Separately, several columns predicted churn
+            almost perfectly — because they only exist <b>after</b> a customer leaves. Every one of
+            those target-leakage columns was removed before modelling.
+          </div>
+        </details>
       </div>
       <div>
-        <img class="shot" src="assets/img/telco-overview.png" alt="Churn overview dashboard with KPIs and a contract-by-tenure risk matrix" loading="lazy">
+        <div class="fig">
+          <div class="fig-head"><span class="t">Churn by contract type</span><span>N = 7,043</span></div>
+          <svg viewBox="0 0 420 180" role="img" aria-label="Bar chart: month-to-month contracts churn at 45.8 percent versus 2.5 percent for two-year contracts, against a 26.5 percent overall baseline">
+            <text x="0" y="42" class="s-lab">MONTH-TO-MONTH</text>
+            <rect x="0" y="50" width="420" height="18" fill="var(--ink-line)" opacity=".55"/>
+            <g class="bar-g"><rect x="0" y="50" width="385" height="18" fill="var(--gold)"/></g>
+            <text x="0" y="88" class="s-val">45.8%</text>
+            <text x="0" y="118" class="s-lab">TWO-YEAR</text>
+            <rect x="0" y="126" width="420" height="18" fill="var(--ink-line)" opacity=".55"/>
+            <g class="bar-g"><rect x="0" y="126" width="21" height="18" fill="var(--teal)"/></g>
+            <text x="0" y="164" class="s-val" fill="var(--teal)">2.5%</text>
+            <text x="62" y="164" class="s-lab">18× LOWER</text>
+            <line x1="223" y1="26" x2="223" y2="150" stroke="var(--parchment)" stroke-width="1" stroke-dasharray="3 4" opacity=".85"/>
+            <text x="228" y="20" class="s-lab" fill="var(--parchment)">OVERALL 26.5%</text>
+          </svg>
+          <div class="fig-foot">SOURCE: 15 T-SQL QUERIES OVER THE STAR SCHEMA · AXIS SCALED TO 50%</div>
+        </div>
+        <a href="https://github.com/mohamedmhafify/IBM-Telco-Customer-Churn" target="_blank" rel="noopener" style="display:block;margin-top:.9rem">
+          <img class="shot" src="assets/img/telco-overview.png" alt="Churn overview dashboard with KPIs and a contract-by-tenure risk matrix" loading="lazy">
+        </a>
         <p class="shot-note">TABLEAU · 4 CONNECTED DASHBOARDS</p>
       </div>
     </div>
   </article>
 
-  <article class="case rv">
+  <!-- ── WWI ── -->
+  <article class="case rv" id="case-wwi">
     <div class="case-grid">
       <div>
-        <img class="shot" src="assets/img/wwi-1-executive.jpg" alt="Executive overview page showing sales, profit, margin and year-over-year growth" loading="lazy">
+        <a href="https://github.com/mohamedmhafify/WWI-PowerBI-Sales-Analytics" target="_blank" rel="noopener" style="display:block">
+          <img class="shot" src="assets/img/wwi-1-executive.jpg" alt="Executive overview page showing sales, profit, margin and year-over-year growth" loading="lazy">
+        </a>
         <p class="shot-note">POWER BI · 4 PAGES · ~63 VISUALS</p>
+        <div class="fig">
+          <div class="fig-head"><span class="t">Where the money concentrates</span><span>26,397 TXNS</span></div>
+          <svg viewBox="0 0 420 196" role="img" aria-label="Two donut charts: California accounts for 44.4 percent of sales, and the top 20 percent of customers produce 47.9 percent of profit. Total sales 19.88 million dollars at a 49.92 percent margin across 26,397 transactions">
+            <g transform="translate(105,60)">
+              <circle r="44" fill="none" stroke="var(--ink-line)" stroke-width="9"/>
+              <circle class="arc-fg" r="44" fill="none" stroke="var(--gold)" stroke-width="9"
+                      stroke-linecap="butt" transform="rotate(-90)" style="--circ:276.5;--off:153.7"/>
+              <text text-anchor="middle" y="5" class="s-val" font-size="17">44.4%</text>
+            </g>
+            <text x="105" y="126" text-anchor="middle" class="s-lab">CALIFORNIA</text>
+            <text x="105" y="140" text-anchor="middle" class="s-edge">share of all sales</text>
+            <g transform="translate(315,60)">
+              <circle r="44" fill="none" stroke="var(--ink-line)" stroke-width="9"/>
+              <circle class="arc-fg" r="44" fill="none" stroke="var(--violet)" stroke-width="9"
+                      stroke-linecap="butt" transform="rotate(-90)" style="--circ:276.5;--off:144.0"/>
+              <text text-anchor="middle" y="5" class="s-val" font-size="17" fill="var(--violet)">47.9%</text>
+            </g>
+            <text x="315" y="126" text-anchor="middle" class="s-lab">TOP 20% OF CUSTOMERS</text>
+            <text x="315" y="140" text-anchor="middle" class="s-edge">share of all profit</text>
+            <line x1="0" y1="158" x2="420" y2="158" stroke="var(--gold-dim)"/>
+            <text x="0" y="176" class="s-lab">TOTAL SALES</text>
+            <text x="0" y="192" class="s-val" font-size="14">$19.88M</text>
+            <text x="150" y="176" class="s-lab">MARGIN</text>
+            <text x="150" y="192" class="s-val" font-size="14">49.92%</text>
+            <text x="290" y="176" class="s-lab">TRANSACTIONS</text>
+            <text x="290" y="192" class="s-val" font-size="14">26,397</text>
+          </svg>
+          <div class="fig-foot">POWER BI · 24+ DAX MEASURES ACROSS 5 MEASURE TABLES</div>
+        </div>
       </div>
       <div>
         <div class="case-metric">$19.88M</div>
         <p class="case-metric-sub">in sales sat behind a data model that was quietly broken — relationships wired to the wrong keys.</p>
-        <h3>Wide World Importers — Sales Analytics</h3>
+        <h3><a href="https://github.com/mohamedmhafify/WWI-PowerBI-Sales-Analytics" target="_blank" rel="noopener">Wide World Importers — Sales Analytics</a></h3>
         <p>Rebuilding the <b>star schema</b> came first: one fact table, five dimensions, every key corrected.</p>
         <p>Then <b>Power Query</b> cleaning — including a column deriving product colour from its name against an 871-colour lookup — and a <b>24+ measure DAX</b> library across five measure tables.</p>
         <p>I verified the real fiscal year start from the data itself (<b>November</b>) before writing any time-intelligence formula. <b>California drives 44.4%</b> of sales; the top 20% of customers produce <b>47.9%</b> of profit.</p>
         <div class="chips"><span class="chip">POWER BI</span><span class="chip">DAX</span><span class="chip">POWER QUERY</span><span class="chip">TIME INTELLIGENCE</span></div>
         <a class="lnk" href="https://github.com/mohamedmhafify/WWI-PowerBI-Sales-Analytics" target="_blank" rel="noopener">REPOSITORY →</a>
+
+        <details class="note">
+          <summary><span class="sign">+</span> Engineering note — never assume the fiscal year</summary>
+          <div class="body">
+            Every time-intelligence measure in DAX inherits whatever year boundary you give it, and
+            the default is January. Before writing a single YTD measure I checked the fiscal
+            calendar in the data itself — it starts in <b>November</b>. Assuming January would have
+            produced measures that ran clean, returned numbers, and were quietly wrong for two
+            months of every year. The broken relationships were the visible bug; this one would
+            never have thrown an error.
+          </div>
+        </details>
       </div>
     </div>
   </article>
 
-  <article class="case rv">
+  <!-- ── Agentic RAG ── -->
+  <article class="case rv" id="case-agentic-rag">
     <div class="case-grid">
       <div>
         <div class="case-metric">5 → 3</div>
         <p class="case-metric-sub">graph nodes. A cold question goes to the web; a related one afterwards is answered from memory alone.</p>
-        <h3>Agentic RAG Deep Visualizer</h3>
+        <h3><a href="https://github.com/mohamedmhafify/MCP-Agentic-RAG-Deep-Visualizer" target="_blank" rel="noopener">Agentic RAG Deep Visualizer</a></h3>
         <p>A self-correcting agent with two memories and the judgement to choose between them: it checks a local <b>Qdrant</b> store first, and only scrapes the live web when memory comes back empty.</p>
         <p>Whatever it finds is chunked back into the store, so the system measurably improves with use. Every reasoning step, tool call and raw payload is traced in the open.</p>
         <div class="chips"><span class="chip">LANGGRAPH</span><span class="chip">GROQ</span><span class="chip">QDRANT</span><span class="chip">FIRECRAWL</span></div>
         <a class="lnk" href="https://github.com/mohamedmhafify/MCP-Agentic-RAG-Deep-Visualizer" target="_blank" rel="noopener">REPOSITORY →</a>
+
+        <details class="note">
+          <summary><span class="sign">+</span> Engineering note — Groq has no embedding endpoint</summary>
+          <div class="body">
+            The plan was one provider for everything. Groq serves generation fast and cheaply, but
+            it serves <b>no embedding endpoint at all</b> — and a Qdrant-backed memory is useless
+            without vectors. Embeddings had to come from a second provider, which split the
+            credential and latency story across two services. Related lesson from the same build:
+            never hard-code a Groq model name. They are retired on a schedule, so the model string
+            reads from an environment variable and the deprecation list is something I check, not
+            something I discover in a stack trace.
+          </div>
+        </details>
       </div>
       <div>
-        <img class="shot" src="assets/img/mcp-rag.png" alt="Deep Visualizer interface showing the agent control panel and execution trace" loading="lazy">
+        <div class="fig">
+          <div class="fig-head"><span class="t">The same graph, both ways</span><span>LANGGRAPH</span></div>
+          <svg viewBox="0 0 420 250" role="img" aria-label="Two graph paths. Cold question: question, memory miss, scrape, chunk, answer — five nodes. Warm memory: question, memory hit, answer — three nodes.">
+            <!-- cold -->
+            <text x="0" y="10" class="s-lab" fill="var(--clay)">COLD QUESTION · 5 NODES</text>
+            <line x1="60" y1="40" x2="88" y2="40" stroke="var(--gold)" stroke-width="1" class="flow"/>
+            <line x1="152" y1="40" x2="188" y2="40" stroke="var(--gold)" stroke-width="1" class="flow"/>
+            <line x1="252" y1="40" x2="288" y2="40" stroke="var(--gold)" stroke-width="1" class="flow"/>
+            <path d="M318 56 L318 84 L120 84 L120 102" fill="none" stroke="var(--gold)" stroke-width="1" stroke-dasharray="3 4" opacity=".6"/>
+            <text x="204" y="80" text-anchor="middle" class="s-edge">INGEST BACK INTO QDRANT</text>
+            <rect x="0" y="26" width="60" height="28" fill="none" stroke="var(--gold-dim)"/>
+            <text x="30" y="44" text-anchor="middle" class="s-node">QUESTION</text>
+            <rect x="88" y="26" width="64" height="28" fill="none" stroke="var(--clay)"/>
+            <text x="120" y="44" text-anchor="middle" class="s-node" fill="var(--clay)">MEMORY ✕</text>
+            <rect x="188" y="26" width="64" height="28" fill="none" stroke="var(--gold-dim)"/>
+            <text x="220" y="44" text-anchor="middle" class="s-node">SCRAPE</text>
+            <rect x="288" y="26" width="60" height="28" fill="none" stroke="var(--gold-dim)"/>
+            <text x="318" y="44" text-anchor="middle" class="s-node">CHUNK</text>
+            <rect x="88" y="102" width="64" height="28" fill="none" stroke="var(--gold)"/>
+            <text x="120" y="120" text-anchor="middle" class="s-node" fill="var(--gold)">ANSWER</text>
+            <!-- divider -->
+            <line x1="0" y1="152" x2="420" y2="152" stroke="var(--gold-dim)"/>
+            <!-- warm -->
+            <text x="0" y="176" class="s-lab" fill="var(--teal)">MEMORY WARM · 3 NODES</text>
+            <line x1="60" y1="206" x2="108" y2="206" stroke="var(--teal)" stroke-width="1" class="flow"/>
+            <line x1="192" y1="206" x2="248" y2="206" stroke="var(--teal)" stroke-width="1" class="flow"/>
+            <rect x="0" y="192" width="60" height="28" fill="none" stroke="var(--gold-dim)"/>
+            <text x="30" y="210" text-anchor="middle" class="s-node">QUESTION</text>
+            <rect x="108" y="192" width="84" height="28" fill="none" stroke="var(--teal)"/>
+            <text x="150" y="210" text-anchor="middle" class="s-node" fill="var(--teal)">MEMORY HIT ✓</text>
+            <rect x="248" y="192" width="64" height="28" fill="none" stroke="var(--gold)"/>
+            <text x="280" y="210" text-anchor="middle" class="s-node" fill="var(--gold)">ANSWER</text>
+            <text x="0" y="242" class="s-lab">NO WEB CALL · NO INGEST · ANSWERED FROM MEMORY</text>
+          </svg>
+          <div class="fig-foot">ONE COMPILED GRAPH · THE ROUTE DEPENDS ON WHAT MEMORY ALREADY HOLDS</div>
+        </div>
+        <a href="https://github.com/mohamedmhafify/MCP-Agentic-RAG-Deep-Visualizer" target="_blank" rel="noopener" style="display:block;margin-top:.9rem">
+          <img class="shot" src="assets/img/mcp-rag.png" alt="Deep Visualizer interface showing the agent control panel and execution trace" loading="lazy">
+        </a>
         <p class="shot-note">LIVE EXECUTION TRACE</p>
       </div>
     </div>
   </article>
 
-  <article class="case rv">
+  <!-- ── Multi-agent ── -->
+  <article class="case rv" id="case-multi-agent">
     <div class="case-grid">
       <div>
-        <img class="shot" src="assets/img/multiagent-trace.png" alt="Execution trace showing the four agents and the revision loop between Critic and Writer" loading="lazy">
+        <div class="fig">
+          <div class="fig-head"><span class="t">Four agents, one rejection loop</span><span>LANGGRAPH · REDIS</span></div>
+          <svg viewBox="0 0 420 150" role="img" aria-label="Diagram of four agents — Planner, Researcher, Writer and Critic — with a revision edge running from Critic back to Writer">
+            <line x1="76" y1="44" x2="98" y2="44" stroke="var(--gold)" stroke-width="1" class="flow"/>
+            <line x1="182" y1="44" x2="204" y2="44" stroke="var(--gold)" stroke-width="1" class="flow"/>
+            <line x1="272" y1="44" x2="294" y2="44" stroke="var(--gold)" stroke-width="1" class="flow"/>
+            <rect x="0" y="30" width="76" height="28" fill="none" stroke="var(--gold-dim)"/>
+            <text x="38" y="48" text-anchor="middle" class="s-node">PLANNER</text>
+            <rect x="98" y="30" width="84" height="28" fill="none" stroke="var(--gold-dim)"/>
+            <text x="140" y="48" text-anchor="middle" class="s-node">RESEARCHER</text>
+            <rect x="204" y="30" width="68" height="28" fill="none" stroke="var(--gold-dim)"/>
+            <text x="238" y="48" text-anchor="middle" class="s-node">WRITER</text>
+            <rect x="294" y="30" width="64" height="28" fill="none" stroke="var(--violet)"/>
+            <text x="326" y="48" text-anchor="middle" class="s-node" fill="var(--violet)">CRITIC</text>
+            <path d="M326 58 L326 84 L238 84 L238 62" fill="none" stroke="var(--violet)" stroke-width="1.2" class="flow"/>
+            <path d="M238 58 l-3.5 6 h7 z" fill="var(--violet)"/>
+            <text x="282" y="99" text-anchor="middle" class="s-edge" fill="var(--violet)">REJECT → REVISE</text>
+            <line x1="358" y1="44" x2="388" y2="44" stroke="var(--teal)" stroke-width="1"/>
+            <path d="M394 44 l-6 -3.5 v7 z" fill="var(--teal)"/>
+            <text x="380" y="30" text-anchor="middle" class="s-edge" fill="var(--teal)">PASS</text>
+            <text x="380" y="70" text-anchor="middle" class="s-edge" fill="var(--teal)">REPORT</text>
+            <line x1="0" y1="118" x2="420" y2="118" stroke="var(--gold-dim)"/>
+            <text x="0" y="136" class="s-lab">REDIS CHECKPOINTS · A CRASHED RUN RESUMES</text>
+          </svg>
+          <div class="fig-foot">THE CRITIC → WRITER EDGE IS WHAT TURNS A PIPELINE INTO A LOOP</div>
+        </div>
+        <a href="https://github.com/mohamedmhafify/Multi-Agent-Deep-Researcher" target="_blank" rel="noopener" style="display:block;margin-top:.9rem">
+          <img class="shot" src="assets/img/multiagent-trace.png" alt="Execution trace showing the four agents and the revision loop between Critic and Writer" loading="lazy">
+        </a>
         <p class="shot-note">THE REVISION LOOP, TRACED</p>
       </div>
       <div>
         <div class="case-metric">4</div>
         <p class="case-metric-sub">agents share one task — and one of them is allowed to reject the other three's work.</p>
-        <h3>Multi-Agent Deep Researcher</h3>
+        <h3><a href="https://github.com/mohamedmhafify/Multi-Agent-Deep-Researcher" target="_blank" rel="noopener">Multi-Agent Deep Researcher</a></h3>
         <p>A Planner breaks the topic into searchable questions, a Researcher runs them through live search, a Writer drafts from that material only, and a Critic judges the result against a rubric.</p>
         <p>The <b>critic → writer</b> edge is the point: it turns a pipeline into a loop. In a typical run the Critic rejects the first draft and the second comes back with the structure and real citations it asked for.</p>
         <div class="chips"><span class="chip">LANGGRAPH</span><span class="chip">GROQ</span><span class="chip">SERPAPI</span><span class="chip">REDIS STACK</span></div>
         <a class="lnk" href="https://github.com/mohamedmhafify/Multi-Agent-Deep-Researcher" target="_blank" rel="noopener">REPOSITORY →</a>
+
+        <details class="note">
+          <summary><span class="sign">+</span> Engineering note — malformed tool calls you can't reproduce</summary>
+          <div class="body">
+            Llama through Groq intermittently emits tool calls that don't parse. The failure is
+            <b>non-deterministic</b> — the same prompt succeeds on the next run, so switching model
+            doesn't fix it and neither does a better prompt. What works is an escalation ladder:
+            retry once with the parser error fed back as a correction, then force the tool with
+            <code>tool_choice</code>, then fall back to a tool-free answer rather than crashing the
+            graph. Reasoning models add their own twist — a <code>&lt;think&gt;</code> block before
+            the answer and JSON fenced anywhere in the reply — so every response goes through one
+            shared defensive parser instead of five hopeful ones.
+          </div>
+        </details>
       </div>
     </div>
   </article>
 
-  <article class="case rv">
+  <!-- ── OCR agent ── -->
+  <article class="case rv" id="case-ocr-agent">
     <div class="case-grid">
       <div>
-        <img class="shot" src="assets/img/ocr-agent.png" alt="OCR bench showing the preprocessing controls and pipeline stages" loading="lazy">
+        <a href="https://github.com/mohamedmhafify/Multimodal-Vision-OCR-Agent" target="_blank" rel="noopener" style="display:block">
+          <img class="shot" src="assets/img/ocr-agent.png" alt="OCR bench showing the preprocessing controls and pipeline stages" loading="lazy">
+        </a>
         <p class="shot-note">OPENCV STAGES · BEFORE AND AFTER</p>
+        <div class="fig">
+          <div class="fig-head"><span class="t">Three stages before the model looks</span><span>OPENCV → QWEN-VL</span></div>
+          <svg viewBox="0 0 420 118" role="img" aria-label="Pipeline: deskew, CLAHE contrast, patch-aligned resize, then the vision model returns structured JSON">
+            <line x1="92" y1="34" x2="112" y2="34" stroke="var(--gold)" stroke-width="1" class="flow"/>
+            <line x1="192" y1="34" x2="212" y2="34" stroke="var(--gold)" stroke-width="1" class="flow"/>
+            <line x1="292" y1="34" x2="312" y2="34" stroke="var(--gold)" stroke-width="1" class="flow"/>
+            <rect x="0" y="20" width="92" height="28" fill="none" stroke="var(--gold-dim)"/>
+            <text x="46" y="38" text-anchor="middle" class="s-node">DESKEW 9.5°</text>
+            <rect x="112" y="20" width="80" height="28" fill="none" stroke="var(--gold-dim)"/>
+            <text x="152" y="38" text-anchor="middle" class="s-node">CLAHE</text>
+            <rect x="212" y="20" width="80" height="28" fill="none" stroke="var(--gold-dim)"/>
+            <text x="252" y="38" text-anchor="middle" class="s-node">28PX GRID</text>
+            <rect x="312" y="20" width="108" height="28" fill="none" stroke="var(--teal)"/>
+            <text x="366" y="38" text-anchor="middle" class="s-node" fill="var(--teal)">QWEN VISION</text>
+            <line x1="0" y1="66" x2="420" y2="66" stroke="var(--gold-dim)"/>
+            <text x="0" y="84" class="s-lab">OUT</text>
+            <text x="40" y="84" class="s-val" font-size="12">9 STRUCTURED JSON FIELDS</text>
+            <text x="0" y="104" class="s-lab">FROM A SCANNED INVOICE, IN ~4 SECONDS</text>
+          </svg>
+          <div class="fig-foot">DESKEW RUNS ON AN EXPANDED CANVAS SO ROTATION NEVER CLIPS A CORNER</div>
+        </div>
       </div>
       <div>
         <div class="case-metric">9.5&deg;</div>
         <p class="case-metric-sub">of skew corrected on an expanded canvas, before a vision model ever looked at the page.</p>
-        <h3>Multimodal Vision OCR Agent</h3>
+        <h3><a href="https://github.com/mohamedmhafify/Multimodal-Vision-OCR-Agent" target="_blank" rel="noopener">Multimodal Vision OCR Agent</a></h3>
         <p>Three <b>OpenCV</b> stages run first: deskew without clipping the corners, a CLAHE
         contrast lift tile by tile, and a rescale onto the <b>28px patch grid</b> the vision
         transformer expects.</p>
@@ -538,16 +1135,30 @@ a{color:inherit}
         seconds.</p>
         <div class="chips"><span class="chip">OPENCV</span><span class="chip">QWEN VISION</span><span class="chip">GROQ</span><span class="chip">FASTAPI</span><span class="chip">STREAMLIT</span></div>
         <a class="lnk" href="https://github.com/mohamedmhafify/Multimodal-Vision-OCR-Agent" target="_blank" rel="noopener">REPOSITORY →</a>
+
+        <details class="note">
+          <summary><span class="sign">+</span> Engineering note — rotation that eats the corners</summary>
+          <div class="body">
+            Rotating an image in place keeps the canvas the same size, so the corners of a
+            9.5°-skewed page rotate straight out of frame — and the part that disappears first is
+            usually the header with the invoice number on it. Deskew therefore runs on an
+            <b>expanded canvas</b> sized to the rotated bounding box. The resize is not arbitrary
+            either: the vision transformer reads the page in <b>28-pixel patches</b>, so any
+            dimension off that grid gets silently padded before inference. Aligning to it first
+            keeps what the model sees identical to what I processed.
+          </div>
+        </details>
       </div>
     </div>
   </article>
 
-  <article class="case rv">
+  <!-- ── GroundedRAG ── -->
+  <article class="case rv" id="case-groundedrag">
     <div class="case-grid">
       <div>
         <div class="case-metric">4</div>
         <p class="case-metric-sub">quality metrics auditing a live RAG pipeline, because a system that isn't measured is one you can't trust.</p>
-        <h3>GroundedRAG — Document Q&amp;A</h3>
+        <h3><a href="https://github.com/mohamedmhafify/groundedrag-safe-evaluated-doc-qa" target="_blank" rel="noopener">GroundedRAG — Document Q&amp;A</a></h3>
         <p>A full retrieval pipeline — ingestion, embedding, retrieval, generation — with local inference, a citation table, retrieval debugging and automated hallucination evaluation.</p>
         <p>Four control surfaces: ingestion and indexing, chat with citations, a retrieval debugger showing top-k before and after reranking, and conversation memory.</p>
         <div class="chips"><span class="chip">CHROMA</span><span class="chip">OLLAMA</span><span class="chip">GRADIO</span><span class="chip">RERANKING</span></div>
@@ -555,18 +1166,41 @@ a{color:inherit}
         <a class="lnk" href="https://drive.google.com/file/d/1ztpWZz3LLEDSUywOXiRty61eTa_kogVJ/view" target="_blank" rel="noopener">DEMO</a>
       </div>
       <div>
-        <img class="shot" src="assets/img/demo-groundedrag.png" alt="GroundedRAG ingestion tab showing chunk size, overlap and vector store settings" loading="lazy">
+        <div class="fig">
+          <div class="fig-head"><span class="t">What gets measured</span><span>RAGAS · LLM-AS-A-JUDGE</span></div>
+          <svg viewBox="0 0 420 168" role="img" aria-label="The four evaluation axes: context precision, context recall, faithfulness and answer relevancy, split between retrieval and generation">
+            <text x="0" y="12" class="s-lab" fill="var(--gold)">RETRIEVAL</text>
+            <line x1="0" y1="20" x2="200" y2="20" stroke="var(--gold-dim)"/>
+            <text x="0" y="42" class="s-node">CONTEXT PRECISION</text>
+            <text x="0" y="58" class="s-edge">Is the retrieved context on-topic?</text>
+            <text x="0" y="86" class="s-node">CONTEXT RECALL</text>
+            <text x="0" y="102" class="s-edge">Did it retrieve everything?</text>
+            <text x="220" y="12" class="s-lab" fill="var(--violet)">GENERATION</text>
+            <line x1="220" y1="20" x2="420" y2="20" stroke="var(--gold-dim)"/>
+            <text x="220" y="42" class="s-node">FAITHFULNESS</text>
+            <text x="220" y="58" class="s-edge">Supported by that context?</text>
+            <text x="220" y="86" class="s-node">ANSWER RELEVANCY</text>
+            <text x="220" y="102" class="s-edge">Answers the question asked?</text>
+            <line x1="0" y1="126" x2="420" y2="126" stroke="var(--gold-dim)"/>
+            <text x="0" y="146" class="s-lab">THE JUDGE IS A SEPARATE MODEL —</text>
+            <text x="0" y="162" class="s-lab">NOTHING GRADES ITS OWN HOMEWORK</text>
+          </svg>
+          <div class="fig-foot">SAME FOUR AXES DRIVE THE STANDALONE EVALUATION HARNESS BELOW</div>
+        </div>
+        <a href="https://drive.google.com/file/d/1ztpWZz3LLEDSUywOXiRty61eTa_kogVJ/view" target="_blank" rel="noopener" style="display:block;margin-top:.9rem">
+          <img class="shot" src="assets/img/demo-groundedrag.png" alt="GroundedRAG ingestion tab showing chunk size, overlap and vector store settings" loading="lazy">
+        </a>
         <p class="shot-note">GRADIO · FOUR CONTROL SURFACES</p>
       </div>
     </div>
   </article>
 </section>
 
-<!-- ══════════ IN ACTION ══════════ -->
+<!-- ══════════ 04 IN ACTION ══════════ -->
 <section class="sec wrap" id="action">
-  <div class="sec-head rv">
-    <span class="sec-num">02</span>
-    <h2>In action</h2>
+  <div class="rv">
+    <div class="sec-head"><span class="sec-num">04</span><h2>In action</h2></div>
+    <div class="sec-rule"></div>
   </div>
   <p class="sec-note rv">Deployed and running — live screens, not mockups.</p>
 
@@ -578,6 +1212,24 @@ a{color:inherit}
         <span class="g-desc">Detects fire and smoke separately in live video at 0.739 mAP@0.5, with adjustable confidence and IoU thresholds.</span>
         <span class="g-stack">YOLO · OPENCV · STREAMLIT</span>
       </figcaption>
+      <svg class="dials" viewBox="0 0 300 150" role="img" aria-label="Dials showing 0.739 mAP at 0.5 IoU and 86.5 percent recall">
+        <g transform="translate(32,40)">
+          <circle r="28" fill="none" stroke="var(--ink-line)" stroke-width="6"/>
+          <circle class="arc-fg" r="28" fill="none" stroke="var(--gold)" stroke-width="6"
+                  transform="rotate(-90)" style="--circ:175.9;--off:45.9"/>
+          <text text-anchor="middle" y="4" class="s-val" font-size="12">0.739</text>
+        </g>
+        <text x="76" y="36" class="s-lab">MAP@0.5</text>
+        <text x="76" y="52" class="s-edge">mean average precision</text>
+        <g transform="translate(32,110)">
+          <circle r="28" fill="none" stroke="var(--ink-line)" stroke-width="6"/>
+          <circle class="arc-fg" r="28" fill="none" stroke="var(--teal)" stroke-width="6"
+                  transform="rotate(-90)" style="--circ:175.9;--off:23.8"/>
+          <text text-anchor="middle" y="4" class="s-val" font-size="12" fill="var(--teal)">86.5%</text>
+        </g>
+        <text x="76" y="106" class="s-lab">RECALL</text>
+        <text x="76" y="122" class="s-edge">hazards caught in live video</text>
+      </svg>
     </figure>
 
     <figure>
@@ -587,23 +1239,59 @@ a{color:inherit}
         <span class="g-desc">Scores a live pipeline on four axes with an independent judge, keeps a baseline, and shows which metric moves when you change one setting.</span>
         <span class="g-stack">RAGAS · LLM-AS-A-JUDGE · QDRANT</span>
       </figcaption>
+      <details class="note">
+        <summary><span class="sign">+</span> Engineering note — the dependency that broke the judge</summary>
+        <div class="body">
+          <code>ragas</code> up to 0.4.3 imports a LangChain module that was removed in
+          <code>langchain-community</code> 0.4.x, so a clean install fails on import with nothing
+          in the traceback pointing at ragas. Pinning <code>langchain-community==0.3.29</code> fixes
+          it. A second trap sits next to it: <code>ragas.metrics</code> exports ready-made metric
+          <b>instances</b>, while <code>ragas.metrics.collections</code> exports <b>classes</b> —
+          and the lowercase names there are modules, not metrics. Following the deprecation warning
+          exactly is what breaks <code>evaluate()</code>.
+        </div>
+      </details>
     </figure>
   </div>
 </section>
 
-<!-- ══════════ PROJECT INDEX ══════════ -->
+<!-- ══════════ 05 ALL PROJECTS ══════════ -->
 <section class="sec wrap" id="index">
-  <div class="sec-head rv">
-    <span class="sec-num">03</span>
-    <h2>Index</h2>
+  <div class="rv">
+    <div class="sec-head"><span class="sec-num">05</span><h2>All projects</h2></div>
+    <div class="sec-rule"></div>
   </div>
-  <p class="sec-note rv">Everything else, with the number each one is judged by.</p>
+  <p class="sec-note rv">Nine projects, every one with a public repository. Filter by track; click any row to open it.</p>
 
   <div class="rv">
-    <div class="group-label">Data analytics</div>
-    <table class="idx">
+    <div class="filters" id="filters" role="group" aria-label="Filter projects by track">
+      <button class="filter" data-cat="all" aria-pressed="true">All<span class="c"></span></button>
+      <button class="filter" data-cat="analytics" aria-pressed="false">Analytics &amp; BI<span class="c"></span></button>
+      <button class="filter" data-cat="genai" aria-pressed="false">Gen AI &amp; agents<span class="c"></span></button>
+      <button class="filter" data-cat="vision" aria-pressed="false">Computer vision<span class="c"></span></button>
+    </div>
+
+    <table class="idx" id="idxTable">
       <tbody>
-        <tr>
+        <tr data-cat="analytics" data-href="https://github.com/mohamedmhafify/IBM-Telco-Customer-Churn">
+          <td>
+            <span class="p-name">IBM Telco — Customer Churn<a class="star" href="#case-telco">CASE ↑</a></span>
+            <span class="p-desc">Five tables into a star schema, 15 T-SQL queries, four connected Tableau dashboards.</span>
+          </td>
+          <td class="p-metric">$7.8M at risk</td>
+          <td class="p-stack">SQL SERVER · TABLEAU</td>
+          <td><a class="lnk" href="https://github.com/mohamedmhafify/IBM-Telco-Customer-Churn" target="_blank" rel="noopener">CODE</a></td>
+        </tr>
+        <tr data-cat="analytics" data-href="https://github.com/mohamedmhafify/WWI-PowerBI-Sales-Analytics">
+          <td>
+            <span class="p-name">Wide World Importers — Sales Analytics<a class="star" href="#case-wwi">CASE ↑</a></span>
+            <span class="p-desc">Broken model rebuilt into 1 fact + 5 dimensions, 24+ DAX measures, ~63 visuals.</span>
+          </td>
+          <td class="p-metric">$19.88M</td>
+          <td class="p-stack">POWER BI · DAX</td>
+          <td><a class="lnk" href="https://github.com/mohamedmhafify/WWI-PowerBI-Sales-Analytics" target="_blank" rel="noopener">CODE</a></td>
+        </tr>
+        <tr data-cat="analytics" data-href="https://github.com/mohamedmhafify/Ames-Housing-Data-Preprocessing">
           <td>
             <span class="p-name">Ames Housing — Cleaning &amp; Preprocessing</span>
             <span class="p-desc">Missing values, leakage removal, encoding and log transformation for skew, validated with before/after EDA.</span>
@@ -612,111 +1300,210 @@ a{color:inherit}
           <td class="p-stack">PYTHON · PANDAS</td>
           <td><a class="lnk" href="https://github.com/mohamedmhafify/Ames-Housing-Data-Preprocessing" target="_blank" rel="noopener">CODE</a></td>
         </tr>
+        <tr data-cat="genai" data-href="https://github.com/mohamedmhafify/MCP-Agentic-RAG-Deep-Visualizer">
+          <td>
+            <span class="p-name">Agentic RAG Deep Visualizer<a class="star" href="#case-agentic-rag">CASE ↑</a></span>
+            <span class="p-desc">Dual-memory agent that checks Qdrant first, scrapes only on a miss, and ingests what it finds.</span>
+          </td>
+          <td class="p-metric">5 → 3 nodes</td>
+          <td class="p-stack">LANGGRAPH · QDRANT</td>
+          <td><a class="lnk" href="https://github.com/mohamedmhafify/MCP-Agentic-RAG-Deep-Visualizer" target="_blank" rel="noopener">CODE</a></td>
+        </tr>
+        <tr data-cat="genai" data-href="https://github.com/mohamedmhafify/Multi-Agent-Deep-Researcher">
+          <td>
+            <span class="p-name">Multi-Agent Deep Researcher<a class="star" href="#case-multi-agent">CASE ↑</a></span>
+            <span class="p-desc">Planner, Researcher, Writer and Critic on one graph, with Redis checkpointing for fault tolerance.</span>
+          </td>
+          <td class="p-metric">4 agents</td>
+          <td class="p-stack">LANGGRAPH · REDIS</td>
+          <td><a class="lnk" href="https://github.com/mohamedmhafify/Multi-Agent-Deep-Researcher" target="_blank" rel="noopener">CODE</a></td>
+        </tr>
+        <tr data-cat="genai vision" data-href="https://github.com/mohamedmhafify/Multimodal-Vision-OCR-Agent">
+          <td>
+            <span class="p-name">Multimodal Vision OCR Agent<a class="star" href="#case-ocr-agent">CASE ↑</a></span>
+            <span class="p-desc">OpenCV deskew, CLAHE and patch-aligned resize feeding a vision-language model that returns JSON.</span>
+          </td>
+          <td class="p-metric">9.5° corrected</td>
+          <td class="p-stack">OPENCV · QWEN-VL</td>
+          <td><a class="lnk" href="https://github.com/mohamedmhafify/Multimodal-Vision-OCR-Agent" target="_blank" rel="noopener">CODE</a></td>
+        </tr>
+        <!-- TODO Mohamed: replace with the real repo URL — I only had your profile link for this one -->
+        <tr data-cat="genai" data-href="https://github.com/mohamedmhafify">
+          <td>
+            <span class="p-name">RAG Evaluation &amp; Quality Observability</span>
+            <span class="p-desc">Ragas harness with an independent judge auditing a live Qdrant pipeline on four quality axes.</span>
+          </td>
+          <td class="p-metric">4 axes</td>
+          <td class="p-stack">RAGAS · QDRANT</td>
+          <td><a class="lnk" href="https://github.com/mohamedmhafify" target="_blank" rel="noopener">CODE</a></td>
+        </tr>
+        <tr data-cat="genai" data-href="https://github.com/mohamedmhafify/groundedrag-safe-evaluated-doc-qa">
+          <td>
+            <span class="p-name">GroundedRAG — Document Q&amp;A<a class="star" href="#case-groundedrag">CASE ↑</a></span>
+            <span class="p-desc">Full RAG with citations, a retrieval debugger and automated hallucination evaluation.</span>
+          </td>
+          <td class="p-metric">4 surfaces</td>
+          <td class="p-stack">CHROMA · OLLAMA</td>
+          <td>
+            <a class="lnk" href="https://github.com/mohamedmhafify/groundedrag-safe-evaluated-doc-qa" target="_blank" rel="noopener">CODE</a>
+            <a class="lnk" href="https://drive.google.com/file/d/1ztpWZz3LLEDSUywOXiRty61eTa_kogVJ/view" target="_blank" rel="noopener">DEMO</a>
+          </td>
+        </tr>
+        <!-- TODO Mohamed: replace with the real repo + demo URL — I only had your profile link for this one -->
+        <tr data-cat="vision" data-href="https://github.com/mohamedmhafify">
+          <td>
+            <span class="p-name">Real-Time Fire &amp; Smoke Guard</span>
+            <span class="p-desc">YOLO detector separating fire from smoke in live video, with adjustable confidence and IoU.</span>
+          </td>
+          <td class="p-metric">0.739 mAP</td>
+          <td class="p-stack">YOLO · STREAMLIT</td>
+          <td><a class="lnk" href="https://github.com/mohamedmhafify" target="_blank" rel="noopener">CODE</a></td>
+        </tr>
       </tbody>
     </table>
-
-    <div class="group-label">Computer vision</div>
-    <table class="idx">
-      <tbody>
-        <tr>
-          <td>
-            <span class="p-name">COVID-19 X-ray Classification</span>
-            <span class="p-desc">Transfer learning across 317 chest X-rays, separating COVID-19, pneumonia and normal, in a bilingual interface.</span>
-          </td>
-          <td class="p-metric">96.5% acc</td>
-          <td class="p-stack">MOBILENETV2</td>
-          <td>
-            <a class="lnk" href="https://github.com/mohamedmhafify/Covid_Classification_App" target="_blank" rel="noopener">CODE</a>
-            <a class="lnk" href="https://covidclassificationapp-efpdnmkswkx7agtjqbelui.streamlit.app/" target="_blank" rel="noopener">DEMO</a>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <span class="p-name">Emotion Detection</span>
-            <span class="p-desc">Reads seven emotions from faces in images or video and charts the probability behind every prediction.</span>
-          </td>
-          <td class="p-metric">7 emotions</td>
-          <td class="p-stack">DEEPFACE · OPENCV</td>
-          <td><a class="lnk" href="https://github.com/mohamedmhafify/Emotion_Detection_Deepface_App" target="_blank" rel="noopener">CODE</a></td>
-        </tr>
-        <tr>
-          <td>
-            <span class="p-name">Object Detection</span>
-            <span class="p-desc">Lightweight in-browser detection drawing labelled boxes and confidence scores over uploaded images.</span>
-          </td>
-          <td class="p-metric">EfficientDet</td>
-          <td class="p-stack">MEDIAPIPE · STREAMLIT</td>
-          <td><a class="lnk" href="https://github.com/mohamedmhafify/Object_detection_Mediapipe_App" target="_blank" rel="noopener">CODE</a></td>
-        </tr>
-        <tr>
-          <td>
-            <span class="p-name">Object Tracking System</span>
-            <span class="p-desc">Multi-object tracking through motion analysis and feature matching on live video.</span>
-          </td>
-          <td class="p-metric">Real-time</td>
-          <td class="p-stack">OPENCV</td>
-          <td>
-            <a class="lnk" href="https://github.com/mohamedmhafify/Object_Tracking_App" target="_blank" rel="noopener">CODE</a>
-            <a class="lnk" href="https://objecttrackingapp-hxebjm3efb4gtvmvzta8ke.streamlit.app/" target="_blank" rel="noopener">DEMO</a>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <span class="p-name">OCR Document Intelligence</span>
-            <span class="p-desc">ID scanner with custom preprocessing that lifted extraction accuracy.</span>
-          </td>
-          <td class="p-metric">+25%</td>
-          <td class="p-stack">TESSERACT · OPENCV</td>
-          <td>
-            <a class="lnk" href="https://github.com/mohamedmhafify/ID_Scan_App" target="_blank" rel="noopener">CODE</a>
-            <a class="lnk" href="https://idscanapp-grmm6sghkmufwn8xgqmexq.streamlit.app/" target="_blank" rel="noopener">DEMO</a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <p class="idx-empty" id="idxEmpty" hidden>No projects in that track.</p>
   </div>
 </section>
 
-<!-- ══════════ CAPABILITIES ══════════ -->
-<section class="sec wrap" id="capabilities">
-  <div class="sec-head rv">
-    <span class="sec-num">04</span>
-    <h2>Capabilities</h2>
+<!-- ══════════ 06 ACHIEVEMENTS ══════════ -->
+<section class="sec wrap" id="achievements">
+  <div class="rv">
+    <div class="sec-head"><span class="sec-num">06</span><h2>Achievements</h2></div>
+    <div class="sec-rule"></div>
   </div>
+  <p class="sec-note rv">Outcomes, not adjectives. Every figure comes from one of the projects above.</p>
+
+  <div class="ach rv">
+    <a class="ach-row" href="#case-telco">
+      <div class="v">$7.8M</div>
+      <div class="d">of at-risk customer lifetime value traced to its <b>root causes</b>, and turned into five retention recommendations.</div>
+    </a>
+    <a class="ach-row" href="#case-telco">
+      <div class="v">18×</div>
+      <div class="d">the churn rate on month-to-month contracts versus two-year — <b>45.8% against 2.5%</b> — found by modelling five disconnected tables into one schema.</div>
+    </a>
+    <a class="ach-row" href="#case-wwi">
+      <div class="v">$19.88M</div>
+      <div class="d">in sales re-modelled at a <b>49.92% margin</b> after rebuilding a data model whose relationships were wired to the wrong keys.</div>
+    </a>
+    <a class="ach-row" href="#action">
+      <div class="v">0.739</div>
+      <div class="d">mAP@0.5 with <b>86.5% recall</b> on a real-time fire and smoke detector running on live video.</div>
+    </a>
+    <a class="ach-row" href="#case-ocr-agent">
+      <div class="v">9.5°</div>
+      <div class="d">of page skew corrected on an expanded canvas, producing <b>nine structured JSON fields</b> from a scanned invoice in about four seconds.</div>
+    </a>
+    <a class="ach-row" href="#credentials">
+      <div class="v">8</div>
+      <div class="d">diplomas and certificates completed across <b>seven programmes run in parallel</b> — NTI, ITI, NVIDIA, Google, Route, and Orange Digital Center.</div>
+    </a>
+  </div>
+</section>
+
+<!--
+  ══════════ TESTIMONIALS ══════════
+  Left out on purpose: I had no real quotes to use, and inventing them would undo
+  everything else on this page. When an instructor, teammate or client gives you one,
+  uncomment this block, paste it in, and it will match the rest of the design.
+
+<section class="sec wrap" id="testimonials">
+  <div class="rv">
+    <div class="sec-head"><span class="sec-num">07</span><h2>Testimonials</h2></div>
+    <div class="sec-rule"></div>
+  </div>
+  <div class="ach rv">
+    <div class="ach-row">
+      <div class="v">“”</div>
+      <div class="d">Paste the quote here. <b>Name, role, organisation.</b></div>
+    </div>
+  </div>
+</section>
+-->
+
+<!-- ══════════ 07 SKILLS & TOOLS ══════════ -->
+<section class="sec wrap" id="skills">
+  <div class="rv">
+    <div class="sec-head"><span class="sec-num">07</span><h2>Skills &amp; tools</h2></div>
+    <div class="sec-rule"></div>
+  </div>
+  <p class="sec-note rv">Each one named with the project that proves it, not a percentage bar.</p>
 
   <div class="caps rv">
-    <div class="cap">
+    <a class="cap" href="#case-telco">
       <h4>Querying &amp; modeling</h4>
       <p>SQL Server, T-SQL, window functions, CTEs, star schema design, ETL, data modeling</p>
-    </div>
-    <div class="cap">
+      <div class="proof"><span>PROVEN IN</span><em>IBM Telco — 5 tables, 15 queries</em></div>
+    </a>
+    <a class="cap" href="#case-wwi">
       <h4>BI &amp; visualization</h4>
       <p>Power BI with DAX and Power Query, Tableau dashboards and stories, Excel, KPI reporting</p>
-    </div>
-    <div class="cap">
+      <div class="proof"><span>PROVEN IN</span><em>Wide World Importers — 24+ DAX measures</em></div>
+    </a>
+    <a class="cap" href="#index">
       <h4>Python for analysis</h4>
       <p>pandas, NumPy, scikit-learn, seaborn, cleaning and preprocessing, feature engineering, EDA</p>
-    </div>
-    <div class="cap">
-      <h4>Generative AI</h4>
+      <div class="proof"><span>PROVEN IN</span><em>Ames Housing — leakage removal, skew correction</em></div>
+    </a>
+    <a class="cap" href="#case-multi-agent">
+      <h4>Generative AI &amp; agents</h4>
       <p>LangGraph, LangChain, RAG, agentic workflows, vector search with Qdrant and Chroma, prompt engineering</p>
-    </div>
-    <div class="cap">
+      <div class="proof"><span>PROVEN IN</span><em>Multi-Agent Researcher — 4 agents, one loop</em></div>
+    </a>
+    <a class="cap" href="#action">
       <h4>Computer vision</h4>
       <p>YOLO, OpenCV, Qwen2.5-VL, object detection, image classification, OCR, real-time video</p>
-    </div>
-    <div class="cap">
-      <h4>Engineering</h4>
+      <div class="proof"><span>PROVEN IN</span><em>Fire &amp; Smoke Guard — 0.739 mAP@0.5</em></div>
+    </a>
+    <a class="cap" href="#action">
+      <h4>Evaluation &amp; engineering</h4>
       <p>FastAPI, Streamlit, Docker, Git, async Python, Ragas evaluation and LLM-as-a-Judge</p>
+      <div class="proof"><span>PROVEN IN</span><em>RAG Evaluation — 4 axes, independent judge</em></div>
+    </a>
+  </div>
+</section>
+
+<!-- ══════════ 08 EXPERIENCE ══════════ -->
+<section class="sec wrap" id="experience">
+  <div class="rv">
+    <div class="sec-head"><span class="sec-num">08</span><h2>Experience</h2></div>
+    <div class="sec-rule"></div>
+  </div>
+  <p class="sec-note rv">A deliberate move into data, not an accidental one.</p>
+
+  <div class="tl rv">
+    <div class="tl-row now">
+      <div class="when">2025 — NOW</div>
+      <div class="what">
+        <h4>Data Analyst &amp; AI Engineer — independent projects</h4>
+        <div class="where">Cairo, Egypt · available for full-time or remote work</div>
+        <ul>
+          <li>Built and shipped nine end-to-end projects across analytics, agentic AI, computer vision and evaluation — each with a public repository and a headline metric.</li>
+          <li>Completed seven training programmes in parallel with NTI, ITI, NVIDIA, Google, Route Training Center and Orange Digital Center.</li>
+          <li>Documented the engineering failures behind every build, so the reasoning is auditable and not only the result.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tl-row">
+      <div class="when">DEC 2023 — JAN 2025</div>
+      <div class="what">
+        <h4>Maintenance Engineer</h4>
+        <div class="where">Vision Company, Cairo</div>
+        <ul>
+          <li>Tracked equipment performance and maintenance logs to surface recurring failure patterns, turning scattered records into a usable reporting base.</li>
+          <li>Audited inventory and sales data for inconsistencies, resolving data-quality issues that were distorting operational reports.</li>
+          <li>Structured technical and procurement data to support performance tracking and day-to-day operational decisions.</li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ══════════ CREDENTIALS ══════════ -->
+<!-- ══════════ 09 EDUCATION & CREDENTIALS ══════════ -->
 <section class="sec wrap" id="credentials">
-  <div class="sec-head rv">
-    <span class="sec-num">05</span>
-    <h2>Credentials</h2>
+  <div class="rv">
+    <div class="sec-head"><span class="sec-num">09</span><h2>Education &amp; credentials</h2></div>
+    <div class="sec-rule"></div>
   </div>
 
   <div class="trained rv">
@@ -734,68 +1521,79 @@ a{color:inherit}
   </div>
 
   <div class="rv">
-    <div class="cred">
-      <div>
-        <div class="c-name">Data Analysis &amp; Freelancing Diploma</div>
-        <div class="c-org">NTI · Creativa Innovation Hubs — Digital Egypt Youth Initiative</div>
+    <div class="group-label">Education</div>
+    <div class="cred-list">
+      <div class="cred">
+        <div>
+          <div class="c-name">B.Sc. in Computers &amp; Management Information Systems</div>
+          <div class="c-org">El Gazeera Higher Institute, Cairo</div>
+        </div>
+        <div class="c-meta">2019 — 2023</div>
       </div>
-      <div class="c-meta live">ONGOING</div>
     </div>
-    <div class="cred">
-      <div>
-        <div class="c-name">Generative AI Diploma</div>
-        <div class="c-org">Route Training Center — 4 courses + capstone projects</div>
+
+    <div class="group-label">Diplomas &amp; courses</div>
+    <div class="cred-list">
+      <div class="cred">
+        <div>
+          <div class="c-name">Data Analysis &amp; Freelancing Diploma</div>
+          <div class="c-org">NTI · Creativa Innovation Hubs — Digital Egypt Youth Initiative</div>
+        </div>
+        <div class="c-meta live">ONGOING</div>
       </div>
-      <div class="c-meta"><a class="lnk" href="https://drive.google.com/file/d/1oYlEPpvCm7tIBvS5cb1DMKNJSGTtciQt/view" target="_blank" rel="noopener">CERTIFICATE</a></div>
+      <div class="cred">
+        <div>
+          <div class="c-name">Generative AI Training — Advanced</div>
+          <div class="c-org">NVIDIA Deep Learning Institute · ITI</div>
+        </div>
+        <div class="c-meta">2 COURSES + CAPSTONE</div>
+      </div>
     </div>
-    <div class="cred">
-      <div>
-        <div class="c-name">AI Professional Certificate</div>
-        <div class="c-org">Google · Coursera — 7 courses</div>
-      </div>
-      <div class="c-meta"><a class="lnk" href="https://coursera.org/verify/professional-cert/L0RLE33RG1XS" target="_blank" rel="noopener">VERIFY</a></div>
-    </div>
-    <div class="cred">
-      <div>
-        <div class="c-name">Generative AI Training — Advanced</div>
-        <div class="c-org">NVIDIA Deep Learning Institute · ITI</div>
-      </div>
-      <div class="c-meta">2 COURSES + CAPSTONE</div>
-    </div>
-    <div class="cred">
-      <div>
-        <div class="c-name">Computer Vision Training</div>
-        <div class="c-org">Instant · Orange Digital Center</div>
-      </div>
-      <div class="c-meta"><a class="lnk" href="https://drive.google.com/file/d/1iZI9a0A20bR6LiY_7eBPYCQuzvyrb-R5/view" target="_blank" rel="noopener">CERTIFICATE</a></div>
-    </div>
-    <div class="cred">
-      <div>
-        <div class="c-name">Generative AI Training — Beginner</div>
-        <div class="c-org">NVIDIA Deep Learning Institute · ITI — 5 courses</div>
-      </div>
-      <div class="c-meta"><a class="lnk" href="https://drive.google.com/file/d/1vyADnGZ9irT7aFK929S1nsuM4uCS96s6/view" target="_blank" rel="noopener">CERTIFICATE</a></div>
-    </div>
-    <div class="cred">
-      <div>
-        <div class="c-name">Database Fundamentals</div>
-        <div class="c-org">Mahara Tech · ITI</div>
-      </div>
-      <div class="c-meta"><a class="lnk" href="https://drive.google.com/file/d/197wbo_lnPrAlTrGXpKMVeqSnqKE3OTnx/view" target="_blank" rel="noopener">CERTIFICATE</a></div>
-    </div>
-    <div class="cred">
-      <div>
-        <div class="c-name">AI &amp; Machine Learning Diploma</div>
-        <div class="c-org">Route Training Center</div>
-      </div>
-      <div class="c-meta"><a class="lnk" href="https://drive.google.com/file/d/1P1R-abNJl4F-4_-qsTf0oZb8tGz8PdPg/view" target="_blank" rel="noopener">CERTIFICATE</a></div>
-    </div>
-    <div class="cred">
-      <div>
-        <div class="c-name">B.Sc. Computers &amp; Management Information Systems</div>
-        <div class="c-org">El Gazeera Higher Institute, Cairo</div>
-      </div>
-      <div class="c-meta">2019 — 2023</div>
+
+    <div class="group-label">Certificates</div>
+    <div class="cred-list">
+      <a class="cred" href="https://drive.google.com/file/d/1oYlEPpvCm7tIBvS5cb1DMKNJSGTtciQt/view" target="_blank" rel="noopener">
+        <div>
+          <div class="c-name">Generative AI Diploma</div>
+          <div class="c-org">Route Training Center — 4 courses + capstone projects</div>
+        </div>
+        <div class="c-meta">CERTIFICATE →</div>
+      </a>
+      <a class="cred" href="https://coursera.org/verify/professional-cert/L0RLE33RG1XS" target="_blank" rel="noopener">
+        <div>
+          <div class="c-name">AI Professional Certificate</div>
+          <div class="c-org">Google · Coursera — 7 courses</div>
+        </div>
+        <div class="c-meta">VERIFY →</div>
+      </a>
+      <a class="cred" href="https://drive.google.com/file/d/1iZI9a0A20bR6LiY_7eBPYCQuzvyrb-R5/view" target="_blank" rel="noopener">
+        <div>
+          <div class="c-name">Computer Vision Training</div>
+          <div class="c-org">Instant · Orange Digital Center</div>
+        </div>
+        <div class="c-meta">CERTIFICATE →</div>
+      </a>
+      <a class="cred" href="https://drive.google.com/file/d/1vyADnGZ9irT7aFK929S1nsuM4uCS96s6/view" target="_blank" rel="noopener">
+        <div>
+          <div class="c-name">Generative AI Training — Beginner</div>
+          <div class="c-org">NVIDIA Deep Learning Institute · ITI — 5 courses</div>
+        </div>
+        <div class="c-meta">CERTIFICATE →</div>
+      </a>
+      <a class="cred" href="https://drive.google.com/file/d/197wbo_lnPrAlTrGXpKMVeqSnqKE3OTnx/view" target="_blank" rel="noopener">
+        <div>
+          <div class="c-name">Database Fundamentals</div>
+          <div class="c-org">Mahara Tech · ITI</div>
+        </div>
+        <div class="c-meta">CERTIFICATE →</div>
+      </a>
+      <a class="cred" href="https://drive.google.com/file/d/1P1R-abNJl4F-4_-qsTf0oZb8tGz8PdPg/view" target="_blank" rel="noopener">
+        <div>
+          <div class="c-name">AI &amp; Machine Learning Diploma</div>
+          <div class="c-org">Route Training Center</div>
+        </div>
+        <div class="c-meta">CERTIFICATE →</div>
+      </a>
     </div>
   </div>
 </section>
@@ -805,11 +1603,19 @@ a{color:inherit}
   <div class="rv">
     <h2>Let's build something<br>worth <em>measuring</em>.</h2>
     <p>Open to data analysis and AI engineering roles — in Cairo or remote.
-       The fastest way to reach me is email.</p>
+       Send me the problem and I'll tell you honestly whether I'm the right person for it.</p>
     <div class="cta-row">
-      <a class="btn solid" href="mailto:mohamedmhafify@gmail.com">mohamedmhafify@gmail.com</a>
-      <a class="btn" href="https://linkedin.com/in/mohamedmhafify" target="_blank" rel="noopener">LinkedIn</a>
-      <a class="btn" href="https://github.com/mohamedmhafify" target="_blank" rel="noopener">GitHub</a>
+      <a class="btn solid" href="mailto:mohamedmhafify@gmail.com?subject=Work%20enquiry">Email me</a>
+      <button class="btn" id="copyMail" type="button">Copy address</button>
+      <a class="btn" href="assets/cv/Mohamed_Afify_CV.pdf" download>Download CV</a>
+    </div>
+    <div class="copied" id="copied" role="status">COPIED TO CLIPBOARD</div>
+
+    <div class="contact-rows">
+      <a class="crow" href="mailto:mohamedmhafify@gmail.com"><span class="k">Email</span><span class="v">mohamedmhafify@gmail.com</span></a>
+      <a class="crow" href="tel:+201015042480"><span class="k">Phone</span><span class="v">+20 101 504 2480</span></a>
+      <a class="crow" href="https://linkedin.com/in/mohamedmhafify" target="_blank" rel="noopener"><span class="k">LinkedIn</span><span class="v">linkedin.com/in/mohamedmhafify</span></a>
+      <a class="crow" href="https://github.com/mohamedmhafify" target="_blank" rel="noopener"><span class="k">GitHub</span><span class="v">github.com/mohamedmhafify</span></a>
     </div>
   </div>
 </section>
@@ -821,16 +1627,250 @@ a{color:inherit}
   </div>
 </footer>
 
+<a href="#top" class="top-btn" id="topBtn" aria-label="Back to top">↑</a>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Person",
+  "name":"Mohamed Mostafa Hassan Afify",
+  "jobTitle":"Data Analyst & AI Engineer",
+  "email":"mailto:mohamedmhafify@gmail.com",
+  "telephone":"+201015042480",
+  "url":"https://mohamedmhafify.github.io/",
+  "address":{"@type":"PostalAddress","addressLocality":"Cairo","addressCountry":"EG"},
+  "alumniOf":{"@type":"CollegeOrUniversity","name":"El Gazeera Higher Institute"},
+  "sameAs":["https://github.com/mohamedmhafify","https://linkedin.com/in/mohamedmhafify"],
+  "knowsLanguage":["ar","en"],
+  "knowsAbout":["SQL Server","Power BI","Tableau","Python","LangGraph","Retrieval-Augmented Generation","Computer Vision","YOLO","OpenCV","FastAPI"]
+}
+</script>
+
 <script>
-document.getElementById('yr').textContent = new Date().getFullYear();
+(function(){
+  'use strict';
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var $  = function(s,r){ return (r||document).querySelector(s); };
+  var $$ = function(s,r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)); };
 
-const nav = document.getElementById('nav');
-addEventListener('scroll', () => nav.classList.toggle('stuck', scrollY > 40), {passive:true});
+  $('#yr').textContent = new Date().getFullYear();
 
-const io = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-}, {threshold:.12, rootMargin:'0px 0px -40px 0px'});
-document.querySelectorAll('.rv').forEach(el => io.observe(el));
+  /* ---- intro curtain ---- */
+  var intro = $('#intro'), introDone = false;
+  function endIntro(){
+    if (introDone) return; introDone = true;
+    document.documentElement.classList.remove('js-intro');
+    document.body.classList.add('ready');
+    if (intro) { intro.classList.add('leaving'); setTimeout(function(){ intro.remove(); }, 800); }
+    try { sessionStorage.setItem('afify-intro','1'); } catch(e){}
+  }
+  if (document.documentElement.classList.contains('js-intro')) {
+    var timer = setTimeout(endIntro, 2400);
+    var skip = function(){ clearTimeout(timer); endIntro(); };
+    intro.addEventListener('click', skip);
+    addEventListener('keydown', skip, {once:true});
+  } else {
+    document.body.classList.add('ready');
+  }
+
+  /* ---- nav state, scroll progress, parallax ---- */
+  var nav = $('#nav'), bar = $('#progress'), topBtn = $('#topBtn'), figure = $('#figure');
+  var stars = $('#stars'), space = $('.space'), ticking = false;
+  function onScroll(){
+    var y = scrollY;
+    var h = document.documentElement.scrollHeight - innerHeight;
+    nav.classList.toggle('stuck', y > 40);
+    bar.style.transform = 'scaleX(' + (h > 0 ? Math.min(y / h, 1) : 0) + ')';
+    topBtn.classList.toggle('show', y > 900);
+    /* Stars dissolve across the first screen and a bit; the blue glow stays and
+       lifts slightly as they go, so it becomes the whole backdrop on its own. */
+    if (stars) {
+      var t = Math.min(y / (innerHeight * 1.15), 1);
+      var eased = t * t * (3 - 2 * t);
+      stars.style.opacity = (1 - eased).toFixed(3);
+      if (space) space.style.setProperty('--glow-op', (0.9 + eased * 0.25).toFixed(3));
+    }
+    if (figure && !reduce && y < innerHeight * 1.2) {
+      figure.style.transform = 'translate3d(0,' + (y * 0.14) + 'px,0)';
+    }
+    ticking = false;
+  }
+  addEventListener('scroll', function(){
+    if (!ticking) { ticking = true; requestAnimationFrame(onScroll); }
+  }, {passive:true});
+  onScroll();
+
+  /* ---- reveal on scroll ---- */
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, {threshold:.1, rootMargin:'0px 0px -50px 0px'});
+  $$('.rv').forEach(function(el){ io.observe(el); });
+
+  /* ---- count-up ---- */
+  function countUp(el){
+    var target = parseFloat(el.dataset.count);
+    var dec = parseInt(el.dataset.dec || '0', 10);
+    var pre = el.dataset.prefix || '', suf = el.dataset.suffix || '';
+    if (reduce || !isFinite(target)) { el.textContent = pre + target.toFixed(dec) + suf; return; }
+    var t0 = null, dur = 1200;
+    function step(ts){
+      if (t0 === null) t0 = ts;
+      var p = Math.min((ts - t0) / dur, 1);
+      el.textContent = pre + (target * (1 - Math.pow(1 - p, 3))).toFixed(dec) + suf;
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  var cio = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting) { countUp(e.target); cio.unobserve(e.target); }
+    });
+  }, {threshold:.6});
+  $$('[data-count]').forEach(function(el){ cio.observe(el); });
+
+  /* ---- scroll-spy ---- */
+  var links = $$('.nav-links a');
+  var targets = links.map(function(a){ return $(a.getAttribute('href')); }).filter(Boolean);
+  if (targets.length) {
+    var sio = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (!e.isIntersecting) return;
+        links.forEach(function(a){
+          a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id);
+        });
+      });
+    }, {rootMargin:'-45% 0px -50% 0px'});
+    targets.forEach(function(t){ sio.observe(t); });
+  }
+
+  /* ---- mobile sheet ---- */
+  var sheet = $('#sheet'), menuBtn = $('#menuBtn');
+  function setSheet(open){
+    sheet.classList.toggle('open', open);
+    menuBtn.setAttribute('aria-expanded', String(open));
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  menuBtn.addEventListener('click', function(){ setSheet(!sheet.classList.contains('open')); });
+  $('#sheetClose').addEventListener('click', function(){ setSheet(false); });
+  $$('#sheet a').forEach(function(a){ a.addEventListener('click', function(){ setSheet(false); }); });
+
+  /* ---- filters: counts derived from the DOM, never hand-typed ---- */
+  var rows = $$('#idxTable tbody tr');
+  var empty = $('#idxEmpty');
+  function has(row, cat){ return cat === 'all' || row.dataset.cat.split(' ').indexOf(cat) > -1; }
+  $$('.filter').forEach(function(btn){
+    var cat = btn.dataset.cat;
+    btn.querySelector('.c').textContent = rows.filter(function(r){ return has(r, cat); }).length;
+    btn.addEventListener('click', function(){
+      $$('.filter').forEach(function(b){ b.setAttribute('aria-pressed', String(b === btn)); });
+      var shown = 0;
+      rows.forEach(function(r){ var on = has(r, cat); r.hidden = !on; if (on) shown++; });
+      empty.hidden = shown > 0;
+    });
+  });
+
+  /* ---- whole-row click, without stealing clicks from the real links inside ---- */
+  rows.forEach(function(r){
+    r.addEventListener('click', function(e){
+      if (e.target.closest('a')) return;
+      if (getSelection && String(getSelection()).length) return;
+      window.open(r.dataset.href, '_blank', 'noopener');
+    });
+  });
+
+  /* ---- copy email ---- */
+  var copied = $('#copied');
+  $('#copyMail').addEventListener('click', function(){
+    var mail = 'mohamedmhafify@gmail.com';
+    var done = function(){
+      copied.classList.add('show');
+      setTimeout(function(){ copied.classList.remove('show'); }, 2200);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(mail).then(done, function(){ prompt('Copy:', mail); });
+    } else { prompt('Copy:', mail); }
+  });
+
+  /* ---- command palette ---- */
+  var ITEMS = [
+    {t:'About',                       k:'SECTION 01', h:'#about'},
+    {t:'Services',                    k:'SECTION 02', h:'#services'},
+    {t:'Selected work',               k:'SECTION 03', h:'#work'},
+    {t:'In action — live demos',      k:'SECTION 04', h:'#action'},
+    {t:'All projects',                k:'SECTION 05', h:'#index'},
+    {t:'Achievements',                k:'SECTION 06', h:'#achievements'},
+    {t:'Skills & tools',              k:'SECTION 07', h:'#skills'},
+    {t:'Experience',                  k:'SECTION 08', h:'#experience'},
+    {t:'Education & credentials',     k:'SECTION 09', h:'#credentials'},
+    {t:'Contact',                     k:'SECTION',    h:'#contact'},
+    {t:'IBM Telco — Customer Churn',  k:'CASE',       h:'#case-telco'},
+    {t:'Wide World Importers',        k:'CASE',       h:'#case-wwi'},
+    {t:'Agentic RAG Deep Visualizer', k:'CASE',       h:'#case-agentic-rag'},
+    {t:'Multi-Agent Deep Researcher', k:'CASE',       h:'#case-multi-agent'},
+    {t:'Multimodal Vision OCR Agent', k:'CASE',       h:'#case-ocr-agent'},
+    {t:'GroundedRAG — Document Q&A',  k:'CASE',       h:'#case-groundedrag'},
+    {t:'Download CV — combined',      k:'PDF',        h:'assets/cv/Mohamed_Afify_CV.pdf'},
+    {t:'Download CV — Data Analyst',  k:'PDF',        h:'assets/cv/Mohamed_Afify_CV_DataAnalyst.pdf'},
+    {t:'Download CV — AI Engineer',   k:'PDF',        h:'assets/cv/Mohamed_Afify_CV_AIEngineer.pdf'},
+    {t:'GitHub',                      k:'EXTERNAL',   h:'https://github.com/mohamedmhafify'},
+    {t:'LinkedIn',                    k:'EXTERNAL',   h:'https://linkedin.com/in/mohamedmhafify'},
+    {t:'Email me',                    k:'EXTERNAL',   h:'mailto:mohamedmhafify@gmail.com'}
+  ];
+  var back = $('#palBack'), input = $('#palInput'), list = $('#palList'), cursor = 0, view = ITEMS;
+
+  function render(){
+    list.innerHTML = '';
+    if (!view.length) {
+      var li = document.createElement('li');
+      li.className = 'pal-empty'; li.textContent = 'Nothing matches that.';
+      list.appendChild(li); return;
+    }
+    view.forEach(function(it, i){
+      var li = document.createElement('li'), a = document.createElement('a');
+      a.href = it.h;
+      a.setAttribute('aria-selected', String(i === cursor));
+      if (it.h.charAt(0) !== '#' && it.h.indexOf('mailto') !== 0) { a.target = '_blank'; a.rel = 'noopener'; }
+      a.innerHTML = '<span class="t"></span><span class="k"></span>';
+      a.firstChild.textContent = it.t;
+      a.lastChild.textContent = it.k;
+      a.addEventListener('click', function(){ setPal(false); });
+      li.appendChild(a); list.appendChild(li);
+    });
+  }
+  function filter(){
+    var q = input.value.trim().toLowerCase();
+    view = q ? ITEMS.filter(function(i){ return (i.t + ' ' + i.k).toLowerCase().indexOf(q) > -1; }) : ITEMS;
+    cursor = 0; render();
+  }
+  function setPal(open){
+    back.classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+    if (open) { input.value = ''; filter(); input.focus(); }
+  }
+  $('#palOpen').addEventListener('click', function(){ setPal(true); });
+  back.addEventListener('click', function(e){ if (e.target === back) setPal(false); });
+  input.addEventListener('input', filter);
+  input.addEventListener('keydown', function(e){
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (!view.length) return;
+      cursor = (cursor + (e.key === 'ArrowDown' ? 1 : -1) + view.length) % view.length;
+      render();
+      var sel = list.querySelector('[aria-selected="true"]');
+      if (sel) sel.scrollIntoView({block:'nearest'});
+    } else if (e.key === 'Enter') {
+      var a = list.querySelector('[aria-selected="true"]');
+      if (a) a.click();
+    }
+  });
+  addEventListener('keydown', function(e){
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); setPal(true); }
+    if (e.key === 'Escape') { setPal(false); setSheet(false); }
+  });
+  render();
+})();
 </script>
 </body>
 </html>
